@@ -119,7 +119,7 @@ class CBreadcrumbs extends CWidget {
 
         $definedLinks = $this->links;
 
-        echo CHtml::openTag($this->tagName, $this->htmlOptions) . "\n";
+        echo CHtml::openTag($this->tagName, $this->htmlOptions) . "";
         $links = array();
         if ($this->homeLink === null)
             $definedLinks = array(Yii::t('zii', 'Home') => Yii::app()->homeUrl) + $definedLinks;

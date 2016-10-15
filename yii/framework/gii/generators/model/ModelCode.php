@@ -7,7 +7,7 @@ class ModelCode extends CCodeModel
 	public $tableName;
 	public $modelClass;
 	public $modelPath='application.models';
-	public $baseClass='CActiveRecord';
+	public $baseClass='AweActiveRecord';
 	public $buildRelations=true;
 	public $commentsAsLabels=false;
 
@@ -26,7 +26,7 @@ class ModelCode extends CCodeModel
 			array('connectionId', 'validateConnectionId', 'skipOnError'=>true),
 			array('tableName', 'validateTableName', 'skipOnError'=>true),
 			array('tablePrefix, modelClass', 'match', 'pattern'=>'/^[a-zA-Z_]\w*$/', 'message'=>'{attribute} should only contain word characters.'),
-		    array('baseClass', 'match', 'pattern'=>'/^[a-zA-Z_\\\\][\w\\\\]*$/', 'message'=>'{attribute} should only contain word characters and backslashes.'),
+                        array('baseClass', 'match', 'pattern'=>'/^[a-zA-Z_\\\\][\w\\\\]*$/', 'message'=>'{attribute} should only contain word characters and backslashes.'),
 			array('modelPath', 'validateModelPath', 'skipOnError'=>true),
 			array('baseClass, modelClass', 'validateReservedWord', 'skipOnError'=>true),
 			array('baseClass', 'validateBaseClass', 'skipOnError'=>true),
@@ -185,8 +185,8 @@ class ModelCode extends CCodeModel
 		$class=@Yii::import($this->baseClass,true);
 		if(!is_string($class) || !$this->classExists($class))
 			$this->addError('baseClass', "Class '{$this->baseClass}' does not exist or has syntax error.");
-		elseif($class!=='CActiveRecord' && !is_subclass_of($class,'CActiveRecord'))
-			$this->addError('baseClass', "'{$this->baseClass}' must extend from CActiveRecord.");
+		elseif($class!=='AweActiveRecord' && !is_subclass_of($class,'AweActiveRecord'))
+			$this->addError('baseClass', "'{$this->baseClass}' must extend from AweActiveRecord.");
 	}
 
 	public function getTableSchema($tableName)

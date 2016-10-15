@@ -1,6 +1,6 @@
 <?php
 
-class CatalogoController extends Controller
+class CatalogoController extends AweController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -51,6 +51,7 @@ class CatalogoController extends Controller
 	 */
 	public function actionView($id)
 	{
+                $this->layout ='//layouts/clear';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -73,14 +74,14 @@ class CatalogoController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+                $this->layout ='//layouts/clear';
 		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
 
 	/**
-	 * Updates a particular model.
+	 * Updates a  particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
@@ -97,7 +98,7 @@ class CatalogoController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+                $this->layout ='//layouts/clear';
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -122,8 +123,13 @@ class CatalogoController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$model=new Catalogo('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Catalogo']))
+			$model->attributes=$_GET['Catalogo'];
 		$dataProvider=new CActiveDataProvider('Catalogo');
 		$this->render('index',array(
+                        'model'=>$model,
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -137,9 +143,10 @@ class CatalogoController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Catalogo']))
 			$model->attributes=$_GET['Catalogo'];
-
+                $dataProvider=new CActiveDataProvider('Catalogo');
 		$this->render('admin',array(
 			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
 		));
 	}
 

@@ -8,6 +8,50 @@ class CrudCode extends CCodeModel
     public $baseControllerClass = 'Controller';
     private $_modelClass;
     private $_table;
+        
+    /** @var int Specifies if ajax validation is enabled. 0 represents false, 1 represents true. */
+    public $validation = 1;
+    
+    public $dateTypes = array('datetime', 'date', 'time', 'timestamp');
+    public $booleanTypes = array('tinyint(1)', 'boolean', 'bool', 'bit');
+    public $emailFields = array('email', 'e-mail', 'email_address', 'e-mail_address', 'emailaddress', 'e-mailaddress');
+    public $imageFields = array(
+        'image',
+        'picture',
+        'photo',
+        'pic',
+        'profile_pic',
+        'profile_picture',
+        'avatar',
+        'profilepic',
+        'profilepicture'
+    );
+    public $urlFields = array('url', 'link', 'uri', 'homepage', 'webpage', 'website', 'profile_url', 'profile_link');
+    public $passwordFields = array('password', 'passwd', 'psswrd', 'pass', 'passcode');
+    public $create_time = array(
+        'create_time',
+        'createtime',
+        'created_at',
+        'created_on',
+        'createdat',
+        'created_time',
+        'createdtime'
+    );
+    public $update_time = array(
+        'changed',
+        'changed_at',
+        'updatetime',
+        'modified_at',
+        'updated_at',
+        'updated_on',
+        'modified_on',
+        'update_time',
+        'timestamp',
+        'updatedat'
+    );
+    public $validRelatedRecordBehaviors = array(
+        'ActiveRecordRelation' => 'EActiveRecordRelationBehavior',
+    );
 
     public function rules()
     {
@@ -200,7 +244,7 @@ class CrudCode extends CCodeModel
         return "\$form->labelEx(\$model,'{$column->name}')";
     }
 
-    public function generateActiveField($modelClass, $column, $htmlOptions = array())
+    public function generateActiveField_old($modelClass, $column, $htmlOptions = array())
     {
         $array_htmlOptions = array();
         $rel = '';
@@ -238,6 +282,102 @@ class CrudCode extends CCodeModel
         }
     }
 
+   /**
+     * Generates and returns the view source code line
+     * to create the appropriate active input field based on
+     * the model attribute field type on the database.
+     * #MethodTracker
+     * This method is based on {@link CrudCode::generateActiveField}, from version 1.1.7 (r3135). Changes:
+     * <ul>
+     * <li>All styling is removed.</li>
+     * </ul>
+     * @param string $modelClass The model class name.
+     * @param CDbColumnSchema $column The column.
+     * @return string The source code line for the active field.
+     */
+    public function generateActiveField($modelClass, $column, $htmlOptions = array())
+    {
+        $array_htmlOptions = array();
+        $rel = '';
+        foreach ($htmlOptions as $key => $value)
+        {
+            $array_htmlOptions[] = "'{$key}' => '{$value}'";
+        }        
+        if ($column->isForeignKey) {
+            $relation = $this->findRelation($modelClass, $column);
+            $relatedModelClass = $relation[3];
+
+            $foreignPk = CActiveRecord::model($relatedModelClass)->getTableSchema()->primaryKey;
+
+            $prompt = '';
+            if ($column->allowNull && $column->defaultValue == null) {
+                $prompt = ", array('prompt' => Yii::t('AweApp', 'None'))";
+            }
+
+            if ($this->getUseRelatedRecordBehavior()) {
+                //requires EActiveRecordRelationBehavior
+                return "\$form->dropDownListRow(\$model, '{$relation[0]}', CHtml::listData({$relatedModelClass}::model()->findAll(), '{$foreignPk}', {$relatedModelClass}::representingColumn()){$prompt})";
+            }
+
+            return "\$form->dropDownListRow(\$model, '{$column->name}', CHtml::listData({$relatedModelClass}::model()->findAll(), '{$foreignPk}', {$relatedModelClass}::representingColumn()){$prompt})";
+        }
+
+        if($column->name == $this->hasUpload()) {
+            return "\$form->fileFieldRow(\$model, '{$column->name}[]', array('multiple' => 'multiple'))";
+        } elseif (strtoupper($column->dbType) == 'TINYINT(1)'
+            || strtoupper($column->dbType) == 'BIT'
+            || strtoupper($column->dbType) == 'BOOL'
+            || strtoupper($column->dbType) == 'BOOLEAN'
+        ) {
+            return "\$form->checkBoxRow(\$model, '{$column->name}')";
+        } else {
+            if (strtoupper($column->dbType) == 'DATE') {
+                return "\$form->datepickerRow(\$model, '{$column->name}', array('prepend'=>'<i class=\"icon-calendar\"></i>'))";
+            } else {
+                if (stripos($column->dbType, 'text') !== false) { // Start of CrudCode::generateActiveField code.
+                    return "\$form->textAreaRow(\$model,'{$column->name}',array('rows'=>6, 'cols'=>50, 'class'=>'span8'))";
+                } else {
+                    $passwordI18n = Yii::t('AweCrud.app', 'password');
+                    $passwordI18n = (isset($passwordI18n) && $passwordI18n !== '') ? '|' . $passwordI18n : '';
+                    $pattern = '/^(password|pass|passwd|passcode' . $passwordI18n . ')$/i';
+                    if (preg_match($pattern, $column->name)) {
+                        $inputField = 'passwordFieldRow';
+                    } else {
+                        $inputField = 'textFieldRow';
+                    }
+
+                    if ($column->type !== 'string' || $column->size === null) {
+                        return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5'))";
+                    } else {
+                        return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5', 'maxlength' => $column->size))";
+                    }
+                }
+            }
+        } // End of CrudCode::generateActiveField code.
+    }
+    
+    public function getUseRelatedRecordBehavior()
+    {
+        return array_intersect_key(
+            $this->validRelatedRecordBehaviors,
+            CActiveRecord::model($this->modelClass)->behaviors()
+        );
+    }    
+    
+    public function hasUpload()
+    {
+        foreach($this->tableSchema->columns as $column)
+        {
+            if (in_array($column->name, $this->imageFields))
+            {
+                return $column->name;
+                break;
+            }
+        }
+
+        return false;
+    }    
+    
     public function guessNameColumn($columns)
     {
         foreach ($columns as $column)
@@ -302,5 +442,12 @@ class CrudCode extends CCodeModel
         return null;
     }
     
+    /**
+     * @return array
+     */
+    public function getRelations()
+    {
+        return CActiveRecord::model($this->modelClass)->relations();
+    }    
     
 }

@@ -3,7 +3,7 @@
 }
 .top-navigation .navbar-nav .dropdown-menu > .active > a {
   background: white;
-  color: #1ab394;
+  color: #FF0000;
   font-weight: bold;
 }
 .white-bg .navbar-fixed-top,
@@ -20,14 +20,14 @@
 .top-navigation .nav > li a:hover,
 .top-navigation .nav > li a:focus {
   background: #fff;
-  color: #1ab394;
+  color: #FF0000;
 }
 .top-navigation .nav > li.active {
   background: #fff;
   border: none;
 }
 .top-navigation .nav > li.active > a {
-  color: #1ab394;
+  color: #FF0000;
 }
 .top-navigation .navbar-right {
   margin-right: 10px;
@@ -44,7 +44,7 @@
   margin-top: 0;
 }
 .top-navigation .navbar-brand {
-  background: #1ab394;
+  background: #FF0000;
   color: #fff;
   padding: 15px 25px;
 }
@@ -73,7 +73,7 @@
   padding: 40px 0 40px 0;
 }
 .navbar-toggle {
-  background-color: #1ab394;
+  background-color: #FF0000;
   color: #fff;
   padding: 6px 12px;
   font-size: 14px;

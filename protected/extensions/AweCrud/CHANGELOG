@@ -1,6 +1,14 @@
 AweCrud Change Log
 ===============
 
+Version 0.14, 2013-06-14
+* Fixed bug when assigning MANY_MANY relations when creating/updating models
+* Added image upload fields detection (by column names) with the corresponding validation rules generation. (Thanks to @inbedder)
+* Added validation rules indention (1 row - properties names, 2 row - validator name, n - validator options). (Thanks to @inbedder)
+* Added "common.models" searching (for autocomplete in Boilerplate structure). (Thanks to @inbedder)
+* Added file field generation (for image-like field names). (Thanks to @inbedder)
+* CTimestampBehavior is optional now.
+
 Version 0.13, 2013-05-03
 * Added suport to MANY_MANY relations (even if no 3rd party extension is provided)
 * Fixed i18n bug in "create" view. Thanks to @ben_rivero

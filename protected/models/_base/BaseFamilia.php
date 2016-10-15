@@ -24,6 +24,7 @@
  */
 abstract class BaseFamilia extends AweActiveRecord {
 
+
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }
@@ -38,12 +39,32 @@ abstract class BaseFamilia extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array('nombre', 'required'),
-            array('used_by, created_by, modified_by', 'numerical', 'integerOnly'=>true),
-            array('nombre', 'length', 'max'=>50),
-            array('status', 'length', 'max'=>1),
-            array('check_in, created, modified', 'safe'),
-            array('status, used_by, check_in, created_by, created, modified_by, modified', 'default', 'setOnEmpty' => true, 'value' => null),
+            array(	'nombre',
+					'required',
+					'message' => Yii::t('app', 'Field is required')
+			),
+            array(	'used_by, created_by, modified_by',
+					'numerical',
+					'integerOnly'=>true
+			),
+            array(	'nombre',
+					'length',
+					'max'=>50,
+					'tooLong' => Yii::t('app', 'Field is required')
+			),
+            array(	'status',
+					'length',
+					'max'=>1,
+					'tooLong' => Yii::t('app', 'Field is required')
+			),
+            array(	'check_in, created, modified',
+					'safe'
+			),
+            array('status, used_by, check_in, created_by, created, modified_by, modified',
+					'default',
+					'setOnEmpty' => true,
+					'value' => null
+			),
             array('id, nombre, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }

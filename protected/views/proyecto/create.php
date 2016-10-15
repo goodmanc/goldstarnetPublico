@@ -11,8 +11,9 @@ $this->menu=array(
 	array('label'=>'Listar Proyecto', 'url'=>array('index')),
 	array('label'=>'Administrar Proyecto', 'url'=>array('admin')),
 );
+
 ?>
 
-<h1>Crear Proyecto</h1>
+<h1>Proyecto<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Guardar'; ?>]</span></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

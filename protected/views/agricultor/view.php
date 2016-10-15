@@ -4,7 +4,8 @@
 
 $this->breadcrumbs=array(
 	'Agricultors'=>array('index'),
-	$model->id,
+	$model->id=>array('view','id'=>$model->id),
+	'Update',
 );
 
 $this->menu=array(
@@ -16,40 +17,11 @@ $this->menu=array(
 );
 ?>
 
+
 <h1>Ver Agricultor #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-        'htmlOptions'=>array("class"=>"table table-striped"),
-	'attributes'=>array(
-		'id',
-		'rut',
-		'razonSocial',
-		'direccion',
-		'email',
-		'telefono',
-		'propiedad1',
-		'propiedad2',
-		'propiedad3',
-		'propiedad4',
-		'propiedad5',
-		'propiedad6',
-		'propiedad7',
-		'propiedad8',
-		'propiedad9',
-		'propiedad10',
-		'propiedad11',
-		'propiedad12',
-		'propiedad13',
-		'propiedad14',
-		'propiedad15',
-		'propiedad16',
-		'status',
-		'used_by',
-		'check_in',
-		'created_by',
-		'created',
-		'modified_by',
-		'modified',
-	),
-)); ?>
+<?php 
+	$view = '_view';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

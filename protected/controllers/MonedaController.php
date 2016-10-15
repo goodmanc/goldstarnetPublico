@@ -1,6 +1,6 @@
 <?php
 
-class MonedaController extends Controller
+class MonedaController extends AweController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,10 +14,11 @@ class MonedaController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+                        'rights', // perform access control for CRUD operations
+//			'accessControl', // perform access control for CRUD operations
+//			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
+        }
 
 	/**
 	 * Specifies the access control rules.
@@ -27,6 +28,7 @@ class MonedaController extends Controller
 	public function accessRules()
 	{
 		return array(
+                    /*
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -42,6 +44,7 @@ class MonedaController extends Controller
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+                    */
 		);
 	}
 
@@ -51,7 +54,7 @@ class MonedaController extends Controller
 	 */
 	public function actionView($id)
 	{
-                $this->layout = '//layouts/clear';
+                $this->layout ='//layouts/clear';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -74,14 +77,14 @@ class MonedaController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-                $this->layout = '//layouts/clear';
-		$this->render('create_inspinia',array(
+                $this->layout ='//layouts/clear';
+		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
 
 	/**
-	 * Updates a particular model.
+	 * Updates a  particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
@@ -98,8 +101,8 @@ class MonedaController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
-		$this->render('update_inspinia',array(
+                $this->layout ='//layouts/clear';
+		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
@@ -123,8 +126,13 @@ class MonedaController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$model=new Moneda('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Moneda']))
+			$model->attributes=$_GET['Moneda'];
 		$dataProvider=new CActiveDataProvider('Moneda');
-		$this->render('index_inspinia',array(
+		$this->render('index',array(
+                        'model'=>$model,
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -138,10 +146,27 @@ class MonedaController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Moneda']))
 			$model->attributes=$_GET['Moneda'];
-
-		$this->render('admin_inspinia',array(
+                $dataProvider=new CActiveDataProvider('Moneda');
+		$this->render('admin',array(
 			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
 		));
+	}
+        
+	/**
+	 * List all models in Excel.
+	 */
+	public function actionExcel()
+	{
+		$model=new Moneda('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Moneda']))
+			$model->attributes=$_GET['Moneda'];
+                $dataProvider=new CActiveDataProvider('Moneda');
+		$this->render('excel',array(
+			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
+		));                
 	}
 
 	/**

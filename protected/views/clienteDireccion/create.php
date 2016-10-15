@@ -11,8 +11,9 @@ $this->menu=array(
 	array('label'=>'Listar ClienteDireccion', 'url'=>array('index')),
 	array('label'=>'Administrar ClienteDireccion', 'url'=>array('admin')),
 );
+
 ?>
 
-<h1>Crear ClienteDireccion</h1>
+<h1>ClienteDireccion<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Guardar'; ?>]</span></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

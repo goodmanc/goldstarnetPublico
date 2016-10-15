@@ -48,12 +48,18 @@ class AweCrudCode extends CrudCode
         'created_on',
         'createdat',
         'created_time',
+        'created',
+        'created_by',
         'createdtime'
     );
     public $update_time = array(
         'changed',
         'changed_at',
         'updatetime',
+        'modified',
+        'used_by',
+        'check_in',
+        'modified_by',
         'modified_at',
         'updated_at',
         'updated_on',
@@ -62,6 +68,8 @@ class AweCrudCode extends CrudCode
         'timestamp',
         'updatedat'
     );
+    public $commonFields = array('status','used_by','check_in','created_by','created','modified_by','modified');
+    
 
     public $validRelatedRecordBehaviors = array(
         'ActiveRecordRelation' => 'EActiveRecordRelationBehavior',
@@ -170,7 +178,9 @@ class AweCrudCode extends CrudCode
             return "\$form->dropDownListRow(\$model, '{$column->name}', CHtml::listData({$relatedModelClass}::model()->findAll(), '{$foreignPk}', {$relatedModelClass}::representingColumn()){$prompt})";
         }
 
-        if (strtoupper($column->dbType) == 'TINYINT(1)'
+        if($column->name == $this->hasUpload()) {
+            return "\$form->fileFieldRow(\$model, '{$column->name}[]', array('multiple' => 'multiple'))";
+        } elseif (strtoupper($column->dbType) == 'TINYINT(1)'
             || strtoupper($column->dbType) == 'BIT'
             || strtoupper($column->dbType) == 'BOOL'
             || strtoupper($column->dbType) == 'BOOLEAN'
@@ -214,7 +224,7 @@ class AweCrudCode extends CrudCode
      * 3: the related active record class name.
      * Or null if no matching relation was found.
      */
-    public function findRelation($modelClass, $column)
+    public static function findRelation($modelClass, $column)
     {
         if (!$column->isForeignKey) {
             return null;
@@ -347,7 +357,7 @@ class AweCrudCode extends CrudCode
         ) {
             return "array(
 					'name' => '{$column->name}',
-					'value' => '(\$data->{$column->name} === 0) ? Yii::t(\\'AweCrud.app\\', \\'No\\') : Yii::t(\\'AweCrud.app\\', \\'Yes\\')',
+					'value' => '(\$data->{$column->name} == 0) ? Yii::t(\\'AweCrud.app\\', \\'No\\') : Yii::t(\\'AweCrud.app\\', \\'Yes\\')',
 					'filter' => array('0' => Yii::t('AweCrud.app', 'No'), '1' => Yii::t('AweCrud.app', 'Yes')),
 					)";
         } else // Common column.
@@ -465,4 +475,17 @@ array('attributeitem' => '{$foreign_pk}', 'checkAll' => 'Select All')) ?>";
         return $controller;
     }
 
+    public function hasUpload()
+    {
+        foreach($this->tableSchema->columns as $column)
+        {
+            if (in_array($column->name, $this->imageFields))
+            {
+                return $column->name;
+                break;
+            }
+        }
+
+        return false;
+    }
 }

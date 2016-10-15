@@ -16,6 +16,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Moneda <?php echo $model->id; ?></h1>
+<h1>Moneda<span> [<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h1>
 
-<?php $this->renderPartial('_form_inspinia', array('model'=>$model)); ?>
+
+<?php 
+	$view = '_form';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

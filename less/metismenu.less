@@ -6,7 +6,7 @@
  * Made by Osman Nuri Okumus
  * Under MIT License
  */
-@import "variables.less";
+
 .metismenu .plus-minus, .metismenu .plus-times {
   float: right
 }
@@ -73,6 +73,15 @@
   -webkit-transition-property: height, visibility;
   transition-property: height, visibility
 }
+
+.mini-navbar {
+  .metismenu .collapse { opacity: 0; }
+  .metismenu .collapse.in { opacity: 1; }
+  .metismenu .collapse a { display: none }
+  .metismenu .collapse.in a { display: block }
+}
+
+
 
 
 

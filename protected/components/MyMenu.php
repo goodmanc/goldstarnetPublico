@@ -6,6 +6,7 @@ class MyMenu extends CMenu {
 
     public $activateItemsOuter = true;
     public $iconDefault = null;
+    public $icon_sublevel = null;
 
     //need to include this for our function to run
     public function run() {
@@ -47,23 +48,25 @@ class MyMenu extends CMenu {
                 else
                     $options['class'].=' ' . implode(' ', $class);
             }
-
             echo CHtml::openTag('li', isset ($item['itemOptions']) ? $item['itemOptions'] :$options);
             $icon = "";
+            $isItems = isset ($item['items']) && count($item['items']);
             if (isset ($item['url'])) {
-                $label = '{icon}'.($this->linkLabelWrapper === null ? $item['label'] : '<' . $this->linkLabelWrapper . ' class="nav-label">' . $item['label'] . '</' . $this->linkLabelWrapper . '>');
+                $label = '{icon}'.($this->linkLabelWrapper === null ? $item['label'] : '<' . $this->linkLabelWrapper . ' class="nav-label">' . $item['label'] . '</' . $this->linkLabelWrapper . '>').'{icon2}';
                 $menu = CHtml :: link($label, $item['url'], isset ($item['linkOptions']) ? $item['linkOptions'] : array());
             }
             else
                 $menu = CHtml :: tag('span', isset ($item['linkOptions']) ? $item['linkOptions'] : array(), $item['label']);
             if (isset ($this->itemTemplate) || isset ($item['template'])) {
                 $icon = isset ($item['icon']) ? $item['icon'] : $this->iconDefault;
+                $icon2 = isset ($item['icon2']) ? $item['icon2'] : ($isItems ? $this->icon_sublevel : $this->iconDefault);
                 $template = isset ($item['template']) ? $item['template'] : $this->itemTemplate;
-                echo strtr(strtr($template, array('{menu}' => $menu)), array('{icon}' => $icon));
+                echo str_replace(array('{menu}','{icon}','{icon2}'), array($menu,$icon,$icon2), $template);
+//                echo strtr(strtr($template, array('{menu}' => $menu)), array('{icon}' => $icon));
             }
             else
                 echo strtr(strtr($menu, array('{menu}' => $menu)), array('{icon}' => $icon));
-            if (isset ($item['items']) && count($item['items'])) {
+            if ($isItems) {
                 echo "\n" . CHtml :: openTag('ul', isset($item['submenuHtmlOptions']) ? $item['submenuHtmlOptions'] : $this->submenuHtmlOptions) . "\n";
                 $this->renderMenuRecursive($item['items']);
                 echo CHtml :: closeTag('ul') . "\n";

@@ -15,7 +15,7 @@
  * @author Ricardo Obregón <ricardo@obregon.co>
  * @package AweCrud.components
  */
-abstract class AweController extends Controller
+abstract class AweController extends RController
 {
 
     /**
@@ -302,6 +302,16 @@ abstract class AweController extends Controller
             }
         }
         return $relatedPk;
+    }
+    
+    function getName()
+    {
+        return ucfirst(basename($this->getId()));
+    }
+    
+    function getNamePlural()
+    {
+        return ucfirst($this->pluralize(basename($this->getId())));
     }
 
 }

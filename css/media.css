@@ -3,6 +3,7 @@
     position: inherit;
     margin: 0 0 0 220px;
     min-height: 1200px;
+    z-index: 1;
   }
   .navbar-static-side {
     z-index: 101;
@@ -20,6 +21,7 @@
     position: inherit;
     margin: 0 0 0 0;
     min-height: 1000px;
+    z-index: 1;
   }
   .body-small .navbar-static-side {
     display: none;

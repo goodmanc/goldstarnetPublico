@@ -1,5 +1,5 @@
 <?php
 return array (
-  'template' => 'inspinia_base',
+  'template' => 'inspinia',
   'baseControllerClass' => 'Controller',
 );

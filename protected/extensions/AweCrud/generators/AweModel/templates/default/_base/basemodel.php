@@ -56,6 +56,7 @@
  */
 abstract class <?php echo $this->baseModelClass; ?> extends <?php echo $this->baseClass; ?> {
 
+
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }
@@ -142,7 +143,7 @@ abstract class <?php echo $this->baseModelClass; ?> extends <?php echo $this->ba
             ),
 <?php endif; ?>
 <?php foreach ($columns as $name => $column): ?>
-<?php if (in_array($column->name, $this->time_fields)): ?>
+<?php if ($this->useTimestampBehavior and in_array($column->name, $this->time_fields)): ?>
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => <?php echo $this->getCreatetimeAttribute($columns) ?>,

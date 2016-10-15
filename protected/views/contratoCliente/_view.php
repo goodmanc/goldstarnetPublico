@@ -1,139 +1,84 @@
-<?php
+<?php 
 /* @var $this ContratoClienteController */
 /* @var $data ContratoCliente */
+
 ?>
 
-<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>ContratoCliente <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                    'id',
+                                                                    array(
+			'name'=>'temporada_id',
+			'value'=>($model->temporada !== null) ? CHtml::link($model->temporada, array('/temporada/view', 'id' => $model->temporada->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    array(
+			'name'=>'cliente_id',
+			'value'=>($model->cliente !== null) ? CHtml::link($model->cliente, array('/cliente/view', 'id' => $model->cliente->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    array(
+			'name'=>'proyecto_id',
+			'value'=>($model->proyecto !== null) ? CHtml::link($model->proyecto, array('/proyecto/view', 'id' => $model->proyecto->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    'fecha',
+                                                                    'observaciones',
+                                                                    'guarantee',
+                                                                    'conditionsHeader',
+                                                                    'conditionsFooter',
+                                                                    'growerServices',
+                                                                    'stockSeed',
+                                                                    'productionReports',
+                                                                    'shipments',
+                                                                    'aditionalPhitosanitaryReq',
+                                                                    'preShipmentsSeedSamples',
+                                                                    'earlyTerminationBuyOut',
+                                                                    'overProduction',
+                                                                    'prices',
+                                                                    'advancePayments',
+                                                                    'paymentTerms',
+                                                                    'confidentiality',
+                                                                    'lotNumberAssignment',
+                                                                    'arbitrationAndLaw',
+                                                                    'buyerSigName',
+                                                                    'growerSigName',
+                                                                                                                                                                                                                                                                                                                            ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                'status',
+                                                                        'used_by',
+                                                                        'check_in',
+                                                                        'created_by',
+                                                                        'created',
+                                                                        'modified_by',
+                                                                        'modified',
+                                                                ),
+                                )); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('temporada_id')); ?>:</b>
-	<?php echo CHtml::encode($data->temporada_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cliente_id')); ?>:</b>
-	<?php echo CHtml::encode($data->cliente_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('proyecto_id')); ?>:</b>
-	<?php echo CHtml::encode($data->proyecto_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('observaciones')); ?>:</b>
-	<?php echo CHtml::encode($data->observaciones); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('guarantee')); ?>:</b>
-	<?php echo CHtml::encode($data->guarantee); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('conditionsHeader')); ?>:</b>
-	<?php echo CHtml::encode($data->conditionsHeader); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('conditionsFooter')); ?>:</b>
-	<?php echo CHtml::encode($data->conditionsFooter); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('growerServices')); ?>:</b>
-	<?php echo CHtml::encode($data->growerServices); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('stockSeed')); ?>:</b>
-	<?php echo CHtml::encode($data->stockSeed); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('productionReports')); ?>:</b>
-	<?php echo CHtml::encode($data->productionReports); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('shipments')); ?>:</b>
-	<?php echo CHtml::encode($data->shipments); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('aditionalPhitosanitaryReq')); ?>:</b>
-	<?php echo CHtml::encode($data->aditionalPhitosanitaryReq); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('preShipmentsSeedSamples')); ?>:</b>
-	<?php echo CHtml::encode($data->preShipmentsSeedSamples); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('earlyTerminationBuyOut')); ?>:</b>
-	<?php echo CHtml::encode($data->earlyTerminationBuyOut); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('overProduction')); ?>:</b>
-	<?php echo CHtml::encode($data->overProduction); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('prices')); ?>:</b>
-	<?php echo CHtml::encode($data->prices); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('advancePayments')); ?>:</b>
-	<?php echo CHtml::encode($data->advancePayments); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('paymentTerms')); ?>:</b>
-	<?php echo CHtml::encode($data->paymentTerms); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('confidentiality')); ?>:</b>
-	<?php echo CHtml::encode($data->confidentiality); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('lotNumberAssignment')); ?>:</b>
-	<?php echo CHtml::encode($data->lotNumberAssignment); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('arbitrationAndLaw')); ?>:</b>
-	<?php echo CHtml::encode($data->arbitrationAndLaw); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('buyerSigName')); ?>:</b>
-	<?php echo CHtml::encode($data->buyerSigName); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('growerSigName')); ?>:</b>
-	<?php echo CHtml::encode($data->growerSigName); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('used_by')); ?>:</b>
-	<?php echo CHtml::encode($data->used_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('check_in')); ?>:</b>
-	<?php echo CHtml::encode($data->check_in); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_by')); ?>:</b>
-	<?php echo CHtml::encode($data->created_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_by')); ?>:</b>
-	<?php echo CHtml::encode($data->modified_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

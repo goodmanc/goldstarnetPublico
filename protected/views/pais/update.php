@@ -16,6 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Pais <?php echo $model->id; ?></h1>
+<h1>Pais<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h1>
+
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -1,7 +1,8 @@
 <?php
 
 // uncomment the following to define a path alias
-Yii::setPathOfAlias('goldstar', dirname(__FILE__) . "/../../../../yii/goldstar");
+Yii::setPathOfAlias('goldstar', dirname(__FILE__) . "/../../yii/goldstar");
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -16,6 +17,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'ext.AweCrud.components.*', // AweCrud components    
+        'ext.EExcelView', // EExcelView 
         // User Module
         'application.modules.user.models.*',
         'application.modules.user.components.*',
@@ -30,6 +32,7 @@ return array(
             'class' => 'system.gii.GiiModule',
             'generatorPaths' => array(
                 'ext.AweCrud.generators', // AweCrud generators
+                'bootstrap.gii', // Bootstrap Gii
             ),
             'password' => 'es1s3cr3t0?,.-',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -63,18 +66,19 @@ return array(
         ),
         // rights
         'rights' => array(
-            'superuserName' => 'Admin', // Name of the role with super user privileges. 
+            'superuserName' => 'admin', // Name of the role with super user privileges. 
             'authenticatedName' => 'Authenticated', // Name of the authenticated user role. 
             'userIdColumn' => 'id', // Name of the user id column in the database. 
             'userNameColumn' => 'username', // Name of the user name column in the database. 
+            'userClass'=>'Users',  //tabla de la cual se sacan los valores anteriores(id_cuenta,login)
             'enableBizRule' => true, // Whether to enable authorization item business rules. 
-            'enableBizRuleData' => true, // Whether to enable data for business rules. 
+            'enableBizRuleData' => false, // Whether to enable data for business rules. 
             'displayDescription' => true, // Whether to use item description instead of name. 
             'flashSuccessKey' => 'RightsSuccess', // Key to use for setting success flash messages. 
             'flashErrorKey' => 'RightsError', // Key to use for setting error flash messages. 
             'baseUrl' => '/rights', // Base URL for Rights. Change if module is nested. 
             'layout' => 'rights.views.layouts.main', // Layout to use for displaying Rights. 
-            'appLayout' => 'application.views.layouts.main', // Application layout. 
+            'appLayout' => '//layouts/main_rights', // Application layout. 
             'cssFile' => '/css/rights.css', // Style sheet file to use for Rights. 
             'install' => false, // Whether to enable installer. 
             'debug' => false,
@@ -87,6 +91,9 @@ return array(
                 'AweCrud' => 'ext.AweCrud.messages', // AweCrud messages directory.
             ),
         ),
+        'bootstrap'=>array(
+            'class'=>'bootstrap.components.Bootstrap',
+        ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'urlFormat' => 'path',
@@ -94,7 +101,7 @@ return array(
             'urlSuffix' => '',
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/?id=<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),

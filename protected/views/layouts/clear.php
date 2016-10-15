@@ -24,7 +24,7 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
 
-    <body class="top-navigation">
+    <body style='overflow: auto;' class="top-navigation">
 
         <div id="wrapper">
             <div id="page-wrapper" class="gray-bg" style="min-height: 590px;">
@@ -50,6 +50,6 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/inspinia.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/pace/pace.min.js"></script>
 
-
+       
 </body>
 </html>

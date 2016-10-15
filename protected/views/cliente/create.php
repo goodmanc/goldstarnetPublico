@@ -11,8 +11,13 @@ $this->menu=array(
 	array('label'=>'Listar Cliente', 'url'=>array('index')),
 	array('label'=>'Administrar Cliente', 'url'=>array('admin')),
 );
+
 ?>
 
-<h1>Crear Cliente</h1>
+<h1>Cliente<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Guardar'; ?>]</span></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php 
+	$view = '_form';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

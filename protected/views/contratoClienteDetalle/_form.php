@@ -2,158 +2,147 @@
 /* @var $this ContratoClienteDetalleController */
 /* @var $model ContratoClienteDetalle */
 /* @var $form CActiveForm */
-?>
+    $form = $this->beginWidget('ext.AweCrud.components.AweActiveForm', array(
+    'id' => 'contrato-cliente-detalle-form',
+    'enableAjaxValidation' => true,
+    'enableClientValidation'=> false,
+    )); ?>
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'contrato-cliente-detalle-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-)); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'oventa_id'); ?>
-		<?php echo $form->textField($model,'oventa_id'); ?>
-		<?php echo $form->error($model,'oventa_id'); ?>
-	</div>
+        
 
-	<div>
-		<?php echo $form->labelEx($model,'catalogo_id'); ?>
-		<?php echo $form->textField($model,'catalogo_id'); ?>
-		<?php echo $form->error($model,'catalogo_id'); ?>
-	</div>
+<div class="form">
 
-	<div>
-		<?php echo $form->labelEx($model,'subNumCat'); ?>
-		<?php echo $form->textField($model,'subNumCat',array('size'=>30,'maxlength'=>30)); ?>
-		<?php echo $form->error($model,'subNumCat'); ?>
-	</div>
 
-	<div>
-		<?php echo $form->labelEx($model,'nombreVariedad'); ?>
-		<?php echo $form->textField($model,'nombreVariedad',array('size'=>40,'maxlength'=>40)); ?>
-		<?php echo $form->error($model,'nombreVariedad'); ?>
-	</div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+]</small></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <!--                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-wrench"></i>
+                                            </a>-->
+                        <!--                    <ul class="dropdown-menu dropdown-user">
+                                                <li><a href="#">Config option 1</a>
+                                                </li>
+                                                <li><a href="#">Config option 2</a>
+                                                </li>
+                                            </ul>-->
+                        <a class="close-link">
+                            <!--<i class="fa fa-times"></i>-->
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6 b-r">
+                            <div>
+                                <?php echo $form->error($model, 'nombre'); ?>
+                            </div>                            
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'oventa_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
+                		<?php echo $form->error($model,'oventa_id'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'nombreExportacion'); ?>
-		<?php echo $form->textField($model,'nombreExportacion',array('size'=>40,'maxlength'=>40)); ?>
-		<?php echo $form->error($model,'nombreExportacion'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'catalogo_id', CHtml::listData(Catalogo::model()->findAll(), 'id', Catalogo::representingColumn())); ?>
+                		<?php echo $form->error($model,'catalogo_id'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'baseRate'); ?>
-		<?php echo $form->textField($model,'baseRate'); ?>
-		<?php echo $form->error($model,'baseRate'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'subNumCat', array('class' => 'span5', 'maxlength' => 30)); ?>
+                		<?php echo $form->error($model,'subNumCat'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'hactares'); ?>
-		<?php echo $form->textField($model,'hactares'); ?>
-		<?php echo $form->error($model,'hactares'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'nombreVariedad', array('class' => 'span5', 'maxlength' => 40)); ?>
+                		<?php echo $form->error($model,'nombreVariedad'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'kgs'); ?>
-		<?php echo $form->textField($model,'kgs'); ?>
-		<?php echo $form->error($model,'kgs'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'nombreExportacion', array('class' => 'span5', 'maxlength' => 40)); ?>
+                		<?php echo $form->error($model,'nombreExportacion'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'moneda_id'); ?>
-		<?php echo $form->textField($model,'moneda_id',array('size'=>4,'maxlength'=>4)); ?>
-		<?php echo $form->error($model,'moneda_id'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'baseRate', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'baseRate'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>
-		<?php echo $form->error($model,'price'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'hactares', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'hactares'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'lineTotal'); ?>
-		<?php echo $form->textField($model,'lineTotal'); ?>
-		<?php echo $form->error($model,'lineTotal'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'kgs', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'kgs'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'totalFrgn'); ?>
-		<?php echo $form->textField($model,'totalFrgn'); ?>
-		<?php echo $form->error($model,'totalFrgn'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'moneda_id', CHtml::listData(Moneda::model()->findAll(), 'id', Moneda::representingColumn())); ?>
+                		<?php echo $form->error($model,'moneda_id'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'proyecto_id'); ?>
-		<?php echo $form->textField($model,'proyecto_id',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'proyecto_id'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'price', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'price'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'stockSeed'); ?>
-		<?php echo $form->textField($model,'stockSeed'); ?>
-		<?php echo $form->error($model,'stockSeed'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'lineTotal', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'lineTotal'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'proyect'); ?>
-		<?php echo $form->textField($model,'proyect',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'proyect'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'totalFrgn', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'totalFrgn'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'proyecto_id', CHtml::listData(Proyecto::model()->findAll(), 'id', Proyecto::representingColumn())); ?>
+                		<?php echo $form->error($model,'proyecto_id'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'used_by'); ?>
-		<?php echo $form->textField($model,'used_by'); ?>
-		<?php echo $form->error($model,'used_by'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'stockSeed', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'stockSeed'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'check_in'); ?>
-		<?php echo $form->textField($model,'check_in'); ?>
-		<?php echo $form->error($model,'check_in'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'proyect', array('class' => 'span5', 'maxlength' => 20)); ?>
+                		<?php echo $form->error($model,'proyect'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by'); ?>
-		<?php echo $form->error($model,'created_by'); ?>
-	</div>
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
+                		<?php echo $form->error($model,'status'); ?>
+                            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
+                            <div class="buttons">
+                                <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary btn-large pull-right m-t-n-xs")); ?>
+                            </div>                    
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Mensajes del sistema</h4>
+                            <?php echo $form->errorSummary($model); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	<div>
-		<?php echo $form->labelEx($model,'modified_by'); ?>
-		<?php echo $form->textField($model,'modified_by'); ?>
-		<?php echo $form->error($model,'modified_by'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
-	<div class="buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array("class"=>"btn btn-primary btn-large")); ?>
-	</div>
+        </div>
 
 <?php $this->endWidget(); ?>
 

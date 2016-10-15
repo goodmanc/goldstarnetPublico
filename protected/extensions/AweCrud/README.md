@@ -1,5 +1,5 @@
 #AweCrud Readme
-AweCrud version 0.13
+AweCrud version 0.14
 
 AweCrud official website:
 https://bitbucket.org/robregonm/awecrud

@@ -120,6 +120,7 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <?php echo $content; ?>
         </div>
+    </div>
         <div class="footer">
             <div class="pull-right">
                 10GB of <strong>250GB</strong> Free.
@@ -129,7 +130,6 @@
             </div>
         </div>
 
-    </div>
 </div><!-- page -->
 
 
@@ -146,7 +146,6 @@
 <!-- Custom and plugin javascript -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/inspinia.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/pace/pace.min.js"></script>
-
 
 </body>
 </html>

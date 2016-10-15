@@ -302,8 +302,8 @@ class RAuthorizer extends CApplicationComponent
 
 		// Make sure that we have superusers, otherwise we would allow full access to Rights
 		// if there for some reason is not any superusers.
-		if( $superusers===array() )
-			throw new CHttpException(403, Rights::t('core', 'There must be at least one superuser!'));
+//		if( $superusers===array() )
+//			throw new CHttpException(403, Rights::t('core', 'There must be at least one superuser!'));
 
 		return $superusers;
 	}

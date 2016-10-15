@@ -61,3 +61,15 @@
   -webkit-transition-property: height, visibility;
   transition-property: height, visibility;
 }
+.mini-navbar .metismenu .collapse {
+  opacity: 0;
+}
+.mini-navbar .metismenu .collapse.in {
+  opacity: 1;
+}
+.mini-navbar .metismenu .collapse a {
+  display: none;
+}
+.mini-navbar .metismenu .collapse.in a {
+  display: block;
+}
