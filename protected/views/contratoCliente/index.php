@@ -13,11 +13,11 @@ $this->menu=array(
 
 ?>
 
-<div class="row wrapper border-bottom white-bg page-heading">
+<div class="row wrapper border-bottom yellow-bg page-heading">
     <div class="col-lg-6">
         <h1>Contrato Cliente</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,'tagName'=>'h4'
+            'links'=>$this->breadcrumbs,'tagName'=>'ol'
         ));
         ?>
     </div>
@@ -32,7 +32,7 @@ $this->menu=array(
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Listado</h5>
-                <div class="ibox-tools">
+                <div class="ibox-tools" style="display:none;">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -106,8 +106,8 @@ $this->menu=array(
 		array(
 			'name'=>'cliente_id',
 			'header'=>'',
-			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'oventa_id'),
-			'value'=>'$data->cliente==null ? null : $data->cliente->oventa_id'),
+			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'rut'),
+			'value'=>'$data->cliente==null ? null : $data->cliente->rut'),
 		array(
 			'name'=>'proyecto_id',
 			'header'=>'',
@@ -223,8 +223,8 @@ $this->menu=array(
 
     function view(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Ver "+label);
+        w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
+        w1.setText('Ver '+label);
         w1.centerOnScreen();
         w1.attachURL(href)
     }
@@ -235,16 +235,14 @@ $this->menu=array(
     
     function startToolbar() {
         myToolbar = new dhtmlXToolbarObject({
-                parent: "toolbarObj",
-                icon_path: baseImgsUrl + "/common/imgs/",
+                parent: 'toolbarObj',
+                icon_path: baseImgsUrl + '/common/imgs/',
                 items: [
-                        {type: "text", id: "info", text: "Toolbar"},
-                        {type: "separator", id: "sep1"},
-                        {type: "button", id: "excel", tooltip: "Descargar Excel", img: "../18/excel.png"},
-                        {type: "separator", id: "sep5"},
+                        {type: 'button', id: 'excel', text: 'Descargar Excel', title: 'Descargar Excel', img: '../18/excel.png'},
+                        {type: 'separator', id: 'sep5'},
                 ]
         });
-        myToolbar.attachEvent("onClick", function(id){
+        myToolbar.attachEvent('onClick', function(id){
             switch (id) {
                 case 'excel': excel();
                             break;
@@ -254,28 +252,28 @@ $this->menu=array(
     
     function startRibbon() {
         var data = {
-            parent: "ribbonObj",
-            icons_path: baseImgsUrl + "/common/",
+            parent: 'ribbonObj',
+            icons_path: baseImgsUrl + '/common/',
             items: [
                 {
                     type: 'block', text: 'Básico', mode: 'cols', list: [
-                        {type: 'button', id:'open', text: 'Open', img: "48/open.gif"},
-                        {type: 'button', id:'new', text: 'new', img: "18/new.gif"},
-                        {type: 'button', id:'cut', text: 'cut', img: "18/cut.gif"},
+                        {type: 'button', id:'open', text: 'Open', img: '48/open.gif'},
+                        {type: 'button', id:'new', text: 'new', img: '18/new.gif'},
+                        {type: 'button', id:'cut', text: 'cut', img: '18/cut.gif'},
                     ]
                 },
                 {
                     type: 'block', text: 'Advanzado', mode: 'cols', list: [
-                        {type: 'button', id:'excel', text: 'excel', img: "48/excel.png", isbig: true}
+                        {type: 'button', id:'excel', text: 'excel', img: '48/excel.png', isbig: true}
                     ]
                 },
             ]
         };
         myRibbon = new dhtmlXRibbon(data);
-        myRibbon.attachEvent("onClick", function(id){
+        myRibbon.attachEvent('onClick', function(id){
             alert(id)
         });
-        document.getElementById("ribbonObj").style.width = "100%";
+        document.getElementById('ribbonObj').style.width = '100%';
         myRibbon.setSizes();
     }
     

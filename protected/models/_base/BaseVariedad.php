@@ -12,22 +12,7 @@
  * @property integer $id
  * @property integer $especie_id
  * @property string $nombre
- * @property integer $propiedad1
- * @property integer $propiedad2
- * @property integer $propiedad3
- * @property integer $propiedad4
- * @property integer $propiedad5
- * @property integer $propiedad6
- * @property integer $propiedad7
- * @property integer $propiedad8
- * @property integer $propiedad9
- * @property integer $propiedad10
- * @property integer $propiedad11
- * @property integer $propiedad12
- * @property integer $propiedad13
- * @property integer $propiedad14
- * @property integer $propiedad15
- * @property integer $propiedad16
+ * @property string $codigoGoldStar
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -36,10 +21,11 @@
  * @property integer $modified_by
  * @property string $modified
  *
- * @property Catalogo[] $catalogos
+ * @property Contratoclientedetalle[] $contratoclientedetalles
  * @property Especie $especie
  */
 abstract class BaseVariedad extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -55,15 +41,15 @@ abstract class BaseVariedad extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'especie_id, nombre',
+            array(	'especie_id, nombre, codigoGoldStar',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'especie_id, propiedad1, propiedad2, propiedad3, propiedad4, propiedad5, propiedad6, propiedad7, propiedad8, propiedad9, propiedad10, propiedad11, propiedad12, propiedad13, propiedad14, propiedad15, propiedad16, used_by, created_by, modified_by',
+            array(	'especie_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
-            array(	'nombre',
+            array(	'nombre, codigoGoldStar',
 					'length',
 					'max'=>50,
 					'tooLong' => Yii::t('app', 'Field is required')
@@ -76,18 +62,18 @@ abstract class BaseVariedad extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('propiedad1, propiedad2, propiedad3, propiedad4, propiedad5, propiedad6, propiedad7, propiedad8, propiedad9, propiedad10, propiedad11, propiedad12, propiedad13, propiedad14, propiedad15, propiedad16, status, used_by, check_in, created_by, created, modified_by, modified',
+            array('status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, especie_id, nombre, propiedad1, propiedad2, propiedad3, propiedad4, propiedad5, propiedad6, propiedad7, propiedad8, propiedad9, propiedad10, propiedad11, propiedad12, propiedad13, propiedad14, propiedad15, propiedad16, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, especie_id, nombre, codigoGoldStar, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
-            'catalogos' => array(self::HAS_MANY, 'Catalogo', 'variedad_id'),
+            'contratoclientedetalles' => array(self::HAS_MANY, 'Contratoclientedetalle', 'variedad_id'),
             'especie' => array(self::BELONGS_TO, 'Especie', 'especie_id'),
         );
     }
@@ -100,22 +86,7 @@ abstract class BaseVariedad extends AweActiveRecord {
                 'id' => Yii::t('app', 'ID'),
                 'especie_id' => Yii::t('app', 'Especie'),
                 'nombre' => Yii::t('app', 'Nombre'),
-                'propiedad1' => Yii::t('app', 'Propiedad1'),
-                'propiedad2' => Yii::t('app', 'Propiedad2'),
-                'propiedad3' => Yii::t('app', 'Propiedad3'),
-                'propiedad4' => Yii::t('app', 'Propiedad4'),
-                'propiedad5' => Yii::t('app', 'Propiedad5'),
-                'propiedad6' => Yii::t('app', 'Propiedad6'),
-                'propiedad7' => Yii::t('app', 'Propiedad7'),
-                'propiedad8' => Yii::t('app', 'Propiedad8'),
-                'propiedad9' => Yii::t('app', 'Propiedad9'),
-                'propiedad10' => Yii::t('app', 'Propiedad10'),
-                'propiedad11' => Yii::t('app', 'Propiedad11'),
-                'propiedad12' => Yii::t('app', 'Propiedad12'),
-                'propiedad13' => Yii::t('app', 'Propiedad13'),
-                'propiedad14' => Yii::t('app', 'Propiedad14'),
-                'propiedad15' => Yii::t('app', 'Propiedad15'),
-                'propiedad16' => Yii::t('app', 'Propiedad16'),
+                'codigoGoldStar' => Yii::t('app', 'Codigo Gold Star'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -123,7 +94,7 @@ abstract class BaseVariedad extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'catalogos' => null,
+                'contratoclientedetalles' => null,
                 'especie' => null,
         );
     }
@@ -134,22 +105,7 @@ abstract class BaseVariedad extends AweActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('especie_id', $this->especie_id);
         $criteria->compare('nombre', $this->nombre, true);
-        $criteria->compare('propiedad1', $this->propiedad1);
-        $criteria->compare('propiedad2', $this->propiedad2);
-        $criteria->compare('propiedad3', $this->propiedad3);
-        $criteria->compare('propiedad4', $this->propiedad4);
-        $criteria->compare('propiedad5', $this->propiedad5);
-        $criteria->compare('propiedad6', $this->propiedad6);
-        $criteria->compare('propiedad7', $this->propiedad7);
-        $criteria->compare('propiedad8', $this->propiedad8);
-        $criteria->compare('propiedad9', $this->propiedad9);
-        $criteria->compare('propiedad10', $this->propiedad10);
-        $criteria->compare('propiedad11', $this->propiedad11);
-        $criteria->compare('propiedad12', $this->propiedad12);
-        $criteria->compare('propiedad13', $this->propiedad13);
-        $criteria->compare('propiedad14', $this->propiedad14);
-        $criteria->compare('propiedad15', $this->propiedad15);
-        $criteria->compare('propiedad16', $this->propiedad16);
+        $criteria->compare('codigoGoldStar', $this->codigoGoldStar, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);

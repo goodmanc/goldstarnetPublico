@@ -9,7 +9,7 @@
  * Columns in table "pais" available as properties of the model,
  * followed by relations of table "pais" available as properties of the model.
  *
- * @property string $id
+ * @property integer $id
  * @property string $nombre
  * @property string $status
  * @property integer $used_by
@@ -19,9 +19,11 @@
  * @property integer $modified_by
  * @property string $modified
  *
+ * @property Cliente[] $clientes
  * @property Clientedireccion[] $clientedireccions
  */
 abstract class BasePais extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -37,18 +39,13 @@ abstract class BasePais extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'id, nombre',
+            array(	'nombre',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
             array(	'used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
-			),
-            array(	'id',
-					'length',
-					'max'=>2,
-					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'nombre',
 					'length',
@@ -74,6 +71,7 @@ abstract class BasePais extends AweActiveRecord {
 
     public function relations() {
         return array(
+            'clientes' => array(self::HAS_MANY, 'Cliente', 'pais_id'),
             'clientedireccions' => array(self::HAS_MANY, 'Clientedireccion', 'pais_id'),
         );
     }
@@ -92,6 +90,7 @@ abstract class BasePais extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
+                'clientes' => null,
                 'clientedireccions' => null,
         );
     }
@@ -99,7 +98,7 @@ abstract class BasePais extends AweActiveRecord {
     public function search() {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id);
         $criteria->compare('nombre', $this->nombre, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);

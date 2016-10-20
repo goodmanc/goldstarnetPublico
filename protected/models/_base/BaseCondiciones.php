@@ -10,7 +10,7 @@
  * followed by relations of table "condiciones" available as properties of the model.
  *
  * @property integer $id
- * @property integer $oventa_id
+ * @property integer $contratoCliente_id
  * @property integer $condicion_id
  * @property double $valor
  * @property string $prefix_copy1
@@ -23,10 +23,11 @@
  * @property integer $modified_by
  * @property string $modified
  *
- * @property Contratocliente $oventa
+ * @property Contratocliente $contratoCliente
  * @property Condicion $condicion
  */
 abstract class BaseCondiciones extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -42,11 +43,11 @@ abstract class BaseCondiciones extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'oventa_id, condicion_id, valor, prefix_copy1, sufix',
+            array(	'contratoCliente_id, condicion_id, valor, prefix_copy1, sufix',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'oventa_id, condicion_id, used_by, created_by, modified_by',
+            array(	'contratoCliente_id, condicion_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -71,13 +72,13 @@ abstract class BaseCondiciones extends AweActiveRecord {
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, oventa_id, condicion_id, valor, prefix_copy1, sufix, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, contratoCliente_id, condicion_id, valor, prefix_copy1, sufix, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
-            'oventa' => array(self::BELONGS_TO, 'Contratocliente', 'oventa_id'),
+            'contratoCliente' => array(self::BELONGS_TO, 'Contratocliente', 'contratoCliente_id'),
             'condicion' => array(self::BELONGS_TO, 'Condicion', 'condicion_id'),
         );
     }
@@ -88,7 +89,7 @@ abstract class BaseCondiciones extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'oventa_id' => Yii::t('app', 'Oventa'),
+                'contratoCliente_id' => Yii::t('app', 'Contrato Cliente'),
                 'condicion_id' => Yii::t('app', 'Condicion'),
                 'valor' => Yii::t('app', 'Valor'),
                 'prefix_copy1' => Yii::t('app', 'Prefix Copy1'),
@@ -100,7 +101,7 @@ abstract class BaseCondiciones extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'oventa' => null,
+                'contratoCliente' => null,
                 'condicion' => null,
         );
     }
@@ -109,7 +110,7 @@ abstract class BaseCondiciones extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('oventa_id', $this->oventa_id);
+        $criteria->compare('contratoCliente_id', $this->contratoCliente_id);
         $criteria->compare('condicion_id', $this->condicion_id);
         $criteria->compare('valor', $this->valor);
         $criteria->compare('prefix_copy1', $this->prefix_copy1, true);

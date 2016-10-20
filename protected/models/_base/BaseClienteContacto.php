@@ -36,6 +36,7 @@
  */
 abstract class BaseClienteContacto extends AweActiveRecord {
 
+
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }

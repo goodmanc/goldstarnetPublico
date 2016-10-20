@@ -14,10 +14,11 @@ class CatalogoController extends AweController
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+                        'rights', // perform access control for CRUD operations
+//			'accessControl', // perform access control for CRUD operations
+//			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
+        }
 
 	/**
 	 * Specifies the access control rules.
@@ -27,6 +28,7 @@ class CatalogoController extends AweController
 	public function accessRules()
 	{
 		return array(
+                    /*
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -42,6 +44,7 @@ class CatalogoController extends AweController
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+                    */
 		);
 	}
 
@@ -133,6 +136,22 @@ class CatalogoController extends AweController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+	/**
+	 * Lists all models.
+	 */
+	public function actionList()
+	{
+		$model=new Catalogo('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Catalogo']))
+			$model->attributes=$_GET['Catalogo'];
+		$dataProvider=new CActiveDataProvider('Catalogo');
+		$this->render('index',array(
+                        'model'=>$model,
+			'dataProvider'=>$dataProvider,
+		));
+	}
 
 	/**
 	 * Manages all models.
@@ -148,6 +167,22 @@ class CatalogoController extends AweController
 			'model'=>$model,
                         'dataProvider'=>$dataProvider,
 		));
+	}
+        
+	/**
+	 * List all models in Excel.
+	 */
+	public function actionExcel()
+	{
+		$model=new Catalogo('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Catalogo']))
+			$model->attributes=$_GET['Catalogo'];
+                $dataProvider=new CActiveDataProvider('Catalogo');
+		$this->render('excel',array(
+			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
+		));                
 	}
 
 	/**

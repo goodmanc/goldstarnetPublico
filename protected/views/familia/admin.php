@@ -32,7 +32,7 @@ return false;
     <div class="col-lg-6">
         <h1>Familia</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,'tagName'=>'h4'
+            'links'=>$this->breadcrumbs,'tagName'=>'ol'
         ));
         ?>
     </div>

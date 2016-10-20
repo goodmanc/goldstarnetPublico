@@ -22,8 +22,8 @@
 	array(
 				'name'=>'cliente_id',
 				'header'=>'',
-				'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'oventa_id'),
-				'value'=>'$data->cliente==null ? null : $data->cliente->oventa_id'),
+				'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'rut'),
+				'value'=>'$data->cliente==null ? null : $data->cliente->rut'),
 	array(
 				'name'=>'proyecto_id',
 				'header'=>'',

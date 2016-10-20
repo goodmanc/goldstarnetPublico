@@ -164,7 +164,7 @@ return false;
 			'value'=>'$data->usedBy==null ? null : $data->usedBy->username'),
 		array(
 			'name'=>'check_in',
-			'header'=>'Registro ocupado desde',
+			'header'=>'Check IN',
 			),
 		array(
 			'name'=>'created_by',

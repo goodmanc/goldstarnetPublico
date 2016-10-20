@@ -46,9 +46,9 @@
  * @property Cliente $cliente
  * @property Proyecto $proyecto
  * @property Temporada $temporada
- * @property Contratoclientedetalle[] $contratoclientedetalles
  */
 abstract class BaseContratoCliente extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -101,11 +101,10 @@ abstract class BaseContratoCliente extends AweActiveRecord {
 
     public function relations() {
         return array(
-            'condiciones' => array(self::HAS_MANY, 'Condiciones', 'oventa_id'),
+            'condiciones' => array(self::HAS_MANY, 'Condiciones', 'contratoCliente_id'),
             'cliente' => array(self::BELONGS_TO, 'Cliente', 'cliente_id'),
             'proyecto' => array(self::BELONGS_TO, 'Proyecto', 'proyecto_id'),
             'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_id'),
-            'contratoclientedetalles' => array(self::HAS_MANY, 'Contratoclientedetalle', 'oventa_id'),
         );
     }
 
@@ -150,7 +149,6 @@ abstract class BaseContratoCliente extends AweActiveRecord {
                 'cliente' => null,
                 'proyecto' => null,
                 'temporada' => null,
-                'contratoclientedetalles' => null,
         );
     }
 

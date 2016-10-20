@@ -34,6 +34,7 @@ $profile = User::model()->findByPk(Yii::app()->user->id)->profile;
         <div id="wrapper">
             <nav class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
+                    
                         <?php
                         $this->widget('application.components.MyMenu', array(
                             'activateItemsOuter' => true,
@@ -62,19 +63,29 @@ $profile = User::model()->findByPk(Yii::app()->user->id)->profile;
                                         array('label' => 'General', 'url' => array('/especie/index'),
                                             'submenuHtmlOptions' => array('class' => 'nav nav-third-level collapse'),
                                             'items' => array(
-                                                array('label' => 'Temporadas', 'url' => array('/temporada/admin')),
-                                                array('label' => 'Monedas', 'url' => array('/moneda/admin')),
-                                                array('label' => 'Familias', 'url' => array('/familia/admin')),
-                                                array('label' => 'Especies', 'url' => array('/especie/admin')),
-                                                array('label' => 'Clientes', 'url' => array('/cliente/admin')),
+                                                array('label' => 'Temporadas', 'url' => array('/temporada/admin') , 'visible'=>(int)Yii::app()->user->checkAccess('Temporada.admin')),
+                                                array('label' => 'Monedas', 'url' => array('/moneda/admin'), 'visible'=>(int)Yii::app()->user->checkAccess('Moneda.admin')),
+                                                array('label' => 'Familias', 'url' => array('/familia/admin'), 'visible'=>Yii::app()->user->checkAccess('Familia.admin')),
+                                                array('label' => 'Especies', 'url' => array('/especie/admin'), 'visible'=>Yii::app()->user->checkAccess('Especie.admin')),
+                                                array('label' => 'Clientes', 'url' => array('/cliente/admin'), 'visible'=>Yii::app()->user->checkAccess('Cliente.admin')),
+                                                array('label' => 'Paises', 'url' => array('/pais/admin'), 'visible'=>Yii::app()->user->checkAccess('Pais.admin')),
                                             ),
-                                    ))
+                                    )),
+                                    'visible'=> (
+                                                    Yii::app()->user->checkAccess('Temporada.admin') 
+                                                 || Yii::app()->user->checkAccess('Moneda.admin')
+                                                 || Yii::app()->user->checkAccess('Familia.admin')
+                                                 || Yii::app()->user->checkAccess('Especie.admin')
+                                                 || Yii::app()->user->checkAccess('Cliente.admin')
+                                                 || Yii::app()->user->checkAccess('Pais.admin')
+                                                ),
                                 ),
                                 array('label' => 'Clientes', 'url' => array('#'),
                                     'icon' => '<i class="fa fa-edit"></i>',
                                     'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
                                     'items' => array(
                                         array('label' => 'Administración', 'url' => array('/cliente/index')),
+                                        array('label' => 'Catálogo', 'url' => array('/catalogo/list')),
                                         array('label' => 'Contratos', 'url' => array('/contratocliente/index')),
                                     )
                                 ),
@@ -120,11 +131,6 @@ $profile = User::model()->findByPk(Yii::app()->user->id)->profile;
                     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                         <div class="navbar-header">
                             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                            <form role="search" class="navbar-form-custom" method="post" action="#">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Buscar..." class="form-control" name="top-search" id="top-search">
-                                </div>
-                            </form>
                         </div>
                         <ul class="nav navbar-top-links navbar-right">
                             <li>

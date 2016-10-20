@@ -1,103 +1,71 @@
-<?php
+<?php 
 /* @var $this ContratoClienteDetalleController */
 /* @var $data ContratoClienteDetalle */
+
 ?>
 
-<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>ContratoClienteDetalle <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                    'id',
+                                                                    'contratoCliente_id',
+                                                                    array(
+			'name'=>'variedad_id',
+			'value'=>($model->variedad !== null) ? CHtml::link($model->variedad, array('/variedad/view', 'id' => $model->variedad->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    'subNumCat',
+                                                                    'codigoGoldStar',
+                                                                    'nombreExportacion',
+                                                                    'baseRate',
+                                                                    'hactares',
+                                                                    'kgs',
+                                                                    array(
+			'name'=>'moneda_id',
+			'value'=>($model->moneda !== null) ? CHtml::link($model->moneda, array('/moneda/view', 'id' => $model->moneda->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    'price',
+                                                                    'lineTotal',
+                                                                    'totalFrgn',
+                                                                    'proyecto_id',
+                                                                    'stockSeed',
+                                                                    'proyect',
+                                                                                                                                                                                                                                                                                                                            ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'status',
+                                                                        'used_by',
+                                                                        'check_in',
+                                                                        'created_by',
+                                                                        'created',
+                                                                        'modified_by',
+                                                                        'modified',
+                                                                ),
+                                )); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('oventa_id')); ?>:</b>
-	<?php echo CHtml::encode($data->oventa_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('catalogo_id')); ?>:</b>
-	<?php echo CHtml::encode($data->catalogo_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('subNumCat')); ?>:</b>
-	<?php echo CHtml::encode($data->subNumCat); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nombreVariedad')); ?>:</b>
-	<?php echo CHtml::encode($data->nombreVariedad); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nombreExportacion')); ?>:</b>
-	<?php echo CHtml::encode($data->nombreExportacion); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('baseRate')); ?>:</b>
-	<?php echo CHtml::encode($data->baseRate); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hactares')); ?>:</b>
-	<?php echo CHtml::encode($data->hactares); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('kgs')); ?>:</b>
-	<?php echo CHtml::encode($data->kgs); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('moneda_id')); ?>:</b>
-	<?php echo CHtml::encode($data->moneda_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
-	<?php echo CHtml::encode($data->price); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('lineTotal')); ?>:</b>
-	<?php echo CHtml::encode($data->lineTotal); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('totalFrgn')); ?>:</b>
-	<?php echo CHtml::encode($data->totalFrgn); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('proyecto_id')); ?>:</b>
-	<?php echo CHtml::encode($data->proyecto_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('stockSeed')); ?>:</b>
-	<?php echo CHtml::encode($data->stockSeed); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('proyect')); ?>:</b>
-	<?php echo CHtml::encode($data->proyect); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('used_by')); ?>:</b>
-	<?php echo CHtml::encode($data->used_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('check_in')); ?>:</b>
-	<?php echo CHtml::encode($data->check_in); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_by')); ?>:</b>
-	<?php echo CHtml::encode($data->created_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_by')); ?>:</b>
-	<?php echo CHtml::encode($data->modified_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

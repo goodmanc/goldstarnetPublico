@@ -16,4 +16,8 @@ $this->menu=array(
 
 <h1>ClienteContacto<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Guardar'; ?>]</span></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php 
+	$view = '_form';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

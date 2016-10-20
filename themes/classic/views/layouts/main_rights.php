@@ -29,7 +29,7 @@ $profile = User::model()->findByPk(Yii::app()->user->id)->profile;
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
 
-    <body style='overflow: auto;'>
+    <body style='overflow: auto;' class='skin-3'>
         <div id="wrapper">
             <nav class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">

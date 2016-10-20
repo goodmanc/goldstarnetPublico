@@ -22,9 +22,9 @@
  * @property string $modified
  *
  * @property Contratocliente[] $contratoclientes
- * @property Contratoclientedetalle[] $contratoclientedetalles
  */
 abstract class BaseProyecto extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -78,7 +78,6 @@ abstract class BaseProyecto extends AweActiveRecord {
     public function relations() {
         return array(
             'contratoclientes' => array(self::HAS_MANY, 'Contratocliente', 'proyecto_id'),
-            'contratoclientedetalles' => array(self::HAS_MANY, 'Contratoclientedetalle', 'proyecto_id'),
         );
     }
 
@@ -99,7 +98,6 @@ abstract class BaseProyecto extends AweActiveRecord {
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
                 'contratoclientes' => null,
-                'contratoclientedetalles' => null,
         );
     }
 

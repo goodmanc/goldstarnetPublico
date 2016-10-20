@@ -17,13 +17,13 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'oventa_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'oventa_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
+		<?php echo $form->label($model,'contratoCliente_id'); ?>
+		<?php echo $form->textFieldRow($model, 'contratoCliente_id', array('class' => 'span5')); ?>
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'catalogo_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'catalogo_id', CHtml::listData(Catalogo::model()->findAll(), 'id', Catalogo::representingColumn())); ?>
+		<?php echo $form->label($model,'variedad_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'variedad_id', CHtml::listData(Variedad::model()->findAll(), 'id', Variedad::representingColumn())); ?>
 	</div>
 
 	<div>
@@ -32,8 +32,8 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'nombreVariedad'); ?>
-		<?php echo $form->textFieldRow($model, 'nombreVariedad', array('class' => 'span5', 'maxlength' => 40)); ?>
+		<?php echo $form->label($model,'codigoGoldStar'); ?>
+		<?php echo $form->textFieldRow($model, 'codigoGoldStar', array('class' => 'span5', 'maxlength' => 40)); ?>
 	</div>
 
 	<div>
@@ -78,7 +78,7 @@
 
 	<div>
 		<?php echo $form->label($model,'proyecto_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'proyecto_id', CHtml::listData(Proyecto::model()->findAll(), 'id', Proyecto::representingColumn())); ?>
+		<?php echo $form->textFieldRow($model, 'proyecto_id', array('class' => 'span5', 'maxlength' => 20)); ?>
 	</div>
 
 	<div>

@@ -27,83 +27,8 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'propiedad1'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad1'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad2'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad2'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad3'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad3'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad4'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad4'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad5'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad5'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad6'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad6'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad7'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad7'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad8'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad8'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad9'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad9'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad10'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad10'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad11'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad11'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad12'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad12'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad13'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad13'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad14'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad14'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad15'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad15'); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'propiedad16'); ?>
-		<?php echo $form->checkBoxRow($model, 'propiedad16'); ?>
+		<?php echo $form->label($model,'codigoGoldStar'); ?>
+		<?php echo $form->textFieldRow($model, 'codigoGoldStar', array('class' => 'span5', 'maxlength' => 50)); ?>
 	</div>
 
 	<div>

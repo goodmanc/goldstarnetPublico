@@ -17,8 +17,8 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'oventa_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'oventa_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
+		<?php echo $form->label($model,'contratoCliente_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'contratoCliente_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
 	</div>
 
 	<div>

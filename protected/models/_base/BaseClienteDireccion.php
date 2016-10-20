@@ -17,7 +17,7 @@
  * @property string $ciudad
  * @property string $pobox
  * @property string $comuna
- * @property string $pais_id
+ * @property integer $pais_id
  * @property string $ref1
  * @property string $ref2
  * @property string $status
@@ -28,10 +28,11 @@
  * @property integer $modified_by
  * @property string $modified
  *
- * @property Cliente $cliente
  * @property Pais $pais
+ * @property Cliente $cliente
  */
 abstract class BaseClienteDireccion extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -51,7 +52,7 @@ abstract class BaseClienteDireccion extends AweActiveRecord {
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'cliente_id, used_by, created_by, modified_by',
+            array(	'cliente_id, pais_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -68,11 +69,6 @@ abstract class BaseClienteDireccion extends AweActiveRecord {
             array(	'pobox',
 					'length',
 					'max'=>20,
-					'tooLong' => Yii::t('app', 'Field is required')
-			),
-            array(	'pais_id',
-					'length',
-					'max'=>2,
 					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'status',
@@ -94,8 +90,8 @@ abstract class BaseClienteDireccion extends AweActiveRecord {
 
     public function relations() {
         return array(
-            'cliente' => array(self::BELONGS_TO, 'Cliente', 'cliente_id'),
             'pais' => array(self::BELONGS_TO, 'Pais', 'pais_id'),
+            'cliente' => array(self::BELONGS_TO, 'Cliente', 'cliente_id'),
         );
     }
 
@@ -122,8 +118,8 @@ abstract class BaseClienteDireccion extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'cliente' => null,
                 'pais' => null,
+                'cliente' => null,
         );
     }
 

@@ -23,6 +23,7 @@ class MyMenu extends CMenu {
             $options = isset($item['itemOptions']) ? $item['itemOptions'] : array();
             $class = array();
             if ($item['active'] && $this->activeCssClass != '') {
+                $class[] = $this->activeCssClass;
                 if ($this->activateItemsOuter) {
                     $class [] = $this->activeCssClass;
                 } else {

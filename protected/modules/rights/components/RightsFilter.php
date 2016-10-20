@@ -50,8 +50,6 @@ class RightsFilter extends CFilter
 					$allow = false;
 			}
 		}
-                $u = User::model()->findByPk(Yii::app()->user->id);
-                $allow = (int)$u->superuser ? true : $allow;
 		// User is not allowed access, deny access
 		if( $allow===false )
 		{

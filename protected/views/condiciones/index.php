@@ -5,7 +5,7 @@
 $this->breadcrumbs=array(
 	'Condiciones',
 );
-
+$controllerID = $this->id;
 $this->menu=array(
 //	array('label'=>'Crear Condiciones', 'url'=>'javascript:create();'),
 //	array('label'=>'Administrar Condiciones', 'url'=>array('admin')),
@@ -13,11 +13,11 @@ $this->menu=array(
 
 ?>
 
-<div class="row wrapper border-bottom white-bg page-heading">
+<div class="row wrapper border-bottom yellow-bg page-heading">
     <div class="col-lg-6">
         <h1>Condiciones</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,'tagName'=>'h4'
+            'links'=>$this->breadcrumbs,'tagName'=>'ol'
         ));
         ?>
     </div>
@@ -32,7 +32,7 @@ $this->menu=array(
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Listado</h5>
-                <div class="ibox-tools">
+                <div class="ibox-tools" style="display:none;">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -78,16 +78,14 @@ $this->menu=array(
                                     'headerHtmlOptions'=>array('style'=>'text-align:center;'),
                                     'template'=>'<div style="text-align:center;">{view}</div>',
                                     'buttons'=>array(
-                                        'email' => array(
-                                            'label'=>'Send an e-mail to this user',
-                                            'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
-                                            'url'=>'Yii::app()->createUrl("users/email", array("id"=>$data->id))',
-                                        ),
-                                        'down' => array(
-                                            'label'=>'[-]',
-                                            'url'=>'"#"',
-                                            'visible'=>'$data->status == \'O\'',
-                                            'click'=>'function(){alert("Going down!");}',
+                                        'view' => array(
+                                            'label'=>'View', 
+                                            'imageUrl'=>Yii::app()->request->baseUrl.'/images/led-icons/magnifier.png',  
+                                            'url'=>'Yii::app()->createUrl("'.$controllerID.'/view/?id=$data->id")',
+                                            'click'=>"function(){
+                                                        view($(this).attr('href'));    
+                                                    return false;
+                                            }",
                                         ),
                                     ),                    
                                 ),
@@ -99,25 +97,48 @@ $this->menu=array(
 			'headerHtmlOptions'=>array('style'=>'text-align:center;'),
 			'filterHtmlOptions'=>array('style'=>'width:70px'),
 			'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
-),		array(
-			'name'=>'oventa_id',
-			'filter'=>CHtml::listData(Familia::model()->findAll(), 'id', 'fecha'),
-			'value'=>'$data->contratocliente->fecha'),
+			),
+		array(
+			'name'=>'contratoCliente_id',
+			'header'=>'',
+			'filter'=>CHtml::listData(Contratocliente::model()->findAll(), 'id', 'temporada_id'),
+			'value'=>'$data->contratoCliente==null ? null : $data->contratoCliente->temporada_id'),
 		array(
 			'name'=>'condicion_id',
-			'filter'=>CHtml::listData(Familia::model()->findAll(), 'id', 'nombre'),
-			'value'=>'$data->condicion->nombre'),
-		'valor',
-		'prefix_copy1',
-		'sufix',
+			'header'=>'',
+			'filter'=>CHtml::listData(Condicion::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->condicion==null ? null : $data->condicion->nombre'),
+		array(
+			'name'=>'valor',
+			),
+		array(
+			'name'=>'prefix_copy1',
+			),
+		array(
+			'name'=>'sufix',
+			),
+		array(
+			'name'=>'status',
+			),
+		array(
+			'name'=>'used_by',
+			),
+		array(
+			'name'=>'check_in',
+			),
 		/*
-		'status',
-		'used_by',
-		'check_in',
-		'created_by',
-		'created',
-		'modified_by',
-		'modified',
+		array(
+			'name'=>'created_by',
+			),
+		array(
+			'name'=>'created',
+			),
+		array(
+			'name'=>'modified_by',
+			),
+		array(
+			'name'=>'modified',
+			),
 		*/
                             ),
                             )); ?>                        
@@ -132,57 +153,68 @@ $this->menu=array(
 </div>
 
 <script>
+    var label ='Condiciones';
+    var labelPlural ='Condiciones';
     var baseUrl = '/goldstarnetPublico/';
-    var baseControllerUrl = baseUrl + '/<?php echo Yii::app()->controller->id ?>';
-    var baseImgsUrl = baseUrl + '/js/dhtmlx/imgs';
+    var baseControllerUrl = baseUrl+'<?php echo Yii::app()->controller->id ?>';
+    var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';    
+    var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';
     var myRibbon;
     var myToolbar;
 
-    function view() {
+    function view(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Ver <? $label; ?>");
+        w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
+        w1.setText('Ver '+label);
         w1.centerOnScreen();
-        w1.attachURL(baseControllerUrl + "/view")
+        w1.attachURL(href)
     }
 
+    function excel() {
+        document.location.href = baseControllerUrl + '/excel?'+queryString;
+    }    
+    
     function startToolbar() {
         myToolbar = new dhtmlXToolbarObject({
-                parent: "toolbarObj",
-                icon_path: baseImgsUrl + "/common/imgs/",
+                parent: 'toolbarObj',
+                icon_path: baseImgsUrl + '/common/imgs/',
                 items: [
-                        {type: "text", id: "info", text: "Toolbar"},
-                        {type: "separator", id: "sep1"},
-                        {type: "button", id: "excel", tooltip: "Descargar Excel", img: "../18/excel.png"},
-                        {type: "separator", id: "sep5"},
+                        {type: 'button', id: 'excel', text: 'Descargar Excel', title: 'Descargar Excel', img: '../18/excel.png'},
+                        {type: 'separator', id: 'sep5'},
                 ]
         });
+        myToolbar.attachEvent('onClick', function(id){
+            switch (id) {
+                case 'excel': excel();
+                            break;
+            }
+        });        
     }
     
     function startRibbon() {
         var data = {
-            parent: "ribbonObj",
-            icons_path: baseImgsUrl + "/common/",
+            parent: 'ribbonObj',
+            icons_path: baseImgsUrl + '/common/',
             items: [
                 {
                     type: 'block', text: 'Básico', mode: 'cols', list: [
-                        {type: 'button', id:'open', text: 'Open', img: "48/open.gif"},
-                        {type: 'button', id:'new', text: 'new', img: "18/new.gif"},
-                        {type: 'button', id:'cut', text: 'cut', img: "18/cut.gif"},
+                        {type: 'button', id:'open', text: 'Open', img: '48/open.gif'},
+                        {type: 'button', id:'new', text: 'new', img: '18/new.gif'},
+                        {type: 'button', id:'cut', text: 'cut', img: '18/cut.gif'},
                     ]
                 },
                 {
                     type: 'block', text: 'Advanzado', mode: 'cols', list: [
-                        {type: 'button', id:'excel', text: 'excel', img: "48/excel.png", isbig: true}
+                        {type: 'button', id:'excel', text: 'excel', img: '48/excel.png', isbig: true}
                     ]
                 },
             ]
         };
         myRibbon = new dhtmlXRibbon(data);
-        myRibbon.attachEvent("onClick", function(id){
+        myRibbon.attachEvent('onClick', function(id){
             alert(id)
         });
-        document.getElementById("ribbonObj").style.width = "100%";
+        document.getElementById('ribbonObj').style.width = '100%';
         myRibbon.setSizes();
     }
     

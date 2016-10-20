@@ -18,13 +18,11 @@
         
 
 <div class="form">
-
-
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>Condiciones <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
 ]</small></h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -51,8 +49,8 @@
                                 <?php echo $form->error($model, 'nombre'); ?>
                             </div>                            
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'oventa_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
-                		<?php echo $form->error($model,'oventa_id'); ?>
+                                <?php echo $form->dropDownListRow($model, 'contratoCliente_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
+                		<?php echo $form->error($model,'contratoCliente_id'); ?>
                             </div>
 
                           <div>

@@ -1,63 +1,61 @@
-<?php
+<?php 
 /* @var $this CondicionesController */
 /* @var $data Condiciones */
+
 ?>
 
-<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Condiciones <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                    'id',
+                                                                    array(
+			'name'=>'contratoCliente_id',
+			'value'=>($model->contratoCliente !== null) ? CHtml::link($model->contratoCliente, array('/contratocliente/view', 'id' => $model->contratoCliente->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    array(
+			'name'=>'condicion_id',
+			'value'=>($model->condicion !== null) ? CHtml::link($model->condicion, array('/condicion/view', 'id' => $model->condicion->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    'valor',
+                                                                    'prefix_copy1',
+                                                                    'sufix',
+                                                                                                                                                                                                                                                                                                                            ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                                                                                                                                                                                                                                                                        'status',
+                                                                        'used_by',
+                                                                        'check_in',
+                                                                        'created_by',
+                                                                        'created',
+                                                                        'modified_by',
+                                                                        'modified',
+                                                                ),
+                                )); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('oventa_id')); ?>:</b>
-	<?php echo CHtml::encode($data->oventa_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('condicion_id')); ?>:</b>
-	<?php echo CHtml::encode($data->condicion_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('valor')); ?>:</b>
-	<?php echo CHtml::encode($data->valor); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('prefix_copy1')); ?>:</b>
-	<?php echo CHtml::encode($data->prefix_copy1); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('sufix')); ?>:</b>
-	<?php echo CHtml::encode($data->sufix); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('used_by')); ?>:</b>
-	<?php echo CHtml::encode($data->used_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('check_in')); ?>:</b>
-	<?php echo CHtml::encode($data->check_in); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_by')); ?>:</b>
-	<?php echo CHtml::encode($data->created_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_by')); ?>:</b>
-	<?php echo CHtml::encode($data->modified_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

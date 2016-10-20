@@ -13,7 +13,7 @@
 
 	<div>
 		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 2)); ?>
+		<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
 	</div>
 
 	<div>

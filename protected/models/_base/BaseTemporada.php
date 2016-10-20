@@ -21,10 +21,7 @@
  * @property integer $modified_by
  * @property string $modified
  *
- * @property Contratoagricultor[] $contratoagricultors
  * @property Contratocliente[] $contratoclientes
- * @property Fbreporte[] $fbreportes
- * @property Fieldbook[] $fieldbooks
  */
 abstract class BaseTemporada extends AweActiveRecord {
 
@@ -70,10 +67,7 @@ abstract class BaseTemporada extends AweActiveRecord {
 
     public function relations() {
         return array(
-            'contratoagricultors' => array(self::HAS_MANY, 'Contratoagricultor', 'temporada_id'),
             'contratoclientes' => array(self::HAS_MANY, 'Contratocliente', 'temporada_id'),
-            'fbreportes' => array(self::HAS_MANY, 'Fbreporte', 'temporada_id'),
-            'fieldbooks' => array(self::HAS_MANY, 'Fieldbook', 'temporada_id'),
         );
     }
 
@@ -93,10 +87,7 @@ abstract class BaseTemporada extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'contratoagricultors' => null,
                 'contratoclientes' => null,
-                'fbreportes' => null,
-                'fieldbooks' => null,
         );
     }
 
