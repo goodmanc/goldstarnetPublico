@@ -13,7 +13,8 @@ $nameColumn=$this->guessNameColumn($this->tableSchema->columns);
 $label=$this->pluralize($this->class2name($this->modelClass));
 echo "\$this->breadcrumbs=array(
 	'$label'=>array('index'),
-	\$model->{$nameColumn},
+	\$model->{$nameColumn}=>array('view','id'=>\$model->{$this->tableSchema->primaryKey}),
+	'Update',
 );\n";
 ?>
 
@@ -26,15 +27,7 @@ $this->menu=array(
 );
 ?>
 
+
 <h1>Ver <?php echo $this->modelClass." #<?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1>
 
-<?php echo "<?php"; ?> $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-        'htmlOptions'=>array("class"=>"table table-striped"),
-	'attributes'=>array(
-<?php
-foreach($this->tableSchema->columns as $column)
-	echo "\t\t'".$column->name."',\n";
-?>
-	),
-)); ?>
+<?php echo "<?php \n\t\$view = '_view';\n\t\$view .= ((\$viewFile=\$this->getViewFile(\$view.'_custom'))!==false) ? '_custom' : '';\n\t\$this->renderPartial(\$view, array('model'=>\$model));\n ?>"; ?>

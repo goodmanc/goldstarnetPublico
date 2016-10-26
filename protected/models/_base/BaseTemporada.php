@@ -35,7 +35,7 @@ abstract class BaseTemporada extends AweActiveRecord {
     }
 
     public static function representingColumn() {
-        return 'status';
+        return 'year';
     }
 
     public function rules() {

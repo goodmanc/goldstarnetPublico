@@ -50,6 +50,9 @@ class RightsFilter extends CFilter
 					$allow = false;
 			}
 		}
+                if ($allow===false && $user->checkAccess("Admin")===true) {
+                    $allow=true;
+                }
 		// User is not allowed access, deny access
 		if( $allow===false )
 		{

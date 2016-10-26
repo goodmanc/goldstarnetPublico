@@ -26,6 +26,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update <?php echo $this->modelClass." <?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1>
+<h1><?php  echo $this->modelClass; ?><span> [<?php echo "<?php echo \$model->isNewRecord ? 'Crear' : 'Editar'; ?>"; ?>]</span></h1>
 
-<?php echo "<?php \$this->renderPartial('_form', array('model'=>\$model)); ?>"; ?>
+
+<?php echo "<?php \n\t\$view = '_form';\n\t\$view .= ((\$viewFile=\$this->getViewFile(\$view.'_custom'))!==false) ? '_custom' : '';\n\t\$this->renderPartial(\$view, array('model'=>\$model));\n ?>"; ?>

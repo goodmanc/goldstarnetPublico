@@ -188,7 +188,7 @@ class AweCrudCode extends CrudCode
             return "\$form->checkBoxRow(\$model, '{$column->name}')";
         } else {
             if (strtoupper($column->dbType) == 'DATE') {
-                return "\$form->datepickerRow(\$model, '{$column->name}', array('prepend'=>'<i class=\"icon-calendar\"></i>'))";
+                return "\$form->dateField(\$model, '{$column->name}', array('prepend'=>'<i class=\"icon-calendar\"></i>'))";
             } else {
                 if (stripos($column->dbType, 'text') !== false) { // Start of CrudCode::generateActiveField code.
                     return "\$form->textAreaRow(\$model,'{$column->name}',array('rows'=>6, 'cols'=>50, 'class'=>'span8'))";

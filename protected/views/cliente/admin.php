@@ -156,6 +156,11 @@ return false;
 			'header'=>'Abreviatura',
 			),
 		array(
+			'name'=>'pais_id',
+			'header'=>'',
+			'filter'=>CHtml::listData(Pais::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->pais==null ? null : $data->pais->nombre'),
+		array(
 			'name'=>'status',
 			),
 		array(
@@ -164,10 +169,10 @@ return false;
 		array(
 			'name'=>'check_in',
 			),
+		/*
 		array(
 			'name'=>'created_by',
 			),
-		/*
 		array(
 			'name'=>'created',
 			),

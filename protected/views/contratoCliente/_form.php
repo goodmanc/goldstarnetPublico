@@ -64,7 +64,7 @@
                             </div>
 
                           <div>
-                                <?php echo $form->datepickerRow($model, 'fecha', array('prepend'=>'<i class="icon-calendar"></i>')); ?>
+                                <?php echo $form->dateField($model, 'fecha', array('prepend'=>'<i class="icon-calendar"></i>')); ?>
                 		<?php echo $form->error($model,'fecha'); ?>
                             </div>
 

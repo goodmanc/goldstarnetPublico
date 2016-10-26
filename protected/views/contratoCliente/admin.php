@@ -148,8 +148,8 @@ return false;
 		array(
 			'name'=>'cliente_id',
 			'header'=>'',
-			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'rut'),
-			'value'=>'$data->cliente==null ? null : $data->cliente->rut'),
+			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->cliente==null ? null : $data->cliente->nombre'),
 		array(
 			'name'=>'proyecto_id',
 			'header'=>'',

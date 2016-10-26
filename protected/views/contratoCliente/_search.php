@@ -33,7 +33,7 @@
 
 	<div>
 		<?php echo $form->label($model,'fecha'); ?>
-		<?php echo $form->datepickerRow($model, 'fecha', array('prepend'=>'<i class="icon-calendar"></i>')); ?>
+		<?php echo $form->dateField($model, 'fecha', array('prepend'=>'<i class="icon-calendar"></i>')); ?>
 	</div>
 
 	<div>

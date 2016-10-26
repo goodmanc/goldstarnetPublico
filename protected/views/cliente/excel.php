@@ -29,6 +29,11 @@
 				'name'=>'abrev',
 			'header'=>'Abreviatura',
 				),
+	array(
+				'name'=>'pais_id',
+				'header'=>'',
+				'filter'=>CHtml::listData(Pais::model()->findAll(), 'id', 'nombre'),
+				'value'=>'$data->pais==null ? null : $data->pais->nombre'),
 			array(
 				'name'=>'status',
 				),

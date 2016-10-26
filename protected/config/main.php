@@ -3,6 +3,7 @@
 // uncomment the following to define a path alias
 Yii::setPathOfAlias('goldstar', dirname(__FILE__) . "/../../yii/goldstar");
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+Yii::setPathOfAlias('yiistrap', dirname(__FILE__).'/../extensions/yiistrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -24,6 +25,11 @@ return array(
         // Rights Module - Profiles (Privilegios)
         'application.modules.rights.*',
         'application.modules.rights.components.*',
+        'yiistrap.behaviors.*',
+        'yiistrap.components.*',
+        'yiistrap.form.*',
+        'yiistrap.helpers.*',
+        'yiistrap.widgets.*',
         'goldstar.test.*',
     ),
     'modules' => array(

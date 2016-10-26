@@ -1,15 +1,24 @@
 <?php
-/* @var $this ContratoClienteController */
-/* @var $model ContratoCliente */
+/**
+ * The following variables are available in this template:
+ * - $this: the CrudCode object
+ */
+?>
+<?php echo "<?php\n"; ?>
+/* @var $this <?php echo $this->getControllerClass(); ?> */
+/* @var $model <?php echo $this->getModelClass(); ?> */
 
-$this->breadcrumbs=array(
-	'Contrato Clientes'=>array('index'),
+<?php
+$label=$this->pluralize($this->class2name($this->modelClass));
+echo "\$this->breadcrumbs=array(
+	'$label'=>array('index'),
 	'Manage',
-);
+);\n";
+?>
 
 $this->menu=array(
-	array('label'=>'Listar ContratoCliente', 'icon' => '<i class="fa fa-list-alt"></i>', 'url'=>array('index')),
-	array('label'=>'Crear ContratoCliente', 'icon' => '<i class="fa fa-plus-square-o"></i>', 'url'=>'javascript:create();'),
+	array('label'=>'Listar <?php echo $this->modelClass; ?>', 'icon' => '<i class="fa fa-list-alt"></i>', 'url'=>array('index')),
+	array('label'=>'Crear <?php echo $this->modelClass; ?>', 'icon' => '<i class="fa fa-plus-square-o"></i>', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +27,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#contrato-cliente-grid').yiiGridView('update', {
+	$('#<?php echo $this->class2id($this->modelClass); ?>-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +35,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Administrar Contrato Clientes</h1>
+<h1>Administrar <?php echo $this->pluralize($this->class2name($this->modelClass)); ?></h1>
 
 <!--
 <p>
@@ -35,15 +44,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </p>
 //-->
 
+<?php /*echo "<?php echo CHtml::link('B�squeda  avanzada','#',array('class'=>'search-button')); ?>"; */?>
 
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+<?php echo "<?php \$this->renderPartial('_search',array(
+	'model'=>\$model,
+)); ?>\n"; ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'contrato-cliente-grid',
+<?php echo "<?php"; ?> $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'<?php echo $this->class2id($this->modelClass); ?>-grid',
         'itemsCssClass'=>"table table-striped table-bordered table-hover table-condensed",
         'htmlOptions'=>array('class'=>''),   
         'ajaxUpdate'=>false,
@@ -72,45 +82,40 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'header' => 'FN',
                     'class'=>'CButtonColumn',
 		),
-		'id',
-		'temporada_id',
-		'cliente_id',
-		'proyecto_id',
-		'fecha',
-		'observaciones',
-		/*
-		'guarantee',
-		'conditionsHeader',
-		'conditionsFooter',
-		'growerServices',
-		'stockSeed',
-		'productionReports',
-		'shipments',
-		'aditionalPhitosanitaryReq',
-		'preShipmentsSeedSamples',
-		'earlyTerminationBuyOut',
-		'overProduction',
-		'prices',
-		'advancePayments',
-		'paymentTerms',
-		'confidentiality',
-		'lotNumberAssignment',
-		'arbitrationAndLaw',
-		'buyerSigName',
-		'growerSigName',
-		'status',
-		'used_by',
-		'check_in',
-		'created_by',
-		'created',
-		'modified_by',
-		'modified',
-		*/
+<?php
+$count=0;
+foreach($this->tableSchema->columns as $column)
+{
+	if(++$count==7)
+		echo "\t\t/*\n";
+        if ($column->isForeignKey) {
+            $relation = CrudCode::findRelation($this->getModelClass(), $column);
+            if ($relation[1] == AweActiveRecord::BELONGS_TO) {
+                $relatedModelClass = $relation[3];
+                $foreignPk = CActiveRecord::model($relatedModelClass)->getTableSchema()->primaryKey;
+                foreach (CActiveRecord::model($relatedModelClass)->getTableSchema()->columns as $col) {
+                    if (intval($col->isForeignKey) == 0 && intval($col->isPrimaryKey) == 0) {
+                        echo "\t\tarray(\n"
+                            ."\t\t\t'name'=>'{$column->name}',\n"
+                            ."\t\t\t'filter'=>CHtml::listData(Familia::model()->findAll(), 'id', '{$col->name}'),\n"
+                            ."\t\t\t'value'=>'\$data->".strtolower($relatedModelClass)."->{$col->name}'),\n";
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            echo "\t\t'".$column->name."',\n";
+        }
+}
+if($count>=7)
+	echo "\t\t*/\n";
+?>
 	),
 )); ?>
 
 <script>
-    var baseUrl = '/goldstarnet/<?php echo Yii::app()->controller->id ?>';
+    var baseUrl = '<?php echo YII::app()->baseUrl .'/'; echo '<?php echo Yii::app()->controller->id ?>'; ?>';
     var winOpen = false;
     
     function create() {

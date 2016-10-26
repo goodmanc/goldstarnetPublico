@@ -69,6 +69,11 @@
                             </div>
 
                           <div>
+                                <?php echo $form->dropDownListRow($model, 'pais_id', CHtml::listData(Pais::model()->findAll(), 'id', Pais::representingColumn())); ?>
+                		<?php echo $form->error($model,'pais_id'); ?>
+                            </div>
+
+                          <div>
                                 <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
                 		<?php echo $form->error($model,'status'); ?>
                             </div>

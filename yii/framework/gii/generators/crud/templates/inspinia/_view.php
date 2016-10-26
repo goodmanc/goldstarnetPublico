@@ -4,28 +4,56 @@
  * - $this: the CrudCode object
  */
 ?>
-<?php echo "<?php\n"; ?>
+<?php echo "<?php \n"; ?>
 /* @var $this <?php echo $this->getControllerClass(); ?> */
 /* @var $data <?php echo $this->getModelClass(); ?> */
+
 ?>
 
-<div class="view">
 
-<?php
-echo "\t<b><?php echo CHtml::encode(\$data->getAttributeLabel('{$this->tableSchema->primaryKey}')); ?>:</b>\n";
-echo "\t<?php echo CHtml::link(CHtml::encode(\$data->{$this->tableSchema->primaryKey}), array('view', 'id'=>\$data->{$this->tableSchema->primaryKey})); ?>\n\t<br />\n\n";
-$count=0;
-foreach($this->tableSchema->columns as $column)
-{
-	if($column->isPrimaryKey)
-		continue;
-	if(++$count==7)
-		echo "\t<?php /*\n";
-	echo "\t<b><?php echo CHtml::encode(\$data->getAttributeLabel('{$column->name}')); ?>:</b>\n";
-	echo "\t<?php echo CHtml::encode(\$data->{$column->name}); ?>\n\t<br />\n\n";
-}
-if($count>=7)
-	echo "\t*/ ?>\n";
-?>
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><?php echo $this->modelClass; ?> <small>[<?php echo "<?php echo \$model->isNewRecord ? 'New' : 'Edit'; ?>\n"; ?>]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php echo "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                <?php foreach ($this->tableSchema->columns as $column): ?>
+                                    <?php 
+                                        if (in_array($column->name, $this->commonFields)) {
+                                            continue;
+                                        }                                    
+                                    echo $this->generateDetailViewAttribute($this->modelClass, $column) . ",\n" ?>
+                                <?php endforeach; ?>
+                                ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php echo "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                <?php foreach ($this->tableSchema->columns as $column): ?>
+                                        <?php
+                                        if (!in_array($column->name, $this->commonFields)) {
+                                            continue;
+                                        }
+                                        echo $this->generateDetailViewAttribute($this->modelClass, $column) . ",\n" ?>
+                                <?php endforeach; ?>
+                                ),
+                                )); ?>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

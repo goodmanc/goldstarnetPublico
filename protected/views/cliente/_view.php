@@ -25,6 +25,11 @@
                                                                     'nombre',
                                                                     'nombreCorto',
                                                                     'abrev',
+                                                                    array(
+			'name'=>'pais_id',
+			'value'=>($model->pais !== null) ? CHtml::link($model->pais, array('/pais/view', 'id' => $model->pais->id)).' ' : null,
+			'type'=>'html',
+		),
                                                                                                                                                                                                                                                                                                                             ),
                                 )); ?>
                         </div>
@@ -33,7 +38,7 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                                                                                                                                                'status',
+                                                                                                                                                                                                                                                                                                                        'status',
                                                                         'used_by',
                                                                         'check_in',
                                                                         'created_by',

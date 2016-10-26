@@ -16,14 +16,13 @@ echo "\$this->breadcrumbs=array(
 );\n";
 ?>
 
-/* 
 $this->menu=array(
 	array('label'=>'Listar <?php echo $this->modelClass; ?>', 'url'=>array('index')),
 	array('label'=>'Administrar <?php echo $this->modelClass; ?>', 'url'=>array('admin')),
 );
-*/
+
 ?>
 
-<h1><?php echo "<?php echo \$model->isNewRecord ? 'Crear ' : 'Guardar '; ?>"; echo $this->modelClass; ?></h1>
+<h1><?php  echo $this->modelClass; ?><span>[<?php echo "<?php echo \$model->isNewRecord ? 'Crear' : 'Guardar'; ?>"; ?>]</span></h1>
 
-<?php echo "<?php \$this->renderPartial('_form', array('model'=>\$model)); ?>"; ?>
+<?php echo "<?php \n\t\$view = '_form';\n\t\$view .= ((\$viewFile=\$this->getViewFile(\$view.'_custom'))!==false) ? '_custom' : '';\n\t\$this->renderPartial(\$view, array('model'=>\$model));\n ?>"; ?>

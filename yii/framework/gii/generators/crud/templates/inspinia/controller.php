@@ -21,10 +21,11 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+                        'rights', // perform access control for CRUD operations
+//			'accessControl', // perform access control for CRUD operations
+//			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
+        }
 
 	/**
 	 * Specifies the access control rules.
@@ -34,6 +35,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function accessRules()
 	{
 		return array(
+                    /*
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -49,6 +51,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+                    */
 		);
 	}
 
@@ -58,7 +61,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 */
 	public function actionView($id)
 	{
-                $this->layout = '//layouts/clear';
+                $this->layout ='//layouts/clear';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -81,7 +84,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			if($model->save())
 				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
 		}
-                //$this->layout = '//layouts/clear';
+                $this->layout ='//layouts/clear';
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -105,7 +108,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			if($model->save())
 				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
 		}
-
+                $this->layout ='//layouts/clear';
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -130,8 +133,13 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 */
 	public function actionIndex()
 	{
+		$model=new <?php echo $this->modelClass; ?>('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['<?php echo $this->modelClass; ?>']))
+			$model->attributes=$_GET['<?php echo $this->modelClass; ?>'];
 		$dataProvider=new CActiveDataProvider('<?php echo $this->modelClass; ?>');
 		$this->render('index',array(
+                        'model'=>$model,
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -150,6 +158,22 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			'model'=>$model,
                         'dataProvider'=>$dataProvider,
 		));
+	}
+        
+	/**
+	 * List all models in Excel.
+	 */
+	public function actionExcel()
+	{
+		$model=new <?php echo $this->modelClass; ?>('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['<?php echo $this->modelClass; ?>']))
+			$model->attributes=$_GET['<?php echo $this->modelClass; ?>'];
+                $dataProvider=new CActiveDataProvider('<?php echo $this->modelClass; ?>');
+		$this->render('excel',array(
+			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
+		));                
 	}
 
 	/**

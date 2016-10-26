@@ -10,10 +10,11 @@
  * followed by relations of table "cliente" available as properties of the model.
  *
  * @property integer $id
- * @property string $rut
  * @property string $nombre
+ * @property string $rut
  * @property string $nombreCorto
  * @property string $abrev
+ * @property integer $pais_id
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -22,7 +23,7 @@
  * @property integer $modified_by
  * @property string $modified
  *
- * @property Catalogo[] $catalogos
+ * @property Pais $pais
  * @property Clientecontacto[] $clientecontactos
  * @property Clientedireccion[] $clientedireccions
  * @property Contratocliente[] $contratoclientes
@@ -39,27 +40,27 @@ abstract class BaseCliente extends AweActiveRecord {
     }
 
     public static function representingColumn() {
-        return 'rut';
+        return 'nombre';
     }
 
     public function rules() {
         return array(
-            array(	'rut, nombre, abrev',
+            array(	'nombre, rut, abrev, pais_id',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'used_by, created_by, modified_by',
+            array(	'pais_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
-			),
-            array(	'rut',
-					'length',
-					'max'=>10,
-					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'nombre',
 					'length',
 					'max'=>100,
+					'tooLong' => Yii::t('app', 'Field is required')
+			),
+            array(	'rut',
+					'length',
+					'max'=>10,
 					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'nombreCorto, abrev',
@@ -80,13 +81,13 @@ abstract class BaseCliente extends AweActiveRecord {
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, rut, nombre, nombreCorto, abrev, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, nombre, rut, nombreCorto, abrev, pais_id, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
-            'catalogos' => array(self::HAS_MANY, 'Catalogo', 'cliente_id'),
+            'pais' => array(self::BELONGS_TO, 'Pais', 'pais_id'),
             'clientecontactos' => array(self::HAS_MANY, 'Clientecontacto', 'cliente_id'),
             'clientedireccions' => array(self::HAS_MANY, 'Clientedireccion', 'cliente_id'),
             'contratoclientes' => array(self::HAS_MANY, 'Contratocliente', 'cliente_id'),
@@ -99,10 +100,11 @@ abstract class BaseCliente extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'rut' => Yii::t('app', 'Rut'),
                 'nombre' => Yii::t('app', 'Nombre'),
+                'rut' => Yii::t('app', 'Rut'),
                 'nombreCorto' => Yii::t('app', 'Nombre Corto'),
                 'abrev' => Yii::t('app', 'Abrev'),
+                'pais_id' => Yii::t('app', 'Pais'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -110,7 +112,7 @@ abstract class BaseCliente extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'catalogos' => null,
+                'pais' => null,
                 'clientecontactos' => null,
                 'clientedireccions' => null,
                 'contratoclientes' => null,
@@ -121,10 +123,11 @@ abstract class BaseCliente extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('rut', $this->rut, true);
         $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('rut', $this->rut, true);
         $criteria->compare('nombreCorto', $this->nombreCorto, true);
         $criteria->compare('abrev', $this->abrev, true);
+        $criteria->compare('pais_id', $this->pais_id);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);
