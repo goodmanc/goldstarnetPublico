@@ -26,7 +26,7 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php  echo $this->modelClass; ?><span> [<?php echo "<?php echo \$model->isNewRecord ? 'Crear' : 'Editar'; ?>"; ?>]</span></h1>
+<h2><?php  echo $this->modelClass; ?><span> [<?php echo "<?php echo \$model->isNewRecord ? 'Crear' : 'Editar'; ?>"; ?>]</span></h2>
 
 
 <?php echo "<?php \n\t\$view = '_form';\n\t\$view .= ((\$viewFile=\$this->getViewFile(\$view.'_custom'))!==false) ? '_custom' : '';\n\t\$this->renderPartial(\$view, array('model'=>\$model));\n ?>"; ?>

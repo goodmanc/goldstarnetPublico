@@ -6,6 +6,9 @@ $this->breadcrumbs=array(
 	'Contrato Cliente Detalle',
 );
 $controllerID = $this->id;
+$isHeader = !isset($isHeader) ? true : $isHeader;
+$isFilter = !isset($isFilter) ? true : $isFilter;
+$isListTitle = !isset($isListTitle) ? true : $isListTitle;
 $this->menu=array(
 //	array('label'=>'Crear ContratoClienteDetalle', 'url'=>'javascript:create();'),
 //	array('label'=>'Administrar ContratoClienteDetalle', 'url'=>array('admin')),
@@ -13,6 +16,7 @@ $this->menu=array(
 
 ?>
 
+<?php if ($isHeader) { ?>    
 <div class="row wrapper border-bottom yellow-bg page-heading">
     <div class="col-lg-6">
         <h1>Contrato Cliente Detalle</h1>
@@ -25,11 +29,13 @@ $this->menu=array(
         <div id="ribbonObj"></div>
     </div>
 </div>
+<?php } ?>
 
 
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
+            <?php if ($isListTitle) { ?> 
             <div class="ibox-title">
                 <h5>Listado</h5>
                 <div class="ibox-tools" style="display:none;">
@@ -44,6 +50,7 @@ $this->menu=array(
                     </a>
                 </div>
             </div>
+            <?php } ?> 
                 <div id="toolbarObj"></div>
             <div class="ibox-content">
                 <div id="editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -70,7 +77,7 @@ $this->menu=array(
                             'template'=>'<div class="gridHeader"></div><div class="table-responsive table-bordered">{items}</div><div class="gridFooter"><div class="row"><div class="cols-lg-6 pull-right">{pager}</div><div class="cols-lg-6">{summary}</div></div></div>',
                             'summaryText' => 'Mostrando {start} - {end} de {count} registros',
                             'dataProvider'=>$model->search(),
-                            'filter'=>$model,
+                            'filter'=> $isFilter ? $model : null,
                             'columns'=>array(
                                 array(
                                     'header' => 'FN',
@@ -98,14 +105,16 @@ $this->menu=array(
 			'filterHtmlOptions'=>array('style'=>'width:70px'),
 			'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
 			),
-		array(
-			'name'=>'contratoCliente_id',
-			),
+//		array(
+//			'name'=>'contratoCliente_id',
+//			'header'=>'',
+//			'filter'=>CHtml::listData(Contratocliente::model()->findAll(), 'id', 'temporada_id'),
+//			'value'=>'$data->contratoCliente==null ? null : $data->contratoCliente->temporada_id'),
 		array(
 			'name'=>'variedad_id',
 			'header'=>'',
-			'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'especie_id'),
-			'value'=>'$data->variedad==null ? null : $data->variedad->especie_id'),
+			'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->variedad==null ? null : $data->variedad->nombre'),
 		array(
 			'name'=>'subNumCat',
 			),
@@ -138,9 +147,6 @@ $this->menu=array(
 			),
 		array(
 			'name'=>'totalFrgn',
-			),
-		array(
-			'name'=>'proyecto_id',
 			),
 		array(
 			'name'=>'stockSeed',

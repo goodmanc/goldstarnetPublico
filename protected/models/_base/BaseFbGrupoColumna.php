@@ -10,8 +10,8 @@
  * followed by relations of table "fbgrupocolumna" available as properties of the model.
  *
  * @property integer $id
- * @property integer $fbCategoria_id
  * @property string $nombre
+ * @property integer $orden
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -21,9 +21,9 @@
  * @property string $modified
  *
  * @property Fbcolumna[] $fbcolumnas
- * @property Fbcategoria $fbCategoria
  */
 abstract class BaseFbGrupoColumna extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -39,11 +39,11 @@ abstract class BaseFbGrupoColumna extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'fbCategoria_id, nombre',
+            array(	'nombre',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'fbCategoria_id, used_by, created_by, modified_by',
+            array(	'orden, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -60,19 +60,18 @@ abstract class BaseFbGrupoColumna extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('status, used_by, check_in, created_by, created, modified_by, modified',
+            array('orden, status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, fbCategoria_id, nombre, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, nombre, orden, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
             'fbcolumnas' => array(self::HAS_MANY, 'Fbcolumna', 'fbGrupoColumna_id'),
-            'fbCategoria' => array(self::BELONGS_TO, 'Fbcategoria', 'fbCategoria_id'),
         );
     }
 
@@ -82,8 +81,8 @@ abstract class BaseFbGrupoColumna extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'fbCategoria_id' => Yii::t('app', 'Fb Categoria'),
                 'nombre' => Yii::t('app', 'Nombre'),
+                'orden' => Yii::t('app', 'Orden'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -92,7 +91,6 @@ abstract class BaseFbGrupoColumna extends AweActiveRecord {
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
                 'fbcolumnas' => null,
-                'fbCategoria' => null,
         );
     }
 
@@ -100,8 +98,8 @@ abstract class BaseFbGrupoColumna extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('fbCategoria_id', $this->fbCategoria_id);
         $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('orden', $this->orden);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);

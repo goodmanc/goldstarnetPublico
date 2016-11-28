@@ -18,7 +18,7 @@
 
 	<div>
 		<?php echo $form->label($model,'contratoCliente_id'); ?>
-		<?php echo $form->textFieldRow($model, 'contratoCliente_id', array('class' => 'span5')); ?>
+		<?php echo $form->dropDownListRow($model, 'contratoCliente_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
 	</div>
 
 	<div>
@@ -74,11 +74,6 @@
 	<div>
 		<?php echo $form->label($model,'totalFrgn'); ?>
 		<?php echo $form->textFieldRow($model, 'totalFrgn', array('class' => 'span5')); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'proyecto_id'); ?>
-		<?php echo $form->textFieldRow($model, 'proyecto_id', array('class' => 'span5', 'maxlength' => 20)); ?>
 	</div>
 
 	<div>

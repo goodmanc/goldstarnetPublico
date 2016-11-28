@@ -15,16 +15,14 @@
  * @property string $subNumCat
  * @property string $codigoGoldStar
  * @property string $nombreExportacion
- * @property double $baseRate
- * @property double $hactares
+ * @property double $base
+ * @property double $has
  * @property double $kgs
  * @property string $moneda_id
  * @property double $price
  * @property double $lineTotal
  * @property double $totalFrgn
- * @property string $proyecto_id
  * @property double $stockSeed
- * @property string $proyect
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -34,6 +32,7 @@
  * @property string $modified
  *
  * @property Contratoagricultor[] $contratoagricultors
+ * @property Contratocliente $contratoCliente
  * @property Moneda $moneda
  * @property Variedad $variedad
  */
@@ -49,12 +48,12 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
     }
 
     public static function representingColumn() {
-        return 'proyecto_id';
+        return 'status';
     }
 
     public function rules() {
         return array(
-            array(	'contratoCliente_id, variedad_id, moneda_id, proyecto_id',
+            array(	'contratoCliente_id, variedad_id, moneda_id',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
@@ -62,7 +61,7 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
 					'numerical',
 					'integerOnly'=>true
 			),
-            array(	'baseRate, hactares, kgs, price, lineTotal, totalFrgn, stockSeed',
+            array(	'base, has, kgs, price, lineTotal, totalFrgn, stockSeed',
 					'numerical'
 			),
             array(	'subNumCat',
@@ -80,11 +79,6 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
 					'max'=>4,
 					'tooLong' => Yii::t('app', 'Field is required')
 			),
-            array(	'proyecto_id, proyect',
-					'length',
-					'max'=>20,
-					'tooLong' => Yii::t('app', 'Field is required')
-			),
             array(	'status',
 					'length',
 					'max'=>1,
@@ -93,18 +87,19 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('subNumCat, codigoGoldStar, nombreExportacion, baseRate, hactares, kgs, price, lineTotal, totalFrgn, stockSeed, proyect, status, used_by, check_in, created_by, created, modified_by, modified',
+            array('subNumCat, codigoGoldStar, nombreExportacion, base, has, kgs, price, lineTotal, totalFrgn, stockSeed, status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, contratoCliente_id, variedad_id, subNumCat, codigoGoldStar, nombreExportacion, baseRate, hactares, kgs, moneda_id, price, lineTotal, totalFrgn, proyecto_id, stockSeed, proyect, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, contratoCliente_id, variedad_id, subNumCat, codigoGoldStar, nombreExportacion, base, has, kgs, moneda_id, price, lineTotal, totalFrgn, stockSeed, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
             'contratoagricultors' => array(self::HAS_MANY, 'Contratoagricultor', 'contratoclientedetalle_id'),
+            'contratoCliente' => array(self::BELONGS_TO, 'Contratocliente', 'contratoCliente_id'),
             'moneda' => array(self::BELONGS_TO, 'Moneda', 'moneda_id'),
             'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_id'),
         );
@@ -121,16 +116,14 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
                 'subNumCat' => Yii::t('app', 'Sub Num Cat'),
                 'codigoGoldStar' => Yii::t('app', 'Codigo Gold Star'),
                 'nombreExportacion' => Yii::t('app', 'Nombre Exportacion'),
-                'baseRate' => Yii::t('app', 'Base Rate'),
-                'hactares' => Yii::t('app', 'Hactares'),
+                'base' => Yii::t('app', 'Base'),
+                'has' => Yii::t('app', 'Has'),
                 'kgs' => Yii::t('app', 'Kgs'),
                 'moneda_id' => Yii::t('app', 'Moneda'),
                 'price' => Yii::t('app', 'Price'),
                 'lineTotal' => Yii::t('app', 'Line Total'),
                 'totalFrgn' => Yii::t('app', 'Total Frgn'),
-                'proyecto_id' => Yii::t('app', 'Proyecto'),
                 'stockSeed' => Yii::t('app', 'Stock Seed'),
-                'proyect' => Yii::t('app', 'Proyect'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -139,6 +132,7 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
                 'contratoagricultors' => null,
+                'contratoCliente' => null,
                 'moneda' => null,
                 'variedad' => null,
         );
@@ -153,16 +147,14 @@ abstract class BaseContratoClienteDetalle extends AweActiveRecord {
         $criteria->compare('subNumCat', $this->subNumCat, true);
         $criteria->compare('codigoGoldStar', $this->codigoGoldStar, true);
         $criteria->compare('nombreExportacion', $this->nombreExportacion, true);
-        $criteria->compare('baseRate', $this->baseRate);
-        $criteria->compare('hactares', $this->hactares);
+        $criteria->compare('base', $this->base);
+        $criteria->compare('has', $this->has);
         $criteria->compare('kgs', $this->kgs);
         $criteria->compare('moneda_id', $this->moneda_id);
         $criteria->compare('price', $this->price);
         $criteria->compare('lineTotal', $this->lineTotal);
         $criteria->compare('totalFrgn', $this->totalFrgn);
-        $criteria->compare('proyecto_id', $this->proyecto_id, true);
         $criteria->compare('stockSeed', $this->stockSeed);
-        $criteria->compare('proyect', $this->proyect, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);

@@ -10,8 +10,9 @@
  * followed by relations of table "variedad" available as properties of the model.
  *
  * @property integer $id
- * @property integer $especie_id
  * @property string $nombre
+ * @property integer $especie_id
+ * @property integer $cliente_id
  * @property string $codigoGoldStar
  * @property string $status
  * @property integer $used_by
@@ -22,6 +23,7 @@
  * @property string $modified
  *
  * @property Contratoclientedetalle[] $contratoclientedetalles
+ * @property Cliente $cliente
  * @property Especie $especie
  */
 abstract class BaseVariedad extends AweActiveRecord {
@@ -41,11 +43,11 @@ abstract class BaseVariedad extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'especie_id, nombre, codigoGoldStar',
+            array(	'nombre, especie_id, codigoGoldStar',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'especie_id, used_by, created_by, modified_by',
+            array(	'especie_id, cliente_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -62,18 +64,19 @@ abstract class BaseVariedad extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('status, used_by, check_in, created_by, created, modified_by, modified',
+            array('cliente_id, status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, especie_id, nombre, codigoGoldStar, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, nombre, especie_id, cliente_id, codigoGoldStar, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
             'contratoclientedetalles' => array(self::HAS_MANY, 'Contratoclientedetalle', 'variedad_id'),
+            'cliente' => array(self::BELONGS_TO, 'Cliente', 'cliente_id'),
             'especie' => array(self::BELONGS_TO, 'Especie', 'especie_id'),
         );
     }
@@ -84,8 +87,9 @@ abstract class BaseVariedad extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'especie_id' => Yii::t('app', 'Especie'),
                 'nombre' => Yii::t('app', 'Nombre'),
+                'especie_id' => Yii::t('app', 'Especie'),
+                'cliente_id' => Yii::t('app', 'Cliente'),
                 'codigoGoldStar' => Yii::t('app', 'Codigo Gold Star'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
@@ -95,6 +99,7 @@ abstract class BaseVariedad extends AweActiveRecord {
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
                 'contratoclientedetalles' => null,
+                'cliente' => null,
                 'especie' => null,
         );
     }
@@ -103,8 +108,9 @@ abstract class BaseVariedad extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('especie_id', $this->especie_id);
         $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('especie_id', $this->especie_id);
+        $criteria->compare('cliente_id', $this->cliente_id);
         $criteria->compare('codigoGoldStar', $this->codigoGoldStar, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);

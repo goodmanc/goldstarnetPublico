@@ -4,6 +4,7 @@
 Yii::setPathOfAlias('goldstar', dirname(__FILE__) . "/../../yii/goldstar");
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 Yii::setPathOfAlias('yiistrap', dirname(__FILE__).'/../extensions/yiistrap');
+Yii::setPathOfAlias('dhtmlx', dirname(__FILE__).'/../../js/dhtmlx');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -30,7 +31,7 @@ return array(
         'yiistrap.form.*',
         'yiistrap.helpers.*',
         'yiistrap.widgets.*',
-        'goldstar.test.*',
+        'goldstar.base.*',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -108,6 +109,7 @@ return array(
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/?id=<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/?id=<pk:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),

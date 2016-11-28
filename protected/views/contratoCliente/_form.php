@@ -49,13 +49,13 @@
                                 <?php echo $form->error($model, 'nombre'); ?>
                             </div>                            
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
-                		<?php echo $form->error($model,'temporada_id'); ?>
+                                <?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
+                		<?php echo $form->error($model,'cliente_id'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
-                		<?php echo $form->error($model,'cliente_id'); ?>
+                                <?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
+                		<?php echo $form->error($model,'temporada_id'); ?>
                             </div>
 
                           <div>

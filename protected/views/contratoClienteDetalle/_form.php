@@ -47,14 +47,14 @@
                         <div class="col-sm-6 b-r">
                             <div>
                                 <?php echo $form->error($model, 'nombre'); ?>
-                            </div>                            
-                          <div>
-                                <?php echo $form->textFieldRow($model, 'contratoCliente_id', array('class' => 'span5')); ?>
+                            </div>
+                          <div style="display: none;">
+                                <?php echo $form->dropDownListRow($model, 'contratoCliente_id', CHtml::listData(Contratocliente::model()->findAll(), 'id', Contratocliente::representingColumn())); ?>
                 		<?php echo $form->error($model,'contratoCliente_id'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'variedad_id', CHtml::listData(Variedad::model()->findAll(), 'id', Variedad::representingColumn())); ?>
+                                <?php echo $form->dropDownListRow($model, 'variedad_id', CHtml::listData(Variedad::model()->findAll('cliente_id = :cliente_id',array(':cliente_id'=>$modelParent->cliente_id)), 'id', Variedad::representingColumn())); ?>
                 		<?php echo $form->error($model,'variedad_id'); ?>
                             </div>
 
@@ -106,11 +106,6 @@
                           <div>
                                 <?php echo $form->textFieldRow($model, 'totalFrgn', array('class' => 'span5')); ?>
                 		<?php echo $form->error($model,'totalFrgn'); ?>
-                            </div>
-
-                          <div>
-                                <?php echo $form->textFieldRow($model, 'proyecto_id', array('class' => 'span5', 'maxlength' => 20)); ?>
-                		<?php echo $form->error($model,'proyecto_id'); ?>
                             </div>
 
                           <div>

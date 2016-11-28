@@ -112,6 +112,10 @@ $this->menu=array(
 			'header'=>'Name',
 			),
 		array(
+			'name'=>'nombreCientifico',
+			'header'=>'Nombre Científico',
+			),
+		array(
 			'name'=>'status',
 			'header'=>'Estado',
 			),
@@ -129,11 +133,11 @@ $this->menu=array(
 			'header'=>'Creado por',
 			'filter'=>CHtml::listData(Users::model()->findAll(), 'id', 'username'),
 			'value'=>'$data->createdBy==null ? null : $data->createdBy->username'),
+		/*
 		array(
 			'name'=>'created',
 			'header'=>'Creado el',
 			),
-		/*
 		array(
 			'name'=>'modified_by',
 			'header'=>'Modificado por',
@@ -159,7 +163,6 @@ $this->menu=array(
 <script>
     var label ='Especie';
     var labelPlural ='Especies';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'<?php echo Yii::app()->controller->id ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';    
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';

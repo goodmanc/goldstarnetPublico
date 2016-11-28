@@ -17,13 +17,18 @@
 	</div>
 
 	<div>
+		<?php echo $form->label($model,'nombre'); ?>
+		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+	</div>
+
+	<div>
 		<?php echo $form->label($model,'especie_id'); ?>
 		<?php echo $form->dropDownListRow($model, 'especie_id', CHtml::listData(Especie::model()->findAll(), 'id', Especie::representingColumn())); ?>
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'nombre'); ?>
-		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+		<?php echo $form->label($model,'cliente_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
 	</div>
 
 	<div>

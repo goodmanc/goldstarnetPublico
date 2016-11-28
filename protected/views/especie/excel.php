@@ -28,6 +28,10 @@
 			'header'=>'Name',
 				),
 			array(
+				'name'=>'nombreCientifico',
+			'header'=>'Nombre Científico',
+				),
+			array(
 				'name'=>'status',
 			'header'=>'Estado',
 				),

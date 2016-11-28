@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>ContratoAgricultor <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>ContratoAgricultor <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
 ]</small></h5>
                 </div>
                 <div class="ibox-content">
@@ -21,15 +21,9 @@
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
                                                                     'id',
-                                                                    'nombre',
-                                                                                                                                                                                                                                                                                                                                array(
+                                                                    array(
 			'name'=>'temporada_id',
 			'value'=>($model->temporada !== null) ? CHtml::link($model->temporada, array('/temporada/view', 'id' => $model->temporada->id)).' ' : null,
-			'type'=>'html',
-		),
-                                                                    array(
-			'name'=>'contratoclientedetalle_id',
-			'value'=>($model->contratoclientedetalle !== null) ? CHtml::link($model->contratoclientedetalle, array('/contratoclientedetalle/view', 'id' => $model->contratoclientedetalle->id)).' ' : null,
 			'type'=>'html',
 		),
                                                                     array(
@@ -37,7 +31,17 @@
 			'value'=>($model->agricultor !== null) ? CHtml::link($model->agricultor, array('/agricultor/view', 'id' => $model->agricultor->id)).' ' : null,
 			'type'=>'html',
 		),
-                                                                ),
+                                                                    array(
+			'name'=>'especie_id',
+			'value'=>($model->especie !== null) ? CHtml::link($model->especie, array('/especie/view', 'id' => $model->especie->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    array(
+			'name'=>'contratoclientedetalle_id',
+			'value'=>($model->contratoclientedetalle !== null) ? CHtml::link($model->contratoclientedetalle, array('/contratoclientedetalle/view', 'id' => $model->contratoclientedetalle->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                                                                                                                                                                                                                                                                            ),
                                 )); ?>
                         </div>
                         <div class="col-sm-4">
@@ -45,14 +49,14 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                        'status',
+                                                                                                                                                                                                                                                                                'status',
                                                                         'used_by',
                                                                         'check_in',
                                                                         'created_by',
                                                                         'created',
                                                                         'modified_by',
                                                                         'modified',
-                                                                                                                                                                                        ),
+                                                                ),
                                 )); ?>
 
                         </div>

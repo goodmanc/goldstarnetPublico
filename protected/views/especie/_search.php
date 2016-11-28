@@ -32,6 +32,11 @@
 	</div>
 
 	<div>
+		<?php echo $form->label($model,'nombreCientifico'); ?>
+		<?php echo $form->textFieldRow($model, 'nombreCientifico', array('class' => 'span5', 'maxlength' => 50)); ?>
+	</div>
+
+	<div>
 		<?php echo $form->label($model,'status'); ?>
 		<?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
 	</div>

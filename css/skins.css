@@ -305,7 +305,7 @@ body.skin-3 {
   background: #ffffff;
 }
 .skin-3 .dashboard-header {
-  background: transparent;
+  /*background: transparent;*/
   border-bottom: none !important;
   border-top: none;
   padding: 20px 30px 10px 30px;

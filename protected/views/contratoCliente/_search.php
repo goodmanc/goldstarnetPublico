@@ -17,13 +17,13 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'temporada_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
+		<?php echo $form->label($model,'cliente_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'cliente_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
+		<?php echo $form->label($model,'temporada_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
 	</div>
 
 	<div>

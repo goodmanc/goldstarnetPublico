@@ -14,10 +14,11 @@ class FbColAsignadaController extends AweController
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+                        'rights', // perform access control for CRUD operations
+//			'accessControl', // perform access control for CRUD operations
+//			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
+        }
 
 	/**
 	 * Specifies the access control rules.
@@ -27,6 +28,7 @@ class FbColAsignadaController extends AweController
 	public function accessRules()
 	{
 		return array(
+                    /*
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -42,6 +44,7 @@ class FbColAsignadaController extends AweController
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+                    */
 		);
 	}
 
@@ -72,7 +75,7 @@ class FbColAsignadaController extends AweController
 		{
 			$model->attributes=$_POST['FbColAsignada'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('create',array(
@@ -96,7 +99,7 @@ class FbColAsignadaController extends AweController
 		{
 			$model->attributes=$_POST['FbColAsignada'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('update',array(
@@ -148,6 +151,22 @@ class FbColAsignadaController extends AweController
 			'model'=>$model,
                         'dataProvider'=>$dataProvider,
 		));
+	}
+        
+	/**
+	 * List all models in Excel.
+	 */
+	public function actionExcel()
+	{
+		$model=new FbColAsignada('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['FbColAsignada']))
+			$model->attributes=$_GET['FbColAsignada'];
+                $dataProvider=new CActiveDataProvider('FbColAsignada');
+		$this->render('excel',array(
+			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
+		));                
 	}
 
 	/**

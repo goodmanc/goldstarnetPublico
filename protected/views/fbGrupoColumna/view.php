@@ -4,7 +4,8 @@
 
 $this->breadcrumbs=array(
 	'Fb Grupo Columnas'=>array('index'),
-	$model->id,
+	$model->id=>array('view','id'=>$model->id),
+	'Update',
 );
 
 $this->menu=array(
@@ -16,21 +17,11 @@ $this->menu=array(
 );
 ?>
 
+
 <h1>Ver FbGrupoColumna #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-        'htmlOptions'=>array("class"=>"table table-striped"),
-	'attributes'=>array(
-		'id',
-		'fbCategoria_id',
-		'nombre',
-		'status',
-		'used_by',
-		'check_in',
-		'created_by',
-		'created',
-		'modified_by',
-		'modified',
-	),
-)); ?>
+<?php 
+	$view = '_view';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

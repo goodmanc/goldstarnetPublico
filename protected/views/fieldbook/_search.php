@@ -17,13 +17,18 @@
 	</div>
 
 	<div>
+		<?php echo $form->label($model,'nombre'); ?>
+		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+	</div>
+
+	<div>
 		<?php echo $form->label($model,'familia_id'); ?>
 		<?php echo $form->dropDownListRow($model, 'familia_id', CHtml::listData(Familia::model()->findAll(), 'id', Familia::representingColumn())); ?>
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'nombre'); ?>
-		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+		<?php echo $form->label($model,'temporada_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
 	</div>
 
 	<div>
@@ -59,11 +64,6 @@
 	<div>
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'temporada_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
 	</div>
 
 	<div class="buttons">

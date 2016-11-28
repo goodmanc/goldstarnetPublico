@@ -3,42 +3,45 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/gii/generators/crud/templates/inspinia-/_form.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/_form_custom.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/site/login.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/_form.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/admin.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/rights/components/RController.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/_search.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/especie/view.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/view.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/zii/widgets/CMenu.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/default/_form.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/user/components/WebUser.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/gii/generators/crud/templates/inspinia-/_search.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/ProyectoController.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/db/CDbCommand.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/Readme.txt</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/less/pages.less</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/js/dhtmlx/connector/db_phpyii.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/db/ar/CActiveRecord.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/_form.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/EspecieController.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/index.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/dhtmlx/gridbox_toolbar.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/controller.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/layouts/column1.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/gii/components/AweActiveRecord.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/user/UserModule.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/especie/update.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/EspecieController.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoAgricultor/index.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoClienteDetalle/create.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/js/dhtmlx/connector/grid_config.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoClienteDetalle/update.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente%20-%20copia/create.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/admin.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/js/dhtmlx/connector/grid_connector.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoAgricultor/_form.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/db/schema/CDbCommandBuilder.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/bootstrap/widgets/TbActiveForm.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/components/AweActiveForm.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/ContratoClienteController.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/themes/classic/views/layouts/login.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/js/dhtmlx/connector/db_common.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/_view.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/user/views/profile/changepassword.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/models/Especie.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/especie/index.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/rights/components/RightsFilter.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/themes/classic/views/layouts/main_rights.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/components/AweController.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/TemporadaController.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/ext/data/MyMenu.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/_search.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/db/schema/CDbCriteria.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/update.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente/create.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoAgricultor/admin.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/js/dhtmlx/connector/base_connector.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/themes/classic/views/layouts/main.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/especie/_view.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/yii/framework/web/CController.php</file>
             <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/config/main.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweModel/templates/default/_base/basemodel.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/update.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/extensions/AweCrud/generators/AweCrud/templates/inspinia/index.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/modules/rights/components/RWebUser.php</file>
-            <file>file:/C:/xampp/htdocs/goldstarnetPublico/themes/classic/views/layouts/menu.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/controllers/MonedaController.php</file>
+            <file>file:/C:/xampp/htdocs/goldstarnetPublico/protected/views/contratoCliente%20-%20copia/update.php</file>
         </group>
     </open-files>
 </project-private>

@@ -32,7 +32,7 @@ return false;
     <div class="col-lg-6">
         <h1>Contrato Agricultor</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,'tagName'=>'h4'
+            'links'=>$this->breadcrumbs,'tagName'=>'ol'
         ));
         ?>
     </div>
@@ -47,7 +47,7 @@ return false;
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Listado</h5>
-                <div class="ibox-tools">
+                <div class="ibox-tools" style="display:none;">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -138,12 +138,28 @@ return false;
 			'type'=>'html',
 			'htmlOptions'=>array('style'=>'word-wrap: break-word;'),
 			'headerHtmlOptions'=>array('style'=>'text-align:center;'),
-			'filterHtmlOptions'=>array('style'=>'width:70px'),
-			'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
+			'value'=>'"<div style=\"text-align:center;\">" . $data["id"] . "</div>"',
 			),
 		array(
-			'name'=>'nombre',
-			),
+			'name'=>'temporada_id',
+			'header'=>'Temporada',
+			'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
+			'value'=>'$data->temporada==null ? null : $data->temporada->year'),
+		array(
+			'name'=>'agricultor_id',
+			'header'=>'Agricultor',
+			'filter'=>CHtml::listData(Agricultor::model()->findAll(), 'id', 'rut'),
+			'value'=>'$data->agricultor==null ? null : $data->agricultor->rut'),
+		array(
+			'name'=>'especie_id',
+			'header'=>'',
+			'filter'=>CHtml::listData(Especie::model()->findAll(), 'id', 'familia_id'),
+			'value'=>'$data->especie==null ? null : $data->especie->familia_id'),
+		array(
+			'name'=>'contratoclientedetalle_id',
+			'header'=>'Variedad',
+			'filter'=>CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', 'contratoCliente_id'),
+			'value'=>'$data->contratoclientedetalle==null ? null : $data->contratoclientedetalle->contratoCliente_id'),
 		array(
 			'name'=>'status',
 			),
@@ -156,6 +172,7 @@ return false;
 		array(
 			'name'=>'created_by',
 			),
+		/*
 		array(
 			'name'=>'created',
 			),
@@ -165,22 +182,6 @@ return false;
 		array(
 			'name'=>'modified',
 			),
-		/*
-		array(
-			'name'=>'temporada_id',
-			'header'=>'',
-			'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
-			'value'=>'$data->temporada==null ? null : $data->temporada->year'),
-		array(
-			'name'=>'contratoclientedetalle_id',
-			'header'=>'',
-			'filter'=>CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', 'oventa_id'),
-			'value'=>'$data->contratoclientedetalle==null ? null : $data->contratoclientedetalle->oventa_id'),
-		array(
-			'name'=>'agricultor_id',
-			'header'=>'',
-			'filter'=>CHtml::listData(Agricultor::model()->findAll(), 'id', 'rut'),
-			'value'=>'$data->agricultor==null ? null : $data->agricultor->rut'),
 		*/
 ),
 )); ?>
@@ -195,34 +196,34 @@ return false;
     
     var label ='Contrato Agricultor';
     var labelPlural ='Contrato Agricultors';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'/<?php echo Yii::app()->controller->id ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';   
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';
     var myRibbon;
+    var winCreate, winView, winUpdate;
 
     function create() {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Crear "+label);
-        w1.centerOnScreen();
-        w1.attachURL(baseControllerUrl + "/create")
+        winCreate = dhxWins.createWindow('winCreate', 230, 130, 960, 600);
+        winCreate.setText('Crear '+label);
+        winCreate.centerOnScreen();
+        winCreate.attachURL(baseControllerUrl + '/create')
     }
 
     function view(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Ver "+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winView = dhxWins.createWindow('winView', 230, 130, 960, 600);
+        winView.setText('Ver '+label);
+        winView.centerOnScreen();
+        winView.attachURL(href)
     }
 
     function update(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Modificar "+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winUpdate = dhxWins.createWindow('winUpdate', 230, 130, 960, 600);
+        winUpdate.setText('Modificar '+label);
+        winUpdate.centerOnScreen();
+        winUpdate.attachURL(href)
     }
 
     function excel() {
@@ -232,18 +233,16 @@ return false;
     function startToolbar() {
         var sep = 1;
         myToolbar = new dhtmlXToolbarObject({
-                parent: "toolbarObj",
-                icon_path: baseImgsUrl + "/common/imgs/",
+                parent: 'toolbarObj',
+                icon_path: baseImgsUrl + '/common/imgs/',
                 items: [
-                        {type: "text", id: "info", text: "Toolbar"},
-                        {type: "separator", id: "sep"+sep++},
-                        {type: "button", id: "create", tooltip: "Crear", img: "new.gif"},
-                        {type: "separator", id: "sep"+sep++},
-                        {type: "button", id: "excel", tooltip: "Descargar Excel", img: "../18/excel.png"},
-                        {type: "separator", id: "sep"+sep++},
+                        {type: 'button', id: 'create', text: 'Crear', title: 'Crear', img: 'new.gif'},
+                        {type: 'separator', id: 'sep'+sep++},
+                        {type: 'button', id: 'excel', text: 'Descargar Excel', title: 'Descargar Excel', img: '../18/excel.png'},
+                        {type: 'separator', id: 'sep'+sep++},
                 ]
         });
-        myToolbar.attachEvent("onClick", function(id){
+        myToolbar.attachEvent('onClick', function(id){
             switch (id) {
                 case 'create': create();
                             break;
@@ -254,20 +253,20 @@ return false;
     }
     function startRibbon() {
         var data = {
-            parent: "ribbonObj",
-            icons_path: baseImgsUrl + "/common/",
+            parent: 'ribbonObj',
+            icons_path: baseImgsUrl + '/common/',
             items: [
                 {
                     type: 'block', list: [
-                        {type: 'button', text: 'Excel', img: "48/excel.png", isbig: true}
+                        {type: 'button', text: 'Excel', img: '48/excel.png', isbig: true}
                     ]}
             ]
         };
         var w = data.items.length*80;
         myRibbon = new dhtmlXRibbon(data);
         // if you change parent's size
-        document.getElementById("ribbonObj").style.width = w+"px";
-//        document.getElementById("ribbonObj").style.height = "100%";
+        document.getElementById('ribbonObj').style.width = w+'px';
+//        document.getElementById('ribbonObj').style.height = '100%';
 
         // tabbar needs to be adjusted
         myRibbon.setSizes();

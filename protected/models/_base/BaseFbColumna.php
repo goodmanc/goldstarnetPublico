@@ -12,6 +12,8 @@
  * @property integer $id
  * @property integer $fbGrupoColumna_id
  * @property string $nombre
+ * @property string $tipo
+ * @property integer $orden
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -24,6 +26,7 @@
  * @property Fbgrupocolumna $fbGrupoColumna
  */
 abstract class BaseFbColumna extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -43,13 +46,18 @@ abstract class BaseFbColumna extends AweActiveRecord {
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'fbGrupoColumna_id, used_by, created_by, modified_by',
+            array(	'fbGrupoColumna_id, orden, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
             array(	'nombre',
 					'length',
 					'max'=>50,
+					'tooLong' => Yii::t('app', 'Field is required')
+			),
+            array(	'tipo',
+					'length',
+					'max'=>20,
 					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'status',
@@ -60,18 +68,18 @@ abstract class BaseFbColumna extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('status, used_by, check_in, created_by, created, modified_by, modified',
+            array('tipo, orden, status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, fbGrupoColumna_id, nombre, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, fbGrupoColumna_id, nombre, tipo, orden, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
     public function relations() {
         return array(
-            'fbcolasignadas' => array(self::HAS_MANY, 'Fbcolasignada', 'fbColumna_id'),
+            'fbcolasignadas' => array(self::HAS_MANY, 'Fbcolasignada', 'fbcolumna_id'),
             'fbGrupoColumna' => array(self::BELONGS_TO, 'Fbgrupocolumna', 'fbGrupoColumna_id'),
         );
     }
@@ -84,6 +92,8 @@ abstract class BaseFbColumna extends AweActiveRecord {
                 'id' => Yii::t('app', 'ID'),
                 'fbGrupoColumna_id' => Yii::t('app', 'Fb Grupo Columna'),
                 'nombre' => Yii::t('app', 'Nombre'),
+                'tipo' => Yii::t('app', 'Tipo'),
+                'orden' => Yii::t('app', 'Orden'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -102,6 +112,8 @@ abstract class BaseFbColumna extends AweActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('fbGrupoColumna_id', $this->fbGrupoColumna_id);
         $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('tipo', $this->tipo, true);
+        $criteria->compare('orden', $this->orden);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);

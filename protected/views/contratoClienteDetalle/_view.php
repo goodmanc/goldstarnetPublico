@@ -21,7 +21,11 @@
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
                                                                     'id',
-                                                                    'contratoCliente_id',
+                                                                    array(
+			'name'=>'contratoCliente_id',
+			'value'=>($model->contratoCliente !== null) ? CHtml::link($model->contratoCliente, array('/contratocliente/view', 'id' => $model->contratoCliente->id)).' ' : null,
+			'type'=>'html',
+		),
                                                                     array(
 			'name'=>'variedad_id',
 			'value'=>($model->variedad !== null) ? CHtml::link($model->variedad, array('/variedad/view', 'id' => $model->variedad->id)).' ' : null,
@@ -41,7 +45,6 @@
                                                                     'price',
                                                                     'lineTotal',
                                                                     'totalFrgn',
-                                                                    'proyecto_id',
                                                                     'stockSeed',
                                                                     'proyect',
                                                                                                                                                                                                                                                                                                                             ),
@@ -52,7 +55,7 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'status',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                'status',
                                                                         'used_by',
                                                                         'check_in',
                                                                         'created_by',

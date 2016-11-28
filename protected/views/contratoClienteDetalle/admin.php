@@ -8,7 +8,12 @@ $this->breadcrumbs=array(
 	'Contrato Cliente Detalle'=>array('index'),
 	'Administración',
 );
-$controllerID = $this->id;
+//$controllerID = $this->id;
+$controllerID = !isset($controllerID) ? $this->id : $controllerID;
+$isHeader = !isset($isHeader) ? true : $isHeader;
+$isFilter = !isset($isFilter) ? true : $isFilter;
+$isListTitle = !isset($isListTitle) ? true : $isListTitle;
+
 $this->menu=array(
 array('label'=>'Listar ContratoClienteDetalle', 'icon' => '<i class="fa fa-list-alt"></i>', 'url'=>array('index')),
 array('label'=>'Crear ContratoClienteDetalle', 'icon' => '<i class="fa fa-plus-square-o"></i>', 'url'=>array('create')),
@@ -28,6 +33,8 @@ return false;
 ");
 ?>
 
+<?php 
+if ($isHeader) { ?>    
 <div class="row wrapper border-bottom yellow-bg page-heading">
     <div class="col-lg-6">
         <h1>Contrato Cliente Detalle</h1>
@@ -40,11 +47,12 @@ return false;
         <div id="ribbonObj"></div>
     </div>
 </div>
-
+<?php } ?>
 
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
+            <?php if ($isListTitle) { ?>
             <div class="ibox-title">
                 <h5>Listado</h5>
                 <div class="ibox-tools" style="display:none;">
@@ -59,6 +67,7 @@ return false;
                     </a>
                 </div>
             </div>
+            <?php } ?>
                 <div id="toolbarObj"></div>
             <div class="ibox-content">
                 <div id="editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -67,13 +76,10 @@ return false;
 
 
 
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
 <?php 
+    if (isset($parentID))
+        $model->attributes=array("contratoCliente_id"=>$parentID);
+    
     $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'contrato-cliente-detalle-grid',
     'itemsCssClass'=>"table table-striped table-bordered table-hover table-condensed",
@@ -93,7 +99,7 @@ return false;
     'template'=>'<div class="gridHeader"></div><div class="table-responsive table-bordered">{items}</div><div class="gridFooter"><div class="row"><div class="cols-lg-6 pull-right">{pager}</div><div class="cols-lg-6">{summary}</div></div></div>',
     'summaryText' => 'Mostrando {start} - {end} de {count} registros',
     'dataProvider'=>$model->search(),
-    'filter'=>$model,
+    'filter'=> $isFilter ? $model : null,
     'columns'=>array(
         array(
         'name' => 'check',
@@ -140,14 +146,16 @@ return false;
 			'headerHtmlOptions'=>array('style'=>'text-align:center;'),
 			'value'=>'"<div style=\"text-align:center;\">" . $data["id"] . "</div>"',
 			),
-		array(
-			'name'=>'contratoCliente_id',
-			),
-		array(
-			'name'=>'variedad_id',
-			'header'=>'',
-			'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'especie_id'),
-			'value'=>'$data->variedad==null ? null : $data->variedad->especie_id'),
+//		array(
+//			'name'=>'contratoCliente_id',
+//			'header'=>'',
+//			'filter'=>CHtml::listData(Contratocliente::model()->findAll(), 'id', 'temporada_id'),
+//			'value'=>'$data->contratoCliente==null ? null : $data->contratoCliente->temporada_id'),
+//		array(
+//			'name'=>'variedad_id',
+//			'header'=>'',
+//			'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre'),
+//			'value'=>'$data->variedad==null ? null : $data->variedad->nombre'),
 		array(
 			'name'=>'subNumCat',
 			),
@@ -180,9 +188,6 @@ return false;
 			),
 		array(
 			'name'=>'totalFrgn',
-			),
-		array(
-			'name'=>'proyecto_id',
 			),
 		array(
 			'name'=>'stockSeed',
@@ -226,7 +231,7 @@ return false;
     var label ='Contrato Cliente Detalle';
     var labelPlural ='Contrato Cliente Detalles';
     var baseUrl = '/goldstarnetPublico/';
-    var baseControllerUrl = baseUrl+'/<?php echo Yii::app()->controller->id ?>';
+    var baseControllerUrl = baseUrl+'/<?php echo $controllerID ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';   
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';
     var myRibbon;
@@ -236,7 +241,7 @@ return false;
         w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
         w1.setText('Crear '+label);
         w1.centerOnScreen();
-        w1.attachURL(baseControllerUrl + '/create')
+        w1.attachURL(baseControllerUrl + '/create/?'+'<?php echo isset($parentID) ? "contratocliente_id={$parentID}" : "" ; ?>')
     }
 
     function view(href) {

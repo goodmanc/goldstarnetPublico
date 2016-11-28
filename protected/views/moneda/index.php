@@ -137,7 +137,6 @@ $this->menu=array(
 <script>
     var label ='Moneda';
     var labelPlural ='Monedas';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'<?php echo Yii::app()->controller->id ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';    
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';

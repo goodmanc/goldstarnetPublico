@@ -20,6 +20,14 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/animate.css">
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css">
 
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/dhtmlx_clouds/dhtmlx.css">
+
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-2.1.1.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/dhtmlx/dhtmlx.js"></script>
+
+        <script>
+        var baseUrl = '<?php echo YII::app()->baseUrl; ?>';
+        </script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -50,6 +58,5 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/inspinia.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/pace/pace.min.js"></script>
 
-       
-</body>
+    </body>
 </html>

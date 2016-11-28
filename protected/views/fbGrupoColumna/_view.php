@@ -1,51 +1,50 @@
-<?php
+<?php 
 /* @var $this FbGrupoColumnaController */
 /* @var $data FbGrupoColumna */
+
 ?>
 
-<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>FbGrupoColumna <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
+]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                    'id',
+                                                                    'nombre',
+                                                                    'orden',
+                                                                                                                                                                                                                                                                                                                            ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                                                                                                                                                'status',
+                                                                        'used_by',
+                                                                        'check_in',
+                                                                        'created_by',
+                                                                        'created',
+                                                                        'modified_by',
+                                                                        'modified',
+                                                                ),
+                                )); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fbCategoria_id')); ?>:</b>
-	<?php echo CHtml::encode($data->fbCategoria_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nombre')); ?>:</b>
-	<?php echo CHtml::encode($data->nombre); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('used_by')); ?>:</b>
-	<?php echo CHtml::encode($data->used_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('check_in')); ?>:</b>
-	<?php echo CHtml::encode($data->check_in); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_by')); ?>:</b>
-	<?php echo CHtml::encode($data->created_by); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_by')); ?>:</b>
-	<?php echo CHtml::encode($data->modified_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

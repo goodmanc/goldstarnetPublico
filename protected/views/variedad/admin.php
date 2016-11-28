@@ -141,13 +141,18 @@ return false;
 			'value'=>'"<div style=\"text-align:center;\">" . $data["id"] . "</div>"',
 			),
 		array(
+			'name'=>'nombre',
+			),
+		array(
 			'name'=>'especie_id',
 			'header'=>'',
 			'filter'=>CHtml::listData(Especie::model()->findAll(), 'id', 'familia_id'),
 			'value'=>'$data->especie==null ? null : $data->especie->familia_id'),
 		array(
-			'name'=>'nombre',
-			),
+			'name'=>'cliente_id',
+			'header'=>'',
+			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->cliente==null ? null : $data->cliente->nombre'),
 		array(
 			'name'=>'codigoGoldStar',
 			),
@@ -163,10 +168,10 @@ return false;
 		array(
 			'name'=>'created_by',
 			),
+		/*
 		array(
 			'name'=>'created',
 			),
-		/*
 		array(
 			'name'=>'modified_by',
 			),

@@ -166,7 +166,6 @@ $this->menu=array(
 <script>
     var label ='<?php echo $label; ?>';
     var labelPlural ='<?php echo $labelPlural; ?>';
-    var baseUrl = '<?php echo YII::app()->baseUrl . '/'; ?>';
     var baseControllerUrl = baseUrl+'<?php echo '<?php echo Yii::app()->controller->id ?>'; ?>';
     var queryString = '<?php echo '<?php echo Yii::app()->request->getQueryString(); ?>'; ?>';    
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';

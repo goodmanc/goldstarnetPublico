@@ -19,5 +19,5 @@ $this->menu=array(
 <?php 
 	$view = '_form';
 	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
-	$this->renderPartial($view, array('model'=>$model));
+	$this->renderPartial($view, array('model'=>$model,'modelParent'=>$modelParent));
  ?>

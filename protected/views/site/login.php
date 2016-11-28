@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 );
 ?>
             <div>
-                <img src="<?php echo YII::app()->baseUrl; ?>/images/logos/goldstar.png">
+                <img src="<?php echo YII::app()->baseUrl; ?>/images/logos/goldstar.png" width="400">
                 <!--<h1 class="logo-name">GSN</h1>-->
             </div>
             <h3>Welcome to GSN</h3>

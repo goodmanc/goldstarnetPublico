@@ -1,199 +1,190 @@
 <?php
 
-class TemporadaController extends AweController
-{
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
+class TemporadaController extends AweController {
 
-	/**
-	 * @return array action filters
-	 */
-	public function filters()
-	{
-		return array(
-                        'rights', // perform access control for CRUD operations
+    /**
+     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+     * using two-column layout. See 'protected/views/layouts/column2.php'.
+     */
+    public $layout = '//layouts/column2';
+
+    /**
+     * @return array action filters
+     */
+    public function filters() {
+        return array(
+            'rights', // perform access control for CRUD operations
 //			'accessControl', // perform access control for CRUD operations
 //			'postOnly + delete', // we only allow deletion via POST request
-		);
+        );
+    }
+
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules() {
+        return array(
+                /*
+                  array('allow',  // allow all users to perform 'index' and 'view' actions
+                  'actions'=>array('index','view'),
+                  'users'=>array('*'),
+                  ),
+                  array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                  'actions'=>array('create','update'),
+                  'users'=>array('@'),
+                  ),
+                  array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                  'actions'=>array('admin','delete'),
+                  'users'=>array('admin'),
+                  ),
+                  array('deny',  // deny all users
+                  'users'=>array('*'),
+                  ),
+                 */
+        );
+    }
+
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id) {
+        $reload_parent = 0;
+        if (isset($_GET['reload_parent']))
+            $reload_parent = $_GET['reload_parent'];
+        $this->layout = '//layouts/clear';
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+            'reload_parent'=>$reload_parent,
+        ));
+    }
+
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionCreate() {
+        $model = new Temporada;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['Temporada'])) {
+            $model->attributes = $_POST['Temporada'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
+        $this->layout = '//layouts/clear';
+        $this->render('create', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-                    /*
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-                    */
-		);
-	}
+    /**
+     * Updates a  particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id) {
+        $model = $this->loadModel($id);
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-                $this->layout ='//layouts/clear';
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Temporada;
+        if (isset($_POST['Temporada'])) {
+            $model->attributes = $_POST['Temporada'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id, 'reload_parent' => 1));
+        }
+        $this->layout = '//layouts/clear';
+        $this->render('update', array(
+            'model' => $model,
+        ));
+    }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     */
+    public function actionDelete($id) {
+        $this->loadModel($id)->delete();
 
-		if(isset($_POST['Temporada']))
-		{
-			$model->attributes=$_POST['Temporada'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-                $this->layout ='//layouts/clear';
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
 
-	/**
-	 * Updates a  particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
+    /**
+     * Lists all models.
+     */
+    public function actionIndex() {
+        $model = new Temporada('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Temporada']))
+            $model->attributes = $_GET['Temporada'];
+        $dataProvider = new CActiveDataProvider('Temporada');
+        $this->render('index', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ));
+    }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin() {
+        $model = new Temporada('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Temporada']))
+            $model->attributes = $_GET['Temporada'];
+        $dataProvider = new CActiveDataProvider('Temporada');
+        $this->render('admin', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ));
+    }
 
-		if(isset($_POST['Temporada']))
-		{
-			$model->attributes=$_POST['Temporada'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-                $this->layout ='//layouts/clear';
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+    /**
+     * List all models in Excel.
+     */
+    public function actionExcel() {
+        $model = new Temporada('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Temporada']))
+            $model->attributes = $_GET['Temporada'];
+        $dataProvider = new CActiveDataProvider('Temporada');
+        $this->render('excel', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ));
+    }
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer $id the ID of the model to be loaded
+     * @return Temporada the loaded model
+     * @throws CHttpException
+     */
+    public function loadModel($id) {
+        $model = Temporada::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
+    /**
+     * Performs the AJAX validation.
+     * @param Temporada $model the model to be validated
+     */
+    protected function performAjaxValidation($model) {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'temporada-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$model=new Temporada('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Temporada']))
-			$model->attributes=$_GET['Temporada'];
-		$dataProvider=new CActiveDataProvider('Temporada');
-		$this->render('index',array(
-                        'model'=>$model,
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Temporada('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Temporada']))
-			$model->attributes=$_GET['Temporada'];
-                $dataProvider=new CActiveDataProvider('Temporada');
-		$this->render('admin',array(
-			'model'=>$model,
-                        'dataProvider'=>$dataProvider,
-		));
-	}
-        
-	/**
-	 * List all models in Excel.
-	 */
-	public function actionExcel()
-	{
-		$model=new Temporada('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Temporada']))
-			$model->attributes=$_GET['Temporada'];
-                $dataProvider=new CActiveDataProvider('Temporada');
-		$this->render('excel',array(
-			'model'=>$model,
-                        'dataProvider'=>$dataProvider,
-		));                
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer $id the ID of the model to be loaded
-	 * @return Temporada the loaded model
-	 * @throws CHttpException
-	 */
-	public function loadModel($id)
-	{
-		$model=Temporada::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param Temporada $model the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='temporada-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
 }

@@ -49,13 +49,18 @@
                                 <?php echo $form->error($model, 'nombre'); ?>
                             </div>                            
                           <div>
+                                <?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+                		<?php echo $form->error($model,'nombre'); ?>
+                            </div>
+
+                          <div>
                                 <?php echo $form->dropDownListRow($model, 'especie_id', CHtml::listData(Especie::model()->findAll(), 'id', Especie::representingColumn())); ?>
                 		<?php echo $form->error($model,'especie_id'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
-                		<?php echo $form->error($model,'nombre'); ?>
+                                <?php echo $form->dropDownListRow($model, 'cliente_id', CHtml::listData(Cliente::model()->findAll(), 'id', Cliente::representingColumn())); ?>
+                		<?php echo $form->error($model,'cliente_id'); ?>
                             </div>
 
                           <div>

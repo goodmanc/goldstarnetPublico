@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 	'Fb Col Asignada'=>array('index'),
 	'Administración',
 );
-
+$controllerID = $this->id;
 $this->menu=array(
 array('label'=>'Listar FbColAsignada', 'icon' => '<i class="fa fa-list-alt"></i>', 'url'=>array('index')),
 array('label'=>'Crear FbColAsignada', 'icon' => '<i class="fa fa-plus-square-o"></i>', 'url'=>array('create')),
@@ -32,7 +32,7 @@ return false;
     <div class="col-lg-6">
         <h1>Fb Col Asignada</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,'tagName'=>'h4'
+            'links'=>$this->breadcrumbs,'tagName'=>'ol'
         ));
         ?>
     </div>
@@ -47,7 +47,7 @@ return false;
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Listado</h5>
-                <div class="ibox-tools">
+                <div class="ibox-tools" style="display:none;">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -73,7 +73,7 @@ return false;
 )); ?>
 </div><!-- search-form -->
 
-<?php $controllerID = $this->id;
+<?php 
     $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'fb-col-asignada-grid',
     'itemsCssClass'=>"table table-striped table-bordered table-hover table-condensed",
@@ -106,7 +106,7 @@ return false;
         'header' => 'FN',
         'class'=>'CButtonColumn',
         'headerHtmlOptions'=>array('style'=>'text-align:center;'),
-        'template'=>'<div style="text-align:center;">{view2}{update2}{delete}</div>',
+        'template'=>'<div style="text-align:center;width:50px;display:-webkit-flex;-webkit-flex-wrap:wrap;display:flex;flex-wrap:wrap;">{view2}{update2}{delete}</div>',
         'buttons' => array(
             'view2' => array(
                 'label'=>'View', 
@@ -133,23 +133,45 @@ return false;
             ),
         ),
     ),
-		'id',
+		array(
+			'name'=>'id',
+			'type'=>'html',
+			'htmlOptions'=>array('style'=>'word-wrap: break-word;'),
+			'headerHtmlOptions'=>array('style'=>'text-align:center;'),
+			'value'=>'"<div style=\"text-align:center;\">" . $data["id"] . "</div>"',
+			),
 		array(
 			'name'=>'fieldbook_id',
-			'filter'=>CHtml::listData(Familia::model()->findAll(), 'id', 'nombre'),
-			'value'=>'$data->fieldbook->nombre'),
+			'header'=>'',
+			'filter'=>CHtml::listData(Fieldbook::model()->findAll(), 'id', 'nombre'),
+			'value'=>'$data->fieldbook==null ? null : $data->fieldbook->nombre'),
 		array(
 			'name'=>'fbColumna_id',
-			'filter'=>CHtml::listData(Familia::model()->findAll(), 'id', 'nombre'),
-			'value'=>'$data->fbcolumna->nombre'),
-		'status',
-		'used_by',
-		'check_in',
+			'header'=>'',
+			'filter'=>CHtml::listData(Fbcolumna::model()->findAll(), 'id', 'fbGrupoColumna_id'),
+			'value'=>'$data->fbColumna==null ? null : $data->fbColumna->fbGrupoColumna_id'),
+		array(
+			'name'=>'status',
+			),
+		array(
+			'name'=>'used_by',
+			),
+		array(
+			'name'=>'check_in',
+			),
+		array(
+			'name'=>'created_by',
+			),
+		array(
+			'name'=>'created',
+			),
+		array(
+			'name'=>'modified_by',
+			),
 		/*
-		'created_by',
-		'created',
-		'modified_by',
-		'modified',
+		array(
+			'name'=>'modified',
+			),
 		*/
 ),
 )); ?>
@@ -164,72 +186,77 @@ return false;
     
     var label ='Fb Col Asignada';
     var labelPlural ='Fb Col Asignadas';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'/<?php echo Yii::app()->controller->id ?>';
+    var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';   
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';
     var myRibbon;
+    var winCreate, winView, winUpdate;
 
     function create() {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Crear "+label);
-        w1.centerOnScreen();
-        w1.attachURL(baseControllerUrl + "/create")
+        winCreate = dhxWins.createWindow('winCreate', 230, 130, 960, 600);
+        winCreate.setText('Crear '+label);
+        winCreate.centerOnScreen();
+        winCreate.attachURL(baseControllerUrl + '/create')
     }
 
     function view(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Ver "+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winView = dhxWins.createWindow('winView', 230, 130, 960, 600);
+        winView.setText('Ver '+label);
+        winView.centerOnScreen();
+        winView.attachURL(href)
     }
 
     function update(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow("w1", 230, 130, 960, 600);
-        w1.setText("Modificar "+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winUpdate = dhxWins.createWindow('winUpdate', 230, 130, 960, 600);
+        winUpdate.setText('Modificar '+label);
+        winUpdate.centerOnScreen();
+        winUpdate.attachURL(href)
     }
 
+    function excel() {
+        document.location.href = baseControllerUrl + '/excel?'+queryString;
+    } 
+    
     function startToolbar() {
         var sep = 1;
         myToolbar = new dhtmlXToolbarObject({
-                parent: "toolbarObj",
-                icon_path: baseImgsUrl + "/common/imgs/",
+                parent: 'toolbarObj',
+                icon_path: baseImgsUrl + '/common/imgs/',
                 items: [
-                        {type: "text", id: "info", text: "Toolbar"},
-                        {type: "separator", id: "sep"+sep++},
-                        {type: "button", id: "create", tooltip: "Crear", img: "new.gif"},
-                        {type: "separator", id: "sep"+sep++},
-                        {type: "button", id: "excel", tooltip: "Descargar Excel", img: "../18/excel.png"},
-                        {type: "separator", id: "sep"+sep++},
+                        {type: 'button', id: 'create', text: 'Crear', title: 'Crear', img: 'new.gif'},
+                        {type: 'separator', id: 'sep'+sep++},
+                        {type: 'button', id: 'excel', text: 'Descargar Excel', title: 'Descargar Excel', img: '../18/excel.png'},
+                        {type: 'separator', id: 'sep'+sep++},
                 ]
         });
-        myToolbar.attachEvent("onClick", function(id){
+        myToolbar.attachEvent('onClick', function(id){
             switch (id) {
                 case 'create': create();
+                            break;
+                case 'excel': excel();
                             break;
             }
         });
     }
     function startRibbon() {
         var data = {
-            parent: "ribbonObj",
-            icons_path: baseImgsUrl + "/common/",
+            parent: 'ribbonObj',
+            icons_path: baseImgsUrl + '/common/',
             items: [
                 {
                     type: 'block', list: [
-                        {type: 'button', text: 'Excel', img: "48/excel.png", isbig: true}
+                        {type: 'button', text: 'Excel', img: '48/excel.png', isbig: true}
                     ]}
             ]
         };
         var w = data.items.length*80;
         myRibbon = new dhtmlXRibbon(data);
         // if you change parent's size
-        document.getElementById("ribbonObj").style.width = w+"px";
-//        document.getElementById("ribbonObj").style.height = "100%";
+        document.getElementById('ribbonObj').style.width = w+'px';
+//        document.getElementById('ribbonObj').style.height = '100%';
 
         // tabbar needs to be adjusted
         myRibbon.setSizes();

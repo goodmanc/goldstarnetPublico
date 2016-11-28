@@ -17,4 +17,7 @@ class FbColumna extends BaseFbColumna
         return Yii::t('app', 'FbColumna|FbColumnas', $n);
     }
 
+    public function getFullColumna(){
+        return '['.$this->fbGrupoColumna->nombre.'] '.$this->nombre;
+    }
 }

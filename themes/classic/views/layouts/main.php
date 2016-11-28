@@ -1,6 +1,7 @@
 <?php /* @var $this Controller */ ?>
-<?php 
-    $profile = User::model()->findByPk(Yii::app()->user->id)->profile;
+<?php
+$user = User::model()->findByPk(Yii::app()->user->id);
+$profile = User::model()->findByPk(Yii::app()->user->id)->profile;
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,11 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/dhtmlx_clouds/dhtmlx.css">
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-2.1.1.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/dhtmlx/dhtmlx.js"></script>
+        
+        <script>
+        var baseUrl = '<?php echo YII::app()->baseUrl; ?>';
+        </script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -34,82 +40,99 @@
         <div id="wrapper">
             <nav class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
-                    
-                        <?php
-                        $this->widget('application.components.MyMenu', array(
-                            'activateItemsOuter' => true,
-                            'linkLabelWrapper' => 'span',
-                            'activateItems' => true,
-                            'activateParents' => true,
-                            'itemTemplate' => '{menu}',
-                            'id' => 'side-menu',
-                            'icon_sublevel' => '<span class="fa arrow"></span>',
-                            'items' => array(
-                                array('label' => '<div class="dropdown profile-element">
+
+                    <?php
+                    $this->widget('application.components.MyMenu', array(
+                        'activateItemsOuter' => true,
+                        'linkLabelWrapper' => 'span',
+                        'activateItems' => true,
+                        'activateParents' => true,
+                        'itemTemplate' => '{menu}',
+                        'id' => 'side-menu',
+                        'icon_sublevel' => '<span class="fa arrow"></span>',
+                        'items' => array(
+                            array('label' => '<div class="dropdown profile-element">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">'.$profile->firstname.' '.$profile->lastname.'</strong>
-                                        </span> <span class="text-muted text-xs block">'.$profile->position.'</span> </span> </a>
+                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">' . $profile->firstname . ' ' . $profile->lastname . '</strong>
+                                        </span> <span class="text-muted text-xs block">' . $profile->position . '</span> </span> </a>
                                     </div>
                                     <div class="logo-element">
                                         GSNet
                                     </div>',
-                                    'encodeLabel' => false, 'itemOptions' => array('class'=>'nav-header')),
-                                array('label' => 'Inicio', 'url' => array('/site/index'), 'icon' => '<i class="fa fa-th-large"></i>'),
-                                array('label' => 'Administración', 'url' => array('#'),
-                                    'template'=>'{menu}{icon2}',
-                                    'icon' => '<i class="fa fa-desktop"></i>',
-                                    'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
-                                    'items' => array(
-                                        array('label' => 'General', 'url' => array('/especie/index'),
-                                            'submenuHtmlOptions' => array('class' => 'nav nav-third-level collapse'),
-                                            'items' => array(
-                                                array('label' => 'Temporadas', 'url' => array('/temporada/admin') , 'visible'=>(int)Yii::app()->user->checkAccess('Temporada.admin')),
-                                                array('label' => 'Monedas', 'url' => array('/moneda/admin'), 'visible'=>(int)Yii::app()->user->checkAccess('Moneda.admin')),
-                                                array('label' => 'Familias', 'url' => array('/familia/admin'), 'visible'=>Yii::app()->user->checkAccess('Familia.admin')),
-                                                array('label' => 'Especies', 'url' => array('/especie/admin'), 'visible'=>Yii::app()->user->checkAccess('Especie.admin')),
-                                                array('label' => 'Clientes', 'url' => array('/cliente/admin'), 'visible'=>Yii::app()->user->checkAccess('Cliente.admin')),
-                                                array('label' => 'Paises', 'url' => array('/pais/admin'), 'visible'=>Yii::app()->user->checkAccess('Pais.admin')),
-                                            ),
-                                    )),
-                                    'visible'=> (
-                                                    Yii::app()->user->checkAccess('Temporada.admin') 
-                                                 || Yii::app()->user->checkAccess('Moneda.admin')
-                                                 || Yii::app()->user->checkAccess('Familia.admin')
-                                                 || Yii::app()->user->checkAccess('Especie.admin')
-                                                 || Yii::app()->user->checkAccess('Cliente.admin')
-                                                 || Yii::app()->user->checkAccess('Pais.admin')
-                                                ),
-                                ),
-                                array('label' => 'Clientes', 'url' => array('#'),
-                                    'icon' => '<i class="fa fa-edit"></i>',
-                                    'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
-                                    'items' => array(
-                                        array('label' => 'Administración', 'url' => array('/cliente/index')),
-                                        array('label' => 'Catálogo', 'url' => array('/catalogo/list')),
-                                        array('label' => 'Contratos', 'url' => array('/contratocliente/index')),
+                                'encodeLabel' => false, 'itemOptions' => array('class' => 'nav-header')),
+                            array('label' => 'Inicio', 'url' => array('/site/index'), 'icon' => '<i class="fa fa-th-large"></i>'),
+                            array('label' => 'Administración', 'url' => array('#'),
+                                'template' => '{menu}{icon2}',
+                                'icon' => '<i class="fa fa-desktop"></i>',
+                                'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
+                                'items' => array(
+                                    array('label' => 'General', 'url' => array('/especie/index'),
+                                        'submenuHtmlOptions' => array('class' => 'nav nav-third-level collapse'),
+                                        'items' => array(
+                                            array('label' => 'Temporadas', 'url' => array('/temporada/admin'), 'visible' => (int) Yii::app()->user->checkAccess('Temporada.admin')),
+                                            array('label' => 'Monedas', 'url' => array('/moneda/admin'), 'visible' => (int) Yii::app()->user->checkAccess('Moneda.admin')),
+                                            array('label' => 'Familias', 'url' => array('/familia/admin'), 'visible' => Yii::app()->user->checkAccess('Familia.admin')),
+                                            array('label' => 'Especies', 'url' => array('/especie/admin'), 'visible' => Yii::app()->user->checkAccess('Especie.admin')),
+                                            array('label' => 'Clientes', 'url' => array('/cliente/admin'), 'visible' => Yii::app()->user->checkAccess('Cliente.admin')),
+                                            array('label' => 'Paises', 'url' => array('/pais/admin'), 'visible' => Yii::app()->user->checkAccess('Pais.admin')),
+                                        ),
+                                        'visible' => (
+                                        Yii::app()->user->checkAccess('Temporada.admin') || Yii::app()->user->checkAccess('Moneda.admin') || Yii::app()->user->checkAccess('Familia.admin') || Yii::app()->user->checkAccess('Especie.admin') || Yii::app()->user->checkAccess('Cliente.admin') || Yii::app()->user->checkAccess('Pais.admin')
+                                        ),
                                     )
                                 ),
-                                array('label' => 'Agricultores', 'url' => array('#'),
-                                    'icon' => '<i class="fa fa-edit"></i>',
-                                    'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
-                                    'items' => array(
-                                        array('label' => 'Administración', 'url' => array('/agricultor/index')),
-                                        array('label' => 'Contratos', 'url' => array('/contratoagricultor/index')),
-                                    )
+                                'visible' => (
+                                Yii::app()->user->checkAccess('Temporada.admin') || Yii::app()->user->checkAccess('Moneda.admin') || Yii::app()->user->checkAccess('Familia.admin') || Yii::app()->user->checkAccess('Especie.admin') || Yii::app()->user->checkAccess('Cliente.admin') || Yii::app()->user->checkAccess('Pais.admin')
                                 ),
-                                array('label' => 'Autorizaciones', 'url' => array('/rights'), 'visible'=>Yii::app()->user->checkAccess('Especie.admin')),
-                                array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest),
-                                /* array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest), */
-                                /* array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest), */
+                            ),
+                            array('label' => 'Clientes', 'url' => array('#'),
+                                'icon' => '<i class="fa fa-edit"></i>',
+                                'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
+                                'items' => array(
+                                    array('label' => 'Administración', 'url' => array('/cliente/admin')),
+                                    array('label' => 'Contratos', 'url' => array('/contratoCliente/admin')),
+                                    array('label' => 'Variedades', 'url' => array('/variedad/admin')),
+                                )
+                            ),
+                            array('label' => 'Agricultores', 'url' => array('#'),
+                                'icon' => '<i class="fa fa-edit"></i>',
+                                'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
+                                'items' => array(
+                                    array('label' => 'Administración', 'url' => array('/agricultor/admin')),
+                                    array('label' => 'Contratos', 'url' => array('/contratoAgricultor/admin')),
+                                          )
+                            ),
+                            array('label' => 'Fieldbook', 'url' => array('#'),
+                                'icon' => '<i class="fa fa-edit"></i>',
+                                'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
+                                'items' => array(
+                                    array('label' => 'Fieldbook', 'url' => array('/fieldbook/admin'), 'visible' => (int) Yii::app()->user->checkAccess('Fieldbook.admin')),
+                                    array('label' => 'Grupo de Columnas', 'url' => array('/fbgrupocolumna/admin'), 'visible' => (int) Yii::app()->user->checkAccess('Fbgrupocolumna.admin')),
+                                    array('label' => 'Columnas', 'url' => array('/fbcolumna/admin'), 'visible' => (int) Yii::app()->user->checkAccess('Fbcolumna.admin')),
+                                )
+                            ),
+                            array('label' => 'Reportes', 'url' => array('#'),
+                                'icon' => '<i class="fa fa-edit"></i>',
+                                'submenuHtmlOptions' => array('class' => 'nav nav-second-level collapse'),
+                                'items' => array(
+                                    array('label' => 'Administración', 'url' => array('/reportes/admin')),
+                                    array('label' => 'Reportes de Producción', 'url' => array('/reportes/produccion')),
+                                    array('label' => 'Reportes de Planta', 'url' => array('/reportes/planta')),
+                                )
+                            ),
+                            array('label' => 'Autorizaciones', 'url' => array('/rights'), 'visible' => Yii::app()->user->checkAccess('Especie.admin')),
+                            array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest),
+                        /* array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest), */
+                        /* array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest), */
 //                                array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest),
 //                                array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest),
 //                                array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest),
 //                                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
 //                                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
-                            ),
-                            'htmlOptions' => array('class' => "nav metismenu")
-                        ));
-                        ?>                
+                        ),
+                        'htmlOptions' => array('class' => "nav metismenu")
+                    ));
+                    ?>                
                 </div>
             </nav>
 
@@ -143,7 +166,6 @@
             </div>
         </div><!-- page -->
 
-
         <!-- Mainly scripts -->
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -153,10 +175,15 @@
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/summernote/summernote.min.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/clockpicker/clockpicker.js"></script>
 
+
+
         <!-- Custom and plugin javascript -->
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/inspinia.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/pace/pace.min.js"></script>
 
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/dhtmlx/dhtmlx.js"></script>
+        
+
+        
+        
     </body>
 </html>

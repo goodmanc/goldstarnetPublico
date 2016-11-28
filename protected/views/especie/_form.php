@@ -64,6 +64,11 @@
                             </div>
 
                           <div>
+                                <?php echo $form->textFieldRow($model, 'nombreCientifico', array('class' => 'span5', 'maxlength' => 50)); ?>
+                		<?php echo $form->error($model,'nombreCientifico'); ?>
+                            </div>
+
+                          <div>
                                 <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
                 		<?php echo $form->error($model,'status'); ?>
                             </div>

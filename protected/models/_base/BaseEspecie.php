@@ -13,6 +13,7 @@
  * @property integer $familia_id
  * @property string $nombre
  * @property string $name
+ * @property string $nombreCientifico
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -44,7 +45,7 @@ abstract class BaseEspecie extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'familia_id, name, created_by',
+            array(	'familia_id, nombre, name, nombreCientifico',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
@@ -52,7 +53,7 @@ abstract class BaseEspecie extends AweActiveRecord {
 					'numerical',
 					'integerOnly'=>true
 			),
-            array(	'nombre, name',
+            array(	'nombre, name, nombreCientifico',
 					'length',
 					'max'=>50,
 					'tooLong' => Yii::t('app', 'Field is required')
@@ -65,12 +66,12 @@ abstract class BaseEspecie extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('nombre, status, used_by, check_in, created, modified_by, modified',
+            array('status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, familia_id, nombre, name, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, familia_id, nombre, name, nombreCientifico, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
@@ -93,6 +94,7 @@ abstract class BaseEspecie extends AweActiveRecord {
                 'familia_id' => Yii::t('app', 'Familia'),
                 'nombre' => Yii::t('app', 'Nombre'),
                 'name' => Yii::t('app', 'Name'),
+                'nombreCientifico' => Yii::t('app', 'Nombre Cientifico'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -115,6 +117,7 @@ abstract class BaseEspecie extends AweActiveRecord {
         $criteria->compare('familia_id', $this->familia_id);
         $criteria->compare('nombre', $this->nombre, true);
         $criteria->compare('name', $this->name, true);
+        $criteria->compare('nombreCientifico', $this->nombreCientifico, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);

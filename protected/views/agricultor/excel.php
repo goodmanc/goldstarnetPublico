@@ -30,54 +30,6 @@
 				'name'=>'telefono',
 				),
 			array(
-				'name'=>'propiedad1',
-				),
-			array(
-				'name'=>'propiedad2',
-				),
-			array(
-				'name'=>'propiedad3',
-				),
-			array(
-				'name'=>'propiedad4',
-				),
-			array(
-				'name'=>'propiedad5',
-				),
-			array(
-				'name'=>'propiedad6',
-				),
-			array(
-				'name'=>'propiedad7',
-				),
-			array(
-				'name'=>'propiedad8',
-				),
-			array(
-				'name'=>'propiedad9',
-				),
-			array(
-				'name'=>'propiedad10',
-				),
-			array(
-				'name'=>'propiedad11',
-				),
-			array(
-				'name'=>'propiedad12',
-				),
-			array(
-				'name'=>'propiedad13',
-				),
-			array(
-				'name'=>'propiedad14',
-				),
-			array(
-				'name'=>'propiedad15',
-				),
-			array(
-				'name'=>'propiedad16',
-				),
-			array(
 				'name'=>'status',
 				),
 			array(

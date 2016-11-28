@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
 ]</small></h5>
                 </div>
                 <div class="ibox-content">
@@ -28,6 +28,7 @@
 		),
                                                                     'nombre',
                                                                     'name',
+                                                                    'nombreCientifico',
                                                                                                                                                                                                                                                                                                                             ),
                                 )); ?>
                         </div>
@@ -36,7 +37,7 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                                                                                                        'status',
+                                                                                                                                                                                                                                                                                'status',
                                                                         array(
 			'name'=>'used_by',
 			'value'=>($model->usedBy !== null) ? CHtml::link($model->usedBy, array('/users/view', 'id' => $model->usedBy->id)).' ' : null,

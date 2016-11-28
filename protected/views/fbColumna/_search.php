@@ -27,6 +27,16 @@
 	</div>
 
 	<div>
+		<?php echo $form->label($model,'tipo'); ?>
+		<?php echo $form->textFieldRow($model, 'tipo', array('class' => 'span5', 'maxlength' => 20)); ?>
+	</div>
+
+	<div>
+		<?php echo $form->label($model,'orden'); ?>
+		<?php echo $form->textFieldRow($model, 'orden', array('class' => 'span5')); ?>
+	</div>
+
+	<div>
 		<?php echo $form->label($model,'status'); ?>
 		<?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
 	</div>

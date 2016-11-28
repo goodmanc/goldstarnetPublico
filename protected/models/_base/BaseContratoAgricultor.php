@@ -10,7 +10,10 @@
  * followed by relations of table "contratoagricultor" available as properties of the model.
  *
  * @property integer $id
- * @property string $nombre
+ * @property integer $temporada_id
+ * @property integer $agricultor_id
+ * @property integer $especie_id
+ * @property integer $contratoclientedetalle_id
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -18,16 +21,15 @@
  * @property string $created
  * @property integer $modified_by
  * @property string $modified
- * @property integer $temporada_id
- * @property integer $contratoclientedetalle_id
- * @property integer $agricultor_id
  *
  * @property Agricultor $agricultor
  * @property Contratoclientedetalle $contratoclientedetalle
+ * @property Especie $especie
  * @property Temporada $temporada
- * @property Potrero[] $potreros
+ * @property Fbdato[] $fbdatos
  */
 abstract class BaseContratoAgricultor extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -38,23 +40,18 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
     }
 
     public static function representingColumn() {
-        return 'nombre';
+        return 'status';
     }
 
     public function rules() {
         return array(
-            array(	'nombre, temporada_id, contratoclientedetalle_id, agricultor_id',
+            array(	'temporada_id, agricultor_id, especie_id',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'used_by, created_by, modified_by, temporada_id, contratoclientedetalle_id, agricultor_id',
+            array(	'temporada_id, agricultor_id, especie_id, contratoclientedetalle_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
-			),
-            array(	'nombre',
-					'length',
-					'max'=>50,
-					'tooLong' => Yii::t('app', 'Field is required')
 			),
             array(	'status',
 					'length',
@@ -64,12 +61,12 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
             array(	'check_in, created, modified',
 					'safe'
 			),
-            array('status, used_by, check_in, created_by, created, modified_by, modified',
+            array('contratoclientedetalle_id, status, used_by, check_in, created_by, created, modified_by, modified',
 					'default',
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, nombre, status, used_by, check_in, created_by, created, modified_by, modified, temporada_id, contratoclientedetalle_id, agricultor_id', 'safe', 'on'=>'search'),
+            array('id, temporada_id, agricultor_id, especie_id, contratoclientedetalle_id, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
@@ -77,8 +74,9 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
         return array(
             'agricultor' => array(self::BELONGS_TO, 'Agricultor', 'agricultor_id'),
             'contratoclientedetalle' => array(self::BELONGS_TO, 'Contratoclientedetalle', 'contratoclientedetalle_id'),
+            'especie' => array(self::BELONGS_TO, 'Especie', 'especie_id'),
             'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_id'),
-            'potreros' => array(self::HAS_MANY, 'Potrero', 'contratoAgricultor_id'),
+            'fbdatos' => array(self::HAS_MANY, 'Fbdato', 'contrtoAgricultor_id'),
         );
     }
 
@@ -88,7 +86,10 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'nombre' => Yii::t('app', 'Nombre'),
+                'temporada_id' => Yii::t('app', 'Temporada'),
+                'agricultor_id' => Yii::t('app', 'Agricultor'),
+                'especie_id' => Yii::t('app', 'Especie'),
+                'contratoclientedetalle_id' => Yii::t('app', 'Contratoclientedetalle'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -96,13 +97,11 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'temporada_id' => Yii::t('app', 'Temporada'),
-                'contratoclientedetalle_id' => Yii::t('app', 'Contratoclientedetalle'),
-                'agricultor_id' => Yii::t('app', 'Agricultor'),
                 'agricultor' => null,
                 'contratoclientedetalle' => null,
+                'especie' => null,
                 'temporada' => null,
-                'potreros' => null,
+                'fbdatos' => null,
         );
     }
 
@@ -110,7 +109,10 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('temporada_id', $this->temporada_id);
+        $criteria->compare('agricultor_id', $this->agricultor_id);
+        $criteria->compare('especie_id', $this->especie_id);
+        $criteria->compare('contratoclientedetalle_id', $this->contratoclientedetalle_id);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);
@@ -118,9 +120,6 @@ abstract class BaseContratoAgricultor extends AweActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified_by', $this->modified_by);
         $criteria->compare('modified', $this->modified, true);
-        $criteria->compare('temporada_id', $this->temporada_id);
-        $criteria->compare('contratoclientedetalle_id', $this->contratoclientedetalle_id);
-        $criteria->compare('agricultor_id', $this->agricultor_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

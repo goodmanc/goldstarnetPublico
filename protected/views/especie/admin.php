@@ -28,7 +28,7 @@ return false;
 ");
 ?>
 
-<div class="row wrapper border-bottom yellow-bg page-heading">
+<div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-6">
         <h1>Especie</h1>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -154,6 +154,10 @@ return false;
 			'header'=>'Name',
 			),
 		array(
+			'name'=>'nombreCientifico',
+			'header'=>'Nombre Científico',
+			),
+		array(
 			'name'=>'status',
 			'header'=>'Estado',
 			),
@@ -171,11 +175,11 @@ return false;
 			'header'=>'Creado por',
 			'filter'=>CHtml::listData(Users::model()->findAll(), 'id', 'username'),
 			'value'=>'$data->createdBy==null ? null : $data->createdBy->username'),
+		/*
 		array(
 			'name'=>'created',
 			'header'=>'Creado el',
 			),
-		/*
 		array(
 			'name'=>'modified_by',
 			'header'=>'Modificado por',
@@ -199,34 +203,34 @@ return false;
     
     var label ='Especie';
     var labelPlural ='Especies';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'/<?php echo Yii::app()->controller->id ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';   
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';
     var myRibbon;
+    var winCreate, winView, winUpdate;
 
     function create() {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
-        w1.setText('Crear '+label);
-        w1.centerOnScreen();
-        w1.attachURL(baseControllerUrl + '/create')
+        winCreate = dhxWins.createWindow('winCreate', 230, 130, 960, 600);
+        winCreate.setText('Crear '+label);
+        winCreate.centerOnScreen();
+        winCreate.attachURL(baseControllerUrl + '/create')
     }
 
     function view(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
-        w1.setText('Ver '+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winView = dhxWins.createWindow('winView', 230, 130, 960, 600);
+        winView.setText('Ver '+label);
+        winView.centerOnScreen();
+        winView.attachURL(href)
     }
 
     function update(href) {
         dhxWins = new dhtmlXWindows();
-        w1 = dhxWins.createWindow('w1', 230, 130, 960, 600);
-        w1.setText('Modificar '+label);
-        w1.centerOnScreen();
-        w1.attachURL(href)
+        winUpdate = dhxWins.createWindow('winUpdate', 230, 130, 960, 600);
+        winUpdate.setText('Modificar '+label);
+        winUpdate.centerOnScreen();
+        winUpdate.attachURL(href)
     }
 
     function excel() {

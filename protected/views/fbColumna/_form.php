@@ -18,13 +18,11 @@
         
 
 <div class="form">
-
-
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>FbColumna <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
 ]</small></h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -58,6 +56,16 @@
                           <div>
                                 <?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
                 		<?php echo $form->error($model,'nombre'); ?>
+                            </div>
+
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'tipo', array('class' => 'span5', 'maxlength' => 20)); ?>
+                		<?php echo $form->error($model,'tipo'); ?>
+                            </div>
+
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'orden', array('class' => 'span5')); ?>
+                		<?php echo $form->error($model,'orden'); ?>
                             </div>
 
                           <div>

@@ -27,6 +27,7 @@
  */
 abstract class BaseFbColAsignada extends AweActiveRecord {
 
+
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }
@@ -68,7 +69,7 @@ abstract class BaseFbColAsignada extends AweActiveRecord {
 
     public function relations() {
         return array(
-            'fbColumna' => array(self::BELONGS_TO, 'Fbcolumna', 'fbColumna_id'),
+            'fbcolumna' => array(self::BELONGS_TO, 'Fbcolumna', 'fbColumna_id'),
             'fieldbook' => array(self::BELONGS_TO, 'Fieldbook', 'fieldbook_id'),
             'fbdatos' => array(self::HAS_MANY, 'Fbdato', 'fbColAsignada_id'),
             'fbreportecolumnases' => array(self::HAS_MANY, 'Fbreportecolumnas', 'fbColAsignada_id'),

@@ -14,14 +14,19 @@
 				'filterHtmlOptions'=>array('style'=>'width:70px'),
 				'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
 				),
+			array(
+				'name'=>'nombre',
+				),
 	array(
 				'name'=>'especie_id',
 				'header'=>'',
 				'filter'=>CHtml::listData(Especie::model()->findAll(), 'id', 'familia_id'),
 				'value'=>'$data->especie==null ? null : $data->especie->familia_id'),
-			array(
-				'name'=>'nombre',
-				),
+	array(
+				'name'=>'cliente_id',
+				'header'=>'',
+				'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'nombre'),
+				'value'=>'$data->cliente==null ? null : $data->cliente->nombre'),
 			array(
 				'name'=>'codigoGoldStar',
 				),

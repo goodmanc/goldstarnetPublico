@@ -14,10 +14,11 @@ class FbGrupoColumnaController extends AweController
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+                        'rights', // perform access control for CRUD operations
+//			'accessControl', // perform access control for CRUD operations
+//			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
+        }
 
 	/**
 	 * Specifies the access control rules.
@@ -27,6 +28,7 @@ class FbGrupoColumnaController extends AweController
 	public function accessRules()
 	{
 		return array(
+                    /*
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -42,6 +44,7 @@ class FbGrupoColumnaController extends AweController
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+                    */
 		);
 	}
 
@@ -72,7 +75,7 @@ class FbGrupoColumnaController extends AweController
 		{
 			$model->attributes=$_POST['FbGrupoColumna'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('create',array(
@@ -96,7 +99,7 @@ class FbGrupoColumnaController extends AweController
 		{
 			$model->attributes=$_POST['FbGrupoColumna'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('update',array(
@@ -143,11 +146,29 @@ class FbGrupoColumnaController extends AweController
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['FbGrupoColumna']))
 			$model->attributes=$_GET['FbGrupoColumna'];
+                if(!isset($_GET['FbGrupoColumna_sort']))
+                    $_GET['FbGrupoColumna_sort'] = 'orden';
                 $dataProvider=new CActiveDataProvider('FbGrupoColumna');
 		$this->render('admin',array(
 			'model'=>$model,
                         'dataProvider'=>$dataProvider,
 		));
+	}
+        
+	/**
+	 * List all models in Excel.
+	 */
+	public function actionExcel()
+	{
+		$model=new FbGrupoColumna('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['FbGrupoColumna']))
+			$model->attributes=$_GET['FbGrupoColumna'];
+                $dataProvider=new CActiveDataProvider('FbGrupoColumna');
+		$this->render('excel',array(
+			'model'=>$model,
+                        'dataProvider'=>$dataProvider,
+		));                
 	}
 
 	/**

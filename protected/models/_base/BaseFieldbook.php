@@ -10,8 +10,9 @@
  * followed by relations of table "fieldbook" available as properties of the model.
  *
  * @property integer $id
- * @property integer $familia_id
  * @property string $nombre
+ * @property integer $familia_id
+ * @property integer $temporada_id
  * @property string $status
  * @property integer $used_by
  * @property string $check_in
@@ -19,13 +20,13 @@
  * @property string $created
  * @property integer $modified_by
  * @property string $modified
- * @property integer $temporada_id
  *
  * @property Fbcolasignada[] $fbcolasignadas
  * @property Familia $familia
  * @property Temporada $temporada
  */
 abstract class BaseFieldbook extends AweActiveRecord {
+
 
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -41,11 +42,11 @@ abstract class BaseFieldbook extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'familia_id, nombre, temporada_id',
+            array(	'nombre, familia_id, temporada_id',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'familia_id, used_by, created_by, modified_by, temporada_id',
+            array(	'familia_id, temporada_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -67,7 +68,7 @@ abstract class BaseFieldbook extends AweActiveRecord {
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, familia_id, nombre, status, used_by, check_in, created_by, created, modified_by, modified, temporada_id', 'safe', 'on'=>'search'),
+            array('id, nombre, familia_id, temporada_id, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
@@ -85,8 +86,9 @@ abstract class BaseFieldbook extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'familia_id' => Yii::t('app', 'Familia'),
                 'nombre' => Yii::t('app', 'Nombre'),
+                'familia_id' => Yii::t('app', 'Familia'),
+                'temporada_id' => Yii::t('app', 'Temporada'),
                 'status' => Yii::t('app', 'Status'),
                 'used_by' => Yii::t('app', 'Used By'),
                 'check_in' => Yii::t('app', 'Check In'),
@@ -94,7 +96,6 @@ abstract class BaseFieldbook extends AweActiveRecord {
                 'created' => Yii::t('app', 'Created'),
                 'modified_by' => Yii::t('app', 'Modified By'),
                 'modified' => Yii::t('app', 'Modified'),
-                'temporada_id' => Yii::t('app', 'Temporada'),
                 'fbcolasignadas' => null,
                 'familia' => null,
                 'temporada' => null,
@@ -105,8 +106,9 @@ abstract class BaseFieldbook extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('familia_id', $this->familia_id);
         $criteria->compare('nombre', $this->nombre, true);
+        $criteria->compare('familia_id', $this->familia_id);
+        $criteria->compare('temporada_id', $this->temporada_id);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('used_by', $this->used_by);
         $criteria->compare('check_in', $this->check_in, true);
@@ -114,7 +116,6 @@ abstract class BaseFieldbook extends AweActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified_by', $this->modified_by);
         $criteria->compare('modified', $this->modified, true);
-        $criteria->compare('temporada_id', $this->temporada_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

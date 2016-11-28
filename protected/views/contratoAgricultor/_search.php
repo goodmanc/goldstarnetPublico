@@ -17,8 +17,23 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'nombre'); ?>
-		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+		<?php echo $form->label($model,'temporada_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
+	</div>
+
+	<div>
+		<?php echo $form->label($model,'agricultor_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'agricultor_id', CHtml::listData(Agricultor::model()->findAll(), 'id', Agricultor::representingColumn())); ?>
+	</div>
+
+	<div>
+		<?php echo $form->label($model,'especie_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'especie_id', CHtml::listData(Especie::model()->findAll(), 'id', Especie::representingColumn())); ?>
+	</div>
+
+	<div>
+		<?php echo $form->label($model,'contratoclientedetalle_id'); ?>
+		<?php echo $form->dropDownListRow($model, 'contratoclientedetalle_id', CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', Contratoclientedetalle::representingColumn()), array('prompt' => Yii::t('AweApp', 'None'))); ?>
 	</div>
 
 	<div>
@@ -54,21 +69,6 @@
 	<div>
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'temporada_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'contratoclientedetalle_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'contratoclientedetalle_id', CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', Contratoclientedetalle::representingColumn())); ?>
-	</div>
-
-	<div>
-		<?php echo $form->label($model,'agricultor_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'agricultor_id', CHtml::listData(Agricultor::model()->findAll(), 'id', Agricultor::representingColumn())); ?>
 	</div>
 
 	<div class="buttons">

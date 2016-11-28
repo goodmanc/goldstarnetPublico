@@ -99,15 +99,15 @@ $this->menu=array(
 			'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
 			),
 		array(
-			'name'=>'temporada_id',
-			'header'=>'',
-			'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
-			'value'=>'$data->temporada==null ? null : $data->temporada->year'),
-		array(
 			'name'=>'cliente_id',
 			'header'=>'',
 			'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'nombre'),
 			'value'=>'$data->cliente==null ? null : $data->cliente->nombre'),
+		array(
+			'name'=>'temporada_id',
+			'header'=>'',
+			'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
+			'value'=>'$data->temporada==null ? null : $data->temporada->year'),
 		array(
 			'name'=>'proyecto_id',
 			'header'=>'',
@@ -214,7 +214,6 @@ $this->menu=array(
 <script>
     var label ='Contrato Cliente';
     var labelPlural ='Contrato Clientes';
-    var baseUrl = '/goldstarnetPublico/';
     var baseControllerUrl = baseUrl+'<?php echo Yii::app()->controller->id ?>';
     var queryString = '<?php echo Yii::app()->request->getQueryString(); ?>';    
     var baseImgsUrl = baseUrl+'/js/dhtmlx/imgs';

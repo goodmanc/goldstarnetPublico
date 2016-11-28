@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Moneda<span> [<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h1>
+<h2>Moneda<span> [<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h2>
 
 
 <?php 

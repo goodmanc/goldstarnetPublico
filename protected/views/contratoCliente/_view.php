@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>ContratoCliente <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>ContratoCliente <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
 ]</small></h5>
                 </div>
                 <div class="ibox-content">
@@ -22,13 +22,13 @@
                                 'attributes' => array(
                                                                     'id',
                                                                     array(
-			'name'=>'temporada_id',
-			'value'=>($model->temporada !== null) ? CHtml::link($model->temporada, array('/temporada/view', 'id' => $model->temporada->id)).' ' : null,
+			'name'=>'cliente_id',
+			'value'=>($model->cliente !== null) ? CHtml::link($model->cliente, array('/cliente/view', 'id' => $model->cliente->id)).' ' : null,
 			'type'=>'html',
 		),
                                                                     array(
-			'name'=>'cliente_id',
-			'value'=>($model->cliente !== null) ? CHtml::link($model->cliente, array('/cliente/view', 'id' => $model->cliente->id)).' ' : null,
+			'name'=>'temporada_id',
+			'value'=>($model->temporada !== null) ? CHtml::link($model->temporada, array('/temporada/view', 'id' => $model->temporada->id)).' ' : null,
 			'type'=>'html',
 		),
                                                                     array(

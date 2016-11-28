@@ -14,9 +14,26 @@
 				'filterHtmlOptions'=>array('style'=>'width:70px'),
 				'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
 				),
-			array(
-				'name'=>'nombre',
-				),
+	array(
+				'name'=>'temporada_id',
+				'header'=>'Temporada',
+				'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
+				'value'=>'$data->temporada==null ? null : $data->temporada->year'),
+	array(
+				'name'=>'agricultor_id',
+				'header'=>'Agricultor',
+				'filter'=>CHtml::listData(Agricultor::model()->findAll(), 'id', 'rut'),
+				'value'=>'$data->agricultor==null ? null : $data->agricultor->rut'),
+	array(
+				'name'=>'especie_id',
+				'header'=>'',
+				'filter'=>CHtml::listData(Especie::model()->findAll(), 'id', 'familia_id'),
+				'value'=>'$data->especie==null ? null : $data->especie->familia_id'),
+	array(
+				'name'=>'contratoclientedetalle_id',
+				'header'=>'Variedad',
+				'filter'=>CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', 'contratoCliente_id'),
+				'value'=>'$data->contratoclientedetalle==null ? null : $data->contratoclientedetalle->contratoCliente_id'),
 			array(
 				'name'=>'status',
 				),
@@ -38,21 +55,6 @@
 			array(
 				'name'=>'modified',
 				),
-	array(
-				'name'=>'temporada_id',
-				'header'=>'',
-				'filter'=>CHtml::listData(Temporada::model()->findAll(), 'id', 'year'),
-				'value'=>'$data->temporada==null ? null : $data->temporada->year'),
-	array(
-				'name'=>'contratoclientedetalle_id',
-				'header'=>'',
-				'filter'=>CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', 'oventa_id'),
-				'value'=>'$data->contratoclientedetalle==null ? null : $data->contratoclientedetalle->oventa_id'),
-	array(
-				'name'=>'agricultor_id',
-				'header'=>'',
-				'filter'=>CHtml::listData(Agricultor::model()->findAll(), 'id', 'rut'),
-				'value'=>'$data->agricultor==null ? null : $data->agricultor->rut'),
                             ),
                             )); ?>                        
 

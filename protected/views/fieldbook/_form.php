@@ -18,13 +18,11 @@
         
 
 <div class="form">
-
-
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Especie <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>Fieldbook <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
 ]</small></h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -51,23 +49,23 @@
                                 <?php echo $form->error($model, 'nombre'); ?>
                             </div>                            
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'familia_id', CHtml::listData(Familia::model()->findAll(), 'id', Familia::representingColumn())); ?>
-                		<?php echo $form->error($model,'familia_id'); ?>
-                            </div>
-
-                          <div>
                                 <?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
                 		<?php echo $form->error($model,'nombre'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
-                		<?php echo $form->error($model,'status'); ?>
+                                <?php echo $form->dropDownListRow($model, 'familia_id', CHtml::listData(Familia::model()->findAll(), 'id', Familia::representingColumn())); ?>
+                		<?php echo $form->error($model,'familia_id'); ?>
                             </div>
 
                           <div>
                                 <?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
                 		<?php echo $form->error($model,'temporada_id'); ?>
+                            </div>
+
+                          <div>
+                                <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
+                		<?php echo $form->error($model,'status'); ?>
                             </div>
 
                             <div class="buttons">

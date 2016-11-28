@@ -82,7 +82,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 		{
 			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
+				$this->redirect(array('view','pk'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('create',array(
@@ -106,7 +106,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 		{
 			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
+				$this->redirect(array('view','pk'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('update',array(

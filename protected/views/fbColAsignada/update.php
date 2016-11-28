@@ -16,7 +16,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>FbColAsignada<span>[<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h1>
+<h2>FbColAsignada<span> [<?php echo $model->isNewRecord ? 'Crear' : 'Editar'; ?>]</span></h2>
 
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php 
+	$view = '_form';
+	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
+	$this->renderPartial($view, array('model'=>$model));
+ ?>

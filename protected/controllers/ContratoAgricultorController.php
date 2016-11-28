@@ -75,7 +75,7 @@ class ContratoAgricultorController extends AweController
 		{
 			$model->attributes=$_POST['ContratoAgricultor'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('create',array(
@@ -99,7 +99,7 @@ class ContratoAgricultorController extends AweController
 		{
 			$model->attributes=$_POST['ContratoAgricultor'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
 		$this->render('update',array(

@@ -21,12 +21,17 @@
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
                                                                     'id',
+                                                                    'nombre',
                                                                     array(
 			'name'=>'especie_id',
 			'value'=>($model->especie !== null) ? CHtml::link($model->especie, array('/especie/view', 'id' => $model->especie->id)).' ' : null,
 			'type'=>'html',
 		),
-                                                                    'nombre',
+                                                                    array(
+			'name'=>'cliente_id',
+			'value'=>($model->cliente !== null) ? CHtml::link($model->cliente, array('/cliente/view', 'id' => $model->cliente->id)).' ' : null,
+			'type'=>'html',
+		),
                                                                     'codigoGoldStar',
                                                                                                                                                                                                                                                                                                                             ),
                                 )); ?>
@@ -36,7 +41,7 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                                                                                                        'status',
+                                                                                                                                                                                                                                                                                'status',
                                                                         'used_by',
                                                                         'check_in',
                                                                         'created_by',

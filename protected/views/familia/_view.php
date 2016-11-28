@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Familia <small>[<?php echo $model->isNewRecord ? 'New' : 'Edit'; ?>
+                    <h5>Familia <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
 ]</small></h5>
                 </div>
                 <div class="ibox-content">

@@ -16,7 +16,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5><?php echo $this->modelClass; ?> <small>[<?php echo "<?php echo \$model->isNewRecord ? 'New' : 'Edit'; ?>\n"; ?>]</small></h5>
+                    <h5><?php echo $this->modelClass; ?> <small>[<?php echo "<?php echo \$model->isNewRecord ? 'New' : 'View'; ?>\n"; ?>]</small></h5>
                 </div>
                 <div class="ibox-content">
                     <div class="row">

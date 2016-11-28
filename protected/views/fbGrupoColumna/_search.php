@@ -17,13 +17,13 @@
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'fbCategoria_id'); ?>
-		<?php echo $form->dropDownListRow($model, 'fbCategoria_id', CHtml::listData(Fbcategoria::model()->findAll(), 'id', Fbcategoria::representingColumn())); ?>
+		<?php echo $form->label($model,'nombre'); ?>
+		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
 	</div>
 
 	<div>
-		<?php echo $form->label($model,'nombre'); ?>
-		<?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
+		<?php echo $form->label($model,'orden'); ?>
+		<?php echo $form->textFieldRow($model, 'orden', array('class' => 'span5')); ?>
 	</div>
 
 	<div>

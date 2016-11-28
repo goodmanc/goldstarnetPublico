@@ -10,8 +10,8 @@
  * followed by relations of table "contratocliente" available as properties of the model.
  *
  * @property integer $id
- * @property integer $temporada_id
  * @property integer $cliente_id
+ * @property integer $temporada_id
  * @property string $proyecto_id
  * @property string $fecha
  * @property string $observaciones
@@ -65,11 +65,11 @@ abstract class BaseContratoCliente extends AweActiveRecord {
 
     public function rules() {
         return array(
-            array(	'temporada_id, cliente_id, proyecto_id',
+            array(	'cliente_id, temporada_id, proyecto_id',
 					'required',
 					'message' => Yii::t('app', 'Field is required')
 			),
-            array(	'temporada_id, cliente_id, used_by, created_by, modified_by',
+            array(	'cliente_id, temporada_id, used_by, created_by, modified_by',
 					'numerical',
 					'integerOnly'=>true
 			),
@@ -96,7 +96,7 @@ abstract class BaseContratoCliente extends AweActiveRecord {
 					'setOnEmpty' => true,
 					'value' => null
 			),
-            array('id, temporada_id, cliente_id, proyecto_id, fecha, observaciones, guarantee, conditionsHeader, conditionsFooter, growerServices, stockSeed, productionReports, shipments, aditionalPhitosanitaryReq, preShipmentsSeedSamples, earlyTerminationBuyOut, overProduction, prices, advancePayments, paymentTerms, confidentiality, lotNumberAssignment, arbitrationAndLaw, buyerSigName, growerSigName, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
+            array('id, cliente_id, temporada_id, proyecto_id, fecha, observaciones, guarantee, conditionsHeader, conditionsFooter, growerServices, stockSeed, productionReports, shipments, aditionalPhitosanitaryReq, preShipmentsSeedSamples, earlyTerminationBuyOut, overProduction, prices, advancePayments, paymentTerms, confidentiality, lotNumberAssignment, arbitrationAndLaw, buyerSigName, growerSigName, status, used_by, check_in, created_by, created, modified_by, modified', 'safe', 'on'=>'search'),
         );
     }
 
@@ -116,8 +116,8 @@ abstract class BaseContratoCliente extends AweActiveRecord {
     public function attributeLabels() {
         return array(
                 'id' => Yii::t('app', 'ID'),
-                'temporada_id' => Yii::t('app', 'Temporada'),
                 'cliente_id' => Yii::t('app', 'Cliente'),
+                'temporada_id' => Yii::t('app', 'Temporada'),
                 'proyecto_id' => Yii::t('app', 'Proyecto'),
                 'fecha' => Yii::t('app', 'Fecha'),
                 'observaciones' => Yii::t('app', 'Observaciones'),
@@ -159,8 +159,8 @@ abstract class BaseContratoCliente extends AweActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('temporada_id', $this->temporada_id);
         $criteria->compare('cliente_id', $this->cliente_id);
+        $criteria->compare('temporada_id', $this->temporada_id);
         $criteria->compare('proyecto_id', $this->proyecto_id);
         $criteria->compare('fecha', $this->fecha, true);
         $criteria->compare('observaciones', $this->observaciones, true);

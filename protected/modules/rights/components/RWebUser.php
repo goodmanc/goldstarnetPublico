@@ -50,10 +50,10 @@ class RWebUser extends CWebUser
     public function checkAccess($operation, $params = array(), $allowCaching = true)
     {
         // Allow superusers access implicitly and do CWebUser::checkAccess for others.
-//        if ($this->user === null) {
-//            $this->user = User::model()->findByPk(Yii::app()->user->id);
-//        }        
-//        return (int)$this->user->superuser ? true : parent::checkAccess($operation, $params, $allowCaching);
+        if ($this->user === null) {
+            $this->user = User::model()->findByPk(Yii::app()->user->id);
+        }        
+        return (int)$this->user->superuser ? true : parent::checkAccess($operation, $params, $allowCaching);
         return $this->isSuperuser === true ? true : parent::checkAccess($operation, $params, $allowCaching);
     }
 

@@ -14,14 +14,16 @@
 				'filterHtmlOptions'=>array('style'=>'width:70px'),
 				'value'=>'"<div style=\"text-align:center;width:70px;\">" . $data["id"] . "</div>"',
 				),
-			array(
-				'name'=>'contratoCliente_id',
-				),
+//	array(
+//				'name'=>'contratoCliente_id',
+//				'header'=>'',
+//				'filter'=>CHtml::listData(Contratocliente::model()->findAll(), 'id', 'temporada_id'),
+//				'value'=>'$data->contratoCliente==null ? null : $data->contratoCliente->temporada_id'),
 	array(
 				'name'=>'variedad_id',
 				'header'=>'',
-				'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'especie_id'),
-				'value'=>'$data->variedad==null ? null : $data->variedad->especie_id'),
+				'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre'),
+				'value'=>'$data->variedad==null ? null : $data->variedad->nombre'),
 			array(
 				'name'=>'subNumCat',
 				),
@@ -53,9 +55,6 @@
 				),
 			array(
 				'name'=>'totalFrgn',
-				),
-			array(
-				'name'=>'proyecto_id',
 				),
 			array(
 				'name'=>'stockSeed',

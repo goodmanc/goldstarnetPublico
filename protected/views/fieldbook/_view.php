@@ -1,55 +1,59 @@
-<?php
+<?php 
 /* @var $this FieldbookController */
 /* @var $data Fieldbook */
+
 ?>
 
-<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Fieldbook <small>[<?php echo $model->isNewRecord ? 'New' : 'View'; ?>
+]</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                    'id',
+                                                                    'nombre',
+                                                                    array(
+			'name'=>'familia_id',
+			'value'=>($model->familia !== null) ? CHtml::link($model->familia, array('/familia/view', 'id' => $model->familia->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                    array(
+			'name'=>'temporada_id',
+			'value'=>($model->temporada !== null) ? CHtml::link($model->temporada, array('/temporada/view', 'id' => $model->temporada->id)).' ' : null,
+			'type'=>'html',
+		),
+                                                                                                                                                                                                                                                                                                                            ),
+                                )); ?>
+                        </div>
+                        <div class="col-sm-4">
+                                <?php $this->widget('bootstrap.widgets.TbDetailView',array(
+                                'data' => $model,
+                                'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
+                                'attributes' => array(
+                                                                                                                                                                                                                                        'status',
+                                                                        'used_by',
+                                                                        'check_in',
+                                                                        'created_by',
+                                                                        'created',
+                                                                        'modified_by',
+                                                                        'modified',
+                                                                ),
+                                )); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('familia_id')); ?>:</b>
-	<?php echo CHtml::encode($data->familia_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nombre')); ?>:</b>
-	<?php echo CHtml::encode($data->nombre); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('used_by')); ?>:</b>
-	<?php echo CHtml::encode($data->used_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('check_in')); ?>:</b>
-	<?php echo CHtml::encode($data->check_in); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_by')); ?>:</b>
-	<?php echo CHtml::encode($data->created_by); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_by')); ?>:</b>
-	<?php echo CHtml::encode($data->modified_by); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('temporada_id')); ?>:</b>
-	<?php echo CHtml::encode($data->temporada_id); ?>
-	<br />
-
-	*/ ?>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

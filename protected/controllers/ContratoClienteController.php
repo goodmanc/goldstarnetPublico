@@ -75,11 +75,14 @@ class ContratoClienteController extends AweController
 		{
 			$model->attributes=$_POST['ContratoCliente'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('update','pk'=>$model->id));
 		}
                 $this->layout ='//layouts/clear';
+                $child_model = ContratoClienteDetalle::model()->findAll('contratoCliente_id=:fk', array(':fk'=>0));
+
 		$this->render('create',array(
 			'model'=>$model,
+			'child_model'=>$child_model,
 		));
 	}
 
@@ -99,11 +102,13 @@ class ContratoClienteController extends AweController
 		{
 			$model->attributes=$_POST['ContratoCliente'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('update','pk'=>$model->id));
 		}
+                $child_model = ContratoClienteDetalle::model()->findAll('contratoCliente_id=:fk', array(':fk'=>$model->id));
                 $this->layout ='//layouts/clear';
 		$this->render('update',array(
 			'model'=>$model,
+                        'child_model'=>$child_model,
 		));
 	}
 
@@ -168,6 +173,45 @@ class ContratoClienteController extends AweController
                         'dataProvider'=>$dataProvider,
 		));                
 	}
+        
+        
+
+    public function actionGrid_data() {
+        require_once Yii::getPathOfAlias('dhtmlx.connector.grid_connector') . '.php';
+        require_once Yii::getPathOfAlias('dhtmlx.connector.db_phpyii') . '.php';
+        $id = $_GET['id'];
+        $model=$this->loadModel($id);
+        $child_model = new ContratoClienteDetalle;
+        $grid = new GridConnector($child_model, "PHPYii");
+//        print_r($grid);exit;
+        if (!$grid->is_select_mode()) {
+            $grid = new GridConnector($child_model, "PHPYii");
+        } else {
+            $criteria = new CDbCriteria();
+            $criteria->select = array('contratoclientedetalle.id', 'contratoclientedetalle.contratoCliente_id', "contratoclientedetalle.variedad_id", "contratoclientedetalle.codigoGoldStar"
+                , "contratoclientedetalle.nombreExportacion", "contratoclientedetalle.moneda_id", "contratoclientedetalle.base", "contratoclientedetalle.has", "contratoclientedetalle.kgs", "contratoclientedetalle.price");
+            $criteria->condition = 'contratocliente_id = ' . (int)$id;
+            $criteria->with = array('contratoCliente.cliente', 'variedad', 'moneda');
+            $child_model->setDbCriteria($criteria);
+            $grid = new GridConnector($child_model, "PHPYii");
+        }
+        $config = new GridConfiguration();
+        $config->setHeader(array("#", "ID", "Contrato Cliente ID", "Variedad", "Código GoldStar", "Nombre Exportacion", "Moneda", "Base", "Has", "Kgs","Precio"));
+        $config->attachHeader("{#stat_count},#numeric_filter,#numeric_filter,#select_filter,#text_filter,#text_filter,#select_filter,#numeric_filter,#numeric_filter,#numeric_filter,#numeric_filter");
+        $config->setColTypes(array("ro", "ro", "ro", "coro", "ed", "ed", "coro", "edn","edn", "edn", "edn"));
+        $config->setColAlign("right,right,right,left,left,left,center,center,right,right,right,right");
+        $config->setInitWidths("50,50,50,100,100,100,120,120,120,120,*");
+        $config->setColHidden(array(false,false,true,false,false,false,false,false,false,false,false));
+        $config->setColSorting("int,int,int,str,str,str,int,int,int,int,int");
+        $config->setColIds("dhxRowNumber,id,contratoCliente_id,variedad_id,codigoGoldStar,nombreExportacion,moneda_id,base,has,kg,price");
+
+        $grid->set_config($config);
+        $grid->set_options("variedad_id", CHtml::listData(Variedad::model()->findAllByAttributes(array("cliente_id" => $model->cliente_id)), 'id', Variedad::representingColumn()));
+        $grid->set_options("moneda_id", CHtml::listData(Moneda::model()->findAll(), 'id', Moneda::representingColumn()));
+        $grid->configure('-', "id", "dhxRowNumber,id,contratoCliente_id,variedad_id,codigoGoldStar,nombreExportacion,moneda_id,base,has,kgs,price");
+
+        $grid->render();
+    }        
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

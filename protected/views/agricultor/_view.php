@@ -29,70 +29,6 @@
                 'type'=>'email'
             ),
                                                                     'telefono',
-                                                                    array(
-                'name'=>'propiedad1',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad2',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad3',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad4',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad5',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad6',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad7',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad8',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad9',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad10',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad11',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad12',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad13',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad14',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad15',
-                'type'=>'boolean'
-            ),
-                                                                    array(
-                'name'=>'propiedad16',
-                'type'=>'boolean'
-            ),
                                                                                                                                                                                                                                                                                                                             ),
                                 )); ?>
                         </div>
@@ -101,7 +37,7 @@
                                 'data' => $model,
                                 'htmlOptions' => array('class' => 'table table-striped responsive-table table-bordered'),
                                 'attributes' => array(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'status',
+                                                                                                                                                                                                                                                                                                                        'status',
                                                                         'used_by',
                                                                         'check_in',
                                                                         'created_by',

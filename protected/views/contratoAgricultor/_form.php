@@ -49,28 +49,28 @@
                                 <?php echo $form->error($model, 'nombre'); ?>
                             </div>                            
                           <div>
-                                <?php echo $form->textFieldRow($model, 'nombre', array('class' => 'span5', 'maxlength' => 50)); ?>
-                		<?php echo $form->error($model,'nombre'); ?>
-                            </div>
-
-                          <div>
-                                <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
-                		<?php echo $form->error($model,'status'); ?>
-                            </div>
-
-                          <div>
                                 <?php echo $form->dropDownListRow($model, 'temporada_id', CHtml::listData(Temporada::model()->findAll(), 'id', Temporada::representingColumn())); ?>
                 		<?php echo $form->error($model,'temporada_id'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'contratoclientedetalle_id', CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', Contratoclientedetalle::representingColumn())); ?>
+                                <?php echo $form->dropDownListRow($model, 'agricultor_id', CHtml::listData(Agricultor::model()->findAll(), 'id', Agricultor::representingColumn())); ?>
+                		<?php echo $form->error($model,'agricultor_id'); ?>
+                            </div>
+
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'especie_id', CHtml::listData(Especie::model()->findAll(), 'id', Especie::representingColumn())); ?>
+                		<?php echo $form->error($model,'especie_id'); ?>
+                            </div>
+
+                          <div>
+                                <?php echo $form->dropDownListRow($model, 'contratoclientedetalle_id', CHtml::listData(Contratoclientedetalle::model()->findAll(), 'id', Contratoclientedetalle::representingColumn()), array('prompt' => Yii::t('AweApp', 'None'))); ?>
                 		<?php echo $form->error($model,'contratoclientedetalle_id'); ?>
                             </div>
 
                           <div>
-                                <?php echo $form->dropDownListRow($model, 'agricultor_id', CHtml::listData(Agricultor::model()->findAll(), 'id', Agricultor::representingColumn())); ?>
-                		<?php echo $form->error($model,'agricultor_id'); ?>
+                                <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'maxlength' => 1)); ?>
+                		<?php echo $form->error($model,'status'); ?>
                             </div>
 
                             <div class="buttons">

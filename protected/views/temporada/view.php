@@ -25,3 +25,10 @@ $this->menu=array(
 	$view .= (($viewFile=$this->getViewFile($view.'_custom'))!==false) ? '_custom' : '';
 	$this->renderPartial($view, array('model'=>$model));
  ?>
+
+<script>
+    var reload_parent = <?php echo $reload_parent; ?>;
+    if (reload_parent === 1) {
+        alert('actualizando lista');
+    }
+</script>
